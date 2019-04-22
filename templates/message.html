@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div>
+    <nav class="nav nav-tabs">
+        <a class="nav-link" href="#">New</a>
+        <a class="nav-link" href="#">General</a>
+        <a class="nav-link" href="#">Daily Task</a>
+      </nav>
+</div>
+
+<div>
+  <button class="btns">
+      <a class="note" href="{{ url_for('newpost') }}">Leave a Note</a>
+  </button>
+</div>
+
+
+<!-- Displaying all the messages on the main page -->
+{% for messsage in messages.items %}
+<article class="media content-section">
+  <div class="media-body">
+    <h2><a class="article-title" href="">{{ message.title }}</a></h2>
+    <p class="article-content">{{ message.body }}</p>
+    <small class="text-muted">From | <a class="mr-2" href=""> {{ message.owner.email }}</a>Date
+      |
+      {{ message.pub_date }}</h6>
+    </small>
+  </div>
+</article>
+{% endfor %}
+
+
+
+
+
+<!-- Individual message -->
+{% if message %}
+<h1>{{ message.title }}</h1>
+<p>{{ message.body }}</p>
+<small class="text-muted">Author | <a href="/message?user={{ message.owner.id }}"> {{ message.owner.email }}</a>
+  Date | {{ message.pub_date }}</small>
+{% endif %}
+
+
+
+<!-- Displaying all messages of a user -->
+{% if user_messages %}
+
+{% for message in user_messages %}
+<div class="message">
+  <h2><a class="article-title" href="/message?id={{ message.id }}">{{ message.title }}</a></h2>
+  <p>{{ message.body }}</p>
+  <small class="text-muted">Author | <a href="/message?user={{ message.owner.id }}"> {{ message.owner.email }}</a>
+    Date |
+    {{ message.pub_date }}</small>
+</div>
+{% endfor %}
+
+{% endif %}
+
+
+{% endblock %}

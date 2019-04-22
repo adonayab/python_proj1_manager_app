@@ -1,0 +1,79 @@
+body {
+  background: #fafafa;
+  color: #333232;
+  margin-top: 4rem;
+  margin-bottom: 4rem;
+}
+
+.bg-black {
+  background-color: #0d1318;
+}
+
+h1, h4 {
+  padding-top: 0.5in;
+  color: #000000;
+  font-family: 'ZCOOL QingKe HuangYou', cursive;
+}
+h2 {
+  color: #424242;
+  font-weight:  bold;
+}
+
+.btn-group {
+  padding-top: 0.2in;
+}
+
+.content-section {
+  background: #fdfcfc;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+}
+
+.article-title {
+  color: #805b5b;
+}
+
+a.article-title:hover {
+  color: #131414;
+  text-decoration: none;
+}
+
+.logout {
+  color: rgb(153, 149, 149);
+}
+.logout:hover {
+  color: rgb(148, 75, 75);
+}
+
+.footer {
+  color: rgb(55, 130, 139);
+}
+
+.btns {
+  background-color: rgb(5, 5, 5);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+.btns:hover {
+  background-color:rgb(59, 59, 59);
+  border: none;
+  color: white;
+  padding: 8px 16px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 20px;
+}
+
+a {
+  text-decoration: none;
+  over
+}
+
