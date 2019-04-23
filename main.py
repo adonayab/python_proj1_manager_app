@@ -14,71 +14,51 @@ from datetime import datetime
 #         return redirect('/login')
 
 
-# @app.route("/logout", methods=['POST'])
-# def logout():
-    # del session['email']
-    # return redirect('/login')
+@app.route("/logout", methods=['POST'])
+def logout():
+    del session['email']
+    return redirect('/login')
 
 
-# @app.route('/login', methods=['POST', 'GET'])
-# def login():
-#     if request.method == 'POST':
-#         email = request.form['email']
-#         password = request.form['password']
-#         user = User.query.filter_by(email=email).first()
-#         if user and check_pw_hash(password, user.pw_hash):
-#             session['email'] = email
-#             flash("Logged in")
-#             return redirect('/Message')
-#         elif user and user.pw_hash != password:
-#             flash('Incorrect password')
-#         elif email == '' and password == '':
-#             flash('Email and Password required')
-#         else:
-#             flash('User does not exist')
+@app.route('/login', methods=['POST', 'GET'])
+def login():
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        user = User.query.filter_by(email=email).first()
+        if user and check_pw_hash(password, user.pw_hash):
+            session['email'] = email
+            flash("Logged in")
+            return redirect('/Message')
+        elif user and user.pw_hash != password:
+            flash('Incorrect password')
+        elif email == '' and password == '':
+            flash('Email and Password required')
+        else:
+            flash('User does not exist')
 
-#     return render_template('login.html', title='Messagez Login')
+    return render_template('login.html', title='Messagez Login')
 
 
-# @app.route('/signup', methods=['POST', 'GET'])
-# def signup():
+@app.route('/signup', methods=['POST', 'GET'])
+def signup():
 
-#     if request.method == 'POST':
-#         email = request.form['email']
-#         password = request.form['password']
-#         verify = request.form['verify']
-#         email = request.form['email']
-#         existing_user = User.query.filter_by(email=email).first()
+    if request.method == 'POST':
+        email = request.form['email']
+        password = request.form['password']
+        verify = request.form['verify']
+        name = request.form['name']
 
-#         if email == '' and password == '' and verify == '':
-#             flash('Email and Password fields required')
-#             return render_template('signup.html', title='Messagez Signup')
-#         if existing_user or existing_user and password == '':
-#             flash('{} Already an account'.format(email))
-#             flash('Password required')
-#             return render_template('signup.html', title='Messagez Signup')
-#         if email == '':
-#             flash('Email field required')
-#             return render_template('signup.html', title='Messagez Signup')
-#         if not existing_user and password == '':
-#             flash('Password field required')
-#             return render_template('signup.html', title='Messagez Signup')
-#         if not existing_user and (len(password) < 3 or len(password) > 20) and password != verify:
-#             flash('Invalid Password')
-#             flash('Passwords do not match')
-#             return render_template('signup.html', title='Messagez Signup')
-#         if not existing_user and password != verify:
-#             flash('Passwords do not match')
-#             return render_template('signup.html', title='Messagez Signup')
+        if verify == password:
+            user = User(name=name, email=email, password=password)
+            db.session.add(user)
+            db.session.commit()
+            session['email'] = email
+            return redirect('/')
+        else:
+            return redirect('/signup')
 
-#         user = User(email=email, password=password)
-#         db.session.add(user)
-#         db.session.commit()
-#         session['email'] = email
-
-#         return redirect('/')
-
-#     return render_template('signup.html', title='Messagez Signup')
+    return render_template('signup.html', title='Messagez Signup')
 
 
 @app.route('/newpost', methods=['POST', 'GET'])
@@ -87,32 +67,27 @@ def newpost():
     if request.method == 'POST':
         title = request.form['title']
         body = request.form['body']
-        owner = User.query.filter_by(email=session['email']).first()
+        category = request.form['category']
+        owner = User.query.filter_by(email='ado@ado.com').first()
 
         if title == '' or body == '':
             flash("The title or body can not be empty.")
             return redirect('/newpost')
 
-        titles = Message.query.filter_by(title=title).first()
-        if not titles:
-            new_Message = Message(title, body, owner)
-            db.session.add(new_Message)
-            db.session.commit()
-            return redirect('/Message?id={}'.format(new_Message.id))
-        else:
-            flash("A Message with the same title exists. Please choose a different title.")
-            return redirect('/newpost')
+        new_Message = Message(title, body, category, owner)
+        db.session.add(new_Message)
+        db.session.commit()
+        return redirect('/')
 
     return render_template('newpost.html', title='Messagez Post')
 
-
-
-@app.route('/', methods=['POST', 'GET'])
+@app.route('/')
+@app.route('/message', methods=['POST', 'GET'])
 def message():
 
-  messages = Message.query.all()
+    messages = Message.query.all()
 
-  return render_template('message.html', title="Messages", messages=messages)
+    return render_template('message.html', title="Messages", messages=messages)
 
 
 if __name__ == "__main__":

@@ -12,14 +12,12 @@
 </div>
 
 <div>
-  <button class="btns">
-      <a class="note" href="{{ url_for('newpost') }}">Leave a Note</a>
-  </button>
+  <a class="btn btn-outline-info note" href="{{ url_for('newpost') }}">Leave a Note</a>
 </div>
 
 
 <!-- Displaying all the messages on the main page -->
-{% for messsage in messages.items %}
+{% for message in messages %}
 <article class="media content-section">
   <div class="media-body">
     <h2><a class="article-title" href="">{{ message.title }}</a></h2>
@@ -37,29 +35,12 @@
 
 
 <!-- Individual message -->
-{% if message %}
-<h1>{{ message.title }}</h1>
-<p>{{ message.body }}</p>
-<small class="text-muted">Author | <a href="/message?user={{ message.owner.id }}"> {{ message.owner.email }}</a>
-  Date | {{ message.pub_date }}</small>
-{% endif %}
+
 
 
 
 <!-- Displaying all messages of a user -->
-{% if user_messages %}
 
-{% for message in user_messages %}
-<div class="message">
-  <h2><a class="article-title" href="/message?id={{ message.id }}">{{ message.title }}</a></h2>
-  <p>{{ message.body }}</p>
-  <small class="text-muted">Author | <a href="/message?user={{ message.owner.id }}"> {{ message.owner.email }}</a>
-    Date |
-    {{ message.pub_date }}</small>
-</div>
-{% endfor %}
-
-{% endif %}
 
 
 {% endblock %}
