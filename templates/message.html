@@ -5,41 +5,34 @@
 
 <div>
     <nav class="nav nav-tabs">
-        <a class="nav-link" href="#">New</a>
-        <a class="nav-link" href="#">General</a>
+        <a class="nav-link" href="/message/urgent">Urgent</a>
+        <a class="nav-link" href="/message/general">General</a>
         <a class="nav-link" href="#">Daily Task</a>
       </nav>
 </div>
 
-<div>
-  <a class="btn btn-outline-info note" href="{{ url_for('newpost') }}">Leave a Note</a>
+<div class="btn-note">
+  <a class="btns" href="{{ url_for('newpost') }}">Leave a Note</a>
 </div>
 
 
 <!-- Displaying all the messages on the main page -->
+{% if messages %}
 {% for message in messages %}
 <article class="media content-section">
   <div class="media-body">
     <h2><a class="article-title" href="">{{ message.title }}</a></h2>
     <p class="article-content">{{ message.body }}</p>
-    <small class="text-muted">From | <a class="mr-2" href=""> {{ message.owner.email }}</a>Date
-      |
-      {{ message.pub_date }}</h6>
+    <small class="text-muted">
+      From | <a class="mr-2" href=""> {{ message.owner.email }}</a>
+      To | <a class="mr-2" href=""> {{ message.msg_shift }}</a>
+      Date | <a class="mr-2" href="">{{ message.pub_date }}</a>
+      Priority | <a class="mr-2" href="/message/{{ message.msg_type }}">{{ message.msg_type }}</a>
     </small>
   </div>
 </article>
 {% endfor %}
-
-
-
-
-
-<!-- Individual message -->
-
-
-
-
-<!-- Displaying all messages of a user -->
+{% endif %}
 
 
 

@@ -6,15 +6,14 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-    crossorigin="anonymous">
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
+    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
 
   <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/style_BS.css') }}">
-  <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet"> 
+  <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
 
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
-      rel="stylesheet">
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
 
@@ -23,29 +22,43 @@
   <!-- Top navbar -->
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
-      <div class="container-fluid">
-        <div class="navbar-brand">
-          <h2>Blogz</h2>
-        </div>
-        <div class="nav navbar-nav navbar-left">
-          <a class="nav-item nav-link" href="">Notification</a>
-          <a class="nav-item nav-link" href="">Schedule</a>
-          <a class="nav-item nav-link" href="">Grill</a>
-        </div>
-
-        
-        <div class="nav navbar-nav navbar-right">
-          <form action="/logout" method="POST">
-            <input type="submit" value="Logout" class="logout btn btn-outline-default">
-          </form>
-          <a class="nav-item nav-link btn"></a>
-        </div>
-
-        <div class="nav navbar-nav navbar-right">
-          <a class="nav-item nav-link" href="">Login</a>
-          <a class="nav-item nav-link" href="">Signup</a>
-        </div>
-
+      <a class="navbar-brand" href="#">Manager App</a>
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+        aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('message')}}">Notification</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Schedule</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Pricing</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="">Grill</a>
+          </li>
+        </ul>
+        {% if 'email' in session %}
+        <form class="form-inline" action="/logout" method="POST">
+          <input type="submit" value="Logout" class="logout btn btn-outline-default">
+          <a class="user-name nounderline" href="">{{ session['email'] }}</a>
+        </form>
+        {% endif %}
+        {% if 'email' not in session %}
+        <ul class="navbar-nav navbar-right">
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+          </li>
+        </ul>
+        {% endif %}
+      </div>
     </nav>
   </header>
 
@@ -79,10 +92,12 @@
 
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
+    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
 
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js" integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
+    integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
     crossorigin="anonymous"></script>
 
 </body>

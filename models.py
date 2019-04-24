@@ -6,14 +6,16 @@ class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120))
     body = db.Column(db.String(120))
-    msg_type = db.Column(db.String(120))   
+    msg_type = db.Column(db.String(120))
+    msg_shift = db.Column(db.String(120))
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     pub_date = db.Column(db.DateTime)
 
-    def __init__(self, title, body, msg_type, owner, pub_date=None):
+    def __init__(self, title, body, msg_type, msg_shift, owner, pub_date=None):
         self.title = title
         self.body = body
         self.msg_type = msg_type
+        self.msg_shift = msg_shift
         self.owner = owner
         if pub_date is None:
           pub_date = datetime.utcnow()

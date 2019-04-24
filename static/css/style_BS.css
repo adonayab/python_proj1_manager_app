@@ -3,7 +3,10 @@ body {
   color: #333232;
   margin-top: 4rem;
   margin-bottom: 4rem;
+  padding: 20px;
 }
+
+.btn-note { padding: 20px; }
 
 .bg-black {
   background-color: #0d1318;
@@ -30,6 +33,11 @@ h2 {
   border-radius: 3px;
   margin-bottom: 20px;
 }
+
+.user-name { 
+  color: grey;
+ }
+ 
 
 .article-title {
   color: #805b5b;
@@ -74,6 +82,5 @@ a.article-title:hover {
 
 a {
   text-decoration: none;
-  over
 }
 
