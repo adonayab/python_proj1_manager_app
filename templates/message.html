@@ -4,11 +4,20 @@
 
 
 <div>
-    <nav class="nav nav-tabs">
-        <a class="nav-link" href="/message/urgent">Urgent</a>
-        <a class="nav-link" href="/message/general">General</a>
-        <a class="nav-link" href="#">Daily Task</a>
-      </nav>
+  <nav class="nav nav-tabs">
+    <a class="nav-link" href="/message/urgent">Urgent
+      {% if new_u %}
+      <span class="badge badge-danger mr-1">NEW</span>
+      {% endif %}
+    </a>
+    <a class="nav-link" href="/message/general">General
+      {% if new_g %}
+      <span class="badge badge-danger mr-1">NEW</span>
+      {% endif %}
+    </a>
+    <a class="nav-link" href="/completed">Completed</a>
+    <a class="nav-link" href="#">Daily Task</a>
+  </nav>
 </div>
 
 <div class="btn-note">
@@ -19,18 +28,35 @@
 <!-- Displaying all the messages on the main page -->
 {% if messages %}
 {% for message in messages %}
-<article class="media content-section">
-  <div class="media-body">
-    <h2><a class="article-title" href="">{{ message.title }}</a></h2>
-    <p class="article-content">{{ message.body }}</p>
-    <small class="text-muted">
-      From | <a class="mr-2" href=""> {{ message.owner.email }}</a>
-      To | <a class="mr-2" href=""> {{ message.msg_shift }}</a>
-      Date | <a class="mr-2" href="">{{ message.pub_date }}</a>
-      Priority | <a class="mr-2" href="/message/{{ message.msg_type }}">{{ message.msg_type }}</a>
-    </small>
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="card-title">{{ message.title }}
+            <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
+              <button type="submit" class="btn btn-info btn-sm float-right">{{ mark }}</button>
+            </form>
+          </h2>
+          <p class="card-text">{{ message.content }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+            From | <a class="mr-2 nounderline" href=""> {{ message.owner.name }}</a>
+            To | <a class="mr-2 nounderline" href=""> {{ message.shift }}</a>
+            Date | <a class="mr-2 nounderline" href="">{{ message.pub_date }}</a>
+            Priority | <a class="mr-2 nounderline" href="/message/{{ message.msg_type }}">{{ message.category }}</a>
+            {% if not message.status %}
+            <form class="unset-form" action="/edit/{{ message.id }}">
+              <button type="submit" class="btn btn-danger btn-sm float-right">Edit</button>
+            </form>
+            {% endif %}
+          </small>
+        </div>
+      </div>
+    </div>
   </div>
-</article>
+</div>
 {% endfor %}
 {% endif %}
 

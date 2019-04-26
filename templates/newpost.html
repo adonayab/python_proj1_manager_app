@@ -4,34 +4,50 @@
 
 <h1>New Message</h1>
 
-<form action="/newpost" method="POST">
+<form action="" method="POST">
+
+  {{ form.hidden_tag() }} <!-- This is to protect from form forgery-->
+  
   <div class="form-group">
-    <label for="title">Title</label>
-    <input type="text" name="title" id="title" class="form-control">
+    {{ form.title.label(class="form-control-label") }}
+    {% if form.title.errors %}
+      {{ form.title(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.title.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+    {% else %}
+      {{ form.title(class="form-control form-control-lg") }}
+    {% endif %}
   </div>
+
   <div class="form-group">
-      <label for="shift">Shift</label>
-      <select name="shift" class="custom-select" id="shift">
-        <option>All Shifts</option>
-        <option>Morning</option>
-        <option>Afternoon</option>
-        <option>Evening</option>
-      </select>
-    </div>
-  <div class="form-group">
-    <label for="category">Category</label>
-    <select name="category" class="custom-select" id="category">
-      <option>Urgent</option>
-      <option>General</option>
-      <option>Daily Task</option>
-    </select>
+    {{ form.category.label(class="form-control-label") }}
+    {{ form.category(class="form-control form-control-lg custom-select") }}
   </div>
+
   <div class="form-group">
-    <label class="add_blog">Message Content</label>
-    <textarea name="body" id="body" cols="30" rows="10" class="form-control"></textarea>
+    {{ form.shift.label(class="form-control-label") }}
+    {{ form.shift(class="form-control form-control-lg custom-select") }}
   </div>
+  
   <div class="form-group">
-    <input type="submit" value="Post" class="btns">
+    {{ form.content.label(class="form-control-label") }}
+    {% if form.content.errors %}
+      {{ form.content(class="form-control form-control-lg is-invalid") }}
+        <div class="invalid-feedback">
+          {% for error in form.content.errors %}
+            <span>{{ error }}</span>
+          {% endfor %}
+        </div>
+    {% else %}
+      {{ form.content(class="form-control form-control-lg") }}
+    {% endif %}
+  </div>
+  
+  <div class="form-group">
+    {{ form.submit(class="btns")}}
   </div>
 </form>
 

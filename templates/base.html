@@ -6,13 +6,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 
   <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/style_BS.css') }}">
-  <link href="https://fonts.googleapis.com/css?family=ZCOOL+QingKe+HuangYou" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Coiny" rel="stylesheet">
 
+  <link href="https://fonts.googleapis.com/css?family=Oswald" rel="stylesheet">
   <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 
 </head>
@@ -22,7 +20,9 @@
   <!-- Top navbar -->
   <header>
     <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
-      <a class="navbar-brand" href="#">Manager App</a>
+      <span class="navbar-brand">
+        <!-- <h2>M APP</h2> -->
+      </span>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
@@ -30,13 +30,10 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('message')}}">Notification</a>
+            <a class="nav-link mr-2" href="{{ url_for('message')}}">All Notifications</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="">Schedule</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link mr-2" href="">Schedule</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="">Grill</a>
@@ -66,17 +63,17 @@
   <main role="main" class="container">
 
     <div class="row">
-      <div class="col-md-12">
-        {% with messages = get_flashed_messages() %}
-        {% for message in messages %}
-        <div class="text-danger">
-          {{ message }}
-        </div>
-        {% endfor %}
+      <div class="col-md-12 col-lg-10">
+        {% with messages = get_flashed_messages(with_categories=true)%}
+          {% if messages %}
+            {% for category, message in messages %}
+              <div class="alert alert-{{ category }}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          {% endif %}
         {% endwith %}
-
         {% block content%}{% endblock %}
-
       </div>
     </div>
   </main>
@@ -84,20 +81,20 @@
   <!-- Navbar bottom -->
   <nav class="navbar bg-black fixed-bottom">
     <div class=" container">
-      <span class="footer navbar-text">&copy; 2019 Prepared by | adonay</span>
+      <span class="footer navbar-text">&copy; 2019 | Adonay</span>
     </div>
   </nav>
 
 
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"
-    integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+    integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
     crossorigin="anonymous"></script>
-
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.bundle.min.js"
-    integrity="sha384-zDnhMsjVZfS3hiP7oCBRmfjkQC4fzxVxFhBx8Hkz2aZX8gEvA/jsP3eXRCvzTofP"
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+    integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+    crossorigin="anonymous"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
     crossorigin="anonymous"></script>
 
 </body>

@@ -12,30 +12,37 @@ body {
   background-color: #0d1318;
 }
 
-h1, h4 {
-  padding-top: 0.5in;
+.nounderline {
+  text-decoration: none !important;}
+
+h1 {
   color: #000000;
-  font-family: 'ZCOOL QingKe HuangYou', cursive;
+  font-family: 'Oswald', sans-serif;
 }
 h2 {
   color: #424242;
   font-weight:  bold;
 }
 
-.btn-group {
-  padding-top: 0.2in;
-}
-
-.content-section {
-  background: #fdfcfc;
+/* .content-section {
+  background: #f5f5f5;
   padding: 10px 20px;
   border: 1px solid #dddddd;
-  border-radius: 3px;
+  border-radius: 10px;
   margin-bottom: 20px;
 }
 
+.content-section:hover {
+  background: #ececec;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+} */
+
 .user-name { 
-  color: grey;
+  color: rgb(201, 171, 134);
  }
  
 
@@ -56,7 +63,7 @@ a.article-title:hover {
 }
 
 .footer {
-  color: rgb(55, 130, 139);
+  color: rgb(140, 145, 146);
 }
 
 .btns {
@@ -67,7 +74,7 @@ a.article-title:hover {
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 4px;
 }
 .btns:hover {
   background-color:rgb(59, 59, 59);
@@ -77,10 +84,25 @@ a.article-title:hover {
   text-decoration: none;
   margin: 4px 2px;
   cursor: pointer;
-  border-radius: 20px;
+  border-radius: 4px;
 }
 
 a {
+  color: rgb(28, 146, 146);
   text-decoration: none;
 }
 
+.card {
+  background: #faf9f9;
+  border-radius: 5px !important;
+}
+
+.card:hover {
+  background: #ffffff;
+  border-radius: 5px !important;
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+.unset-form {
+  all: unset;
+}
