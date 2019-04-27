@@ -37,6 +37,9 @@
             <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
               <button type="submit" class="btn btn-info btn-sm float-right">{{ mark }}</button>
             </form>
+            {% if message.status %}
+            <button class="btn btn-sm btn-danger float-right mr-1" data-toggle="modal" data-target="#deleteModal">Delete</button>
+            {% endif %}
           </h2>
           <p class="card-text">{{ message.content }}</p>
         </div>
@@ -57,7 +60,34 @@
     </div>
   </div>
 </div>
+
+{% if message.status %}
+<!-- This is the delete modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Message?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete ({{ message.title }}) ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+        <form class="unset-form" method="POST" action="/delete/{{ message.id }}">
+          <button type="submit" class="btn btn-danger btn-sm float-right mr-1">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endif %}
+
 {% endfor %}
+
 {% endif %}
 
 

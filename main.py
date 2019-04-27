@@ -129,7 +129,7 @@ def mark_completion(id):
 
 
 @app.route('/message/', defaults={'id': ''})
-@app.route('/edit/<id>', methods=['POST', 'GET'])
+@app.route('/edit/<int:id>', methods=['POST', 'GET'])
 def edit(id):
   
   message = Message.query.filter_by(id=id).first()
@@ -160,6 +160,25 @@ def edit(id):
     form.content.data = message.content
 
   return render_template('edit.html', title="Edit", form=form, message=message)
+
+@app.route('/message/', defaults={'id': ''})
+@app.route('/delete/<int:id>', methods=['POST', 'GET'])
+def delete(id):
+  
+  message = Message.query.filter_by(id=id).first()
+
+  if 'email' not in session:
+    flash('Login to Delete this Note', 'danger')
+    return redirect('/message')
+  
+  if message.owner.email != session['email']:
+    flash('Unauthorised to Delete this Note', 'danger')
+    return redirect('/message')
+  
+  db.session.delete(message)
+  db.session.commit()
+  flash('Note deleted successfully', 'success')
+  return redirect('/message')
 
 
 if __name__ == "__main__":
