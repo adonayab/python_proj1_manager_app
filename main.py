@@ -13,9 +13,6 @@ from forms import RegistrationForm, LoginForm, MessageForm
 #     if request.endpoint not in allowed_routes and 'email' not in session and '/static/' not in request.path:
 #         return redirect('/login')
 
-categories = ['Urgent', 'General', 'Daily Task']
-shifts = ['All Shifts', 'Morning', 'Afternoon', 'Evening']
-
 
 @app.route("/logout", methods=['POST'])
 def logout():
@@ -71,7 +68,7 @@ def newpost():
     flash("Posted Note Successfully", 'success')
     return redirect('/message')
 
-  return render_template('newpost.html', title='Message Post', categories=categories, shifts=shifts, form=form)
+  return render_template('newpost.html', title='Message Post', form=form)
 
 
 @app.route('/message/', defaults={'category': ''})
@@ -114,16 +111,19 @@ def message(category):
 @app.route('/completed/<int:id>', methods=['Get', 'POST'])
 def mark_completion(id):
   if request.method == 'POST':
-    if id:
-      message = Message.query.filter_by(id=id).first()
-      if message.status == 1:
-        message.status = 0
-        db.session.commit()
-        return redirect('/message')
-      else:
-        message.status = 1
-        db.session.commit()
-        return redirect('/message')
+    message = Message.query.filter_by(id=id).first()
+    if 'email' not in session:
+      flash('Login to Mark this Note', 'danger')
+      return redirect('/message')
+    if message.status == 1:
+      message.status = 0
+      db.session.commit()
+      return redirect('/message')
+    else:
+      message.status = 1
+      completed_by = session['email']
+      db.session.commit()
+      return redirect('/message')
   messages = Message.query.filter_by(status=1).all()
   return render_template('message.html', title="Completed Messages", messages=messages, mark="Unmark Completed")
 
