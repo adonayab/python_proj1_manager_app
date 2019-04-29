@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row nav">
+    <div class="col-sm-12 col-md-3 urgent nav-item">
+      <a class="nav-link mb-2 mt-2 text-center urgent-text" href="/messages/urgent">Urgent
+        {% if new_u %}
+        <span class="badge ml-2 badge-danger text-center">New</span>
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-3 general nav-item">
+      <a class="nav-link g mb-2 mt-2 text-center general-text" href="/messages/general">General
+        {% if new_g %}
+        <span class="badge ml-2 badge-danger">New</span>
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-3 completed nav-item">
+      <a class="nav-link c mb-2 mt-2 text-center completed-text" href="/completed">Completed</a>
+    </div>
+    <div class="col-sm-12 col-md-3 daily-task nav-item">
+      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="#">Daily Task</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-3 mt-3 mb-3">
+      <a class="btn btn-dark" href="{{ url_for('newpost') }}">Leave a Note</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Displaying all the messages on the main page -->
+{% if messages %}
+{% for message in messages %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="card-title">
+            <a href="/single/{{ message.id }}" class="title">{{ message.title }}</a>
+            <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
+              <button type="submit" class="btn btn-info btn-sm float-right">{{ mark }}</button>
+            </form>
+          </h2>
+          <p class="card-text">{{ message.content }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+            From | <a class="mr-2" href=""> {{ message.owner.name }}</a>
+            To | <a class="mr-2" href=""> {{ message.shift }}</a>
+            <a class="mr-1 date" href="">{{ message.pub_date }}</a>
+            Priority | <a class="mr-2" href="">{{ message.category }}</a>
+            <i class="material-icons" style="vertical-align: middle;">done</i> | 
+            {{ completed_by }}
+            <a class="float-right" href="/single/{{ message.id }}">
+              <i class="material-icons">settings</i>
+            </a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endfor %}
+
+{% endif %}
+
+
+
+{% endblock %}

@@ -23,13 +23,13 @@ def logout():
 @app.route('/login', methods=['POST', 'GET'])
 def login():
     if 'email' in session:
-        return redirect('/message')
+        return redirect('/messages')
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
         if user and check_pw_hash(form.password.data, user.pw_hash):
             session['email'] = user.email
-            return redirect('/message')
+            return redirect('/messages')
         else:
             flash('Login Unsuccessful. Please check email and password', 'danger')
     return render_template('login.html', title='Message Login', form=form)
@@ -38,7 +38,7 @@ def login():
 @app.route('/signup', methods=['POST', 'GET'])
 def signup():
     if 'email' in session:
-        return redirect('/message')
+        return redirect('/messages')
     form = RegistrationForm()
     if form.validate_on_submit():
         user = User(name=form.name.data, email=form.email.data,
@@ -57,7 +57,7 @@ def newpost():
   
   if 'email' not in session:
     flash('Login to Add a Note', 'danger')
-    return redirect('/message')
+    return redirect('/messages')
   
   form = MessageForm()
   owner = User.query.filter_by(email=session['email']).first()
@@ -66,13 +66,13 @@ def newpost():
     db.session.add(message)
     db.session.commit()
     flash("Posted Note Successfully", 'success')
-    return redirect('/message')
+    return redirect('/messages')
 
   return render_template('newpost.html', title='Message Post', form=form)
 
 
-@app.route('/message/', defaults={'category': ''})
-@app.route('/message/<category>')
+@app.route('/messages/', defaults={'category': ''})
+@app.route('/messages/<category>')
 def message(category):
 
     cat_lower = category.lower()
@@ -82,7 +82,7 @@ def message(category):
         new_u = False
         if messages:
             new_u = True
-        return render_template('message.html', title="Urgent Messages", messages=messages, mark="Mark Completed", new_u=new_u)
+        return render_template('messages.html', title="Urgent Messages", messages=messages, mark="Mark Completed", new_u=new_u)
 
     if cat_lower == 'general':
         messages = Message.query.filter_by(
@@ -90,7 +90,7 @@ def message(category):
         new_g = False
         if messages:
             new_g = True
-        return render_template('message.html', title="General Messages", messages=messages, mark="Mark Completed", new_g=new_g)
+        return render_template('messages.html', title="General Messages", messages=messages, mark="Mark Completed", new_g=new_g)
 
     if cat_lower != 'urgent' and cat_lower != 'general':
         new_u = False
@@ -104,45 +104,80 @@ def message(category):
         if general_messages:
             new_g = True
         messages = Message.query.filter_by(status=0).all()
-        return render_template('message.html', title="Messages", messages=messages, mark="Mark Completed", new_g=new_g, new_u=new_u)
+        return render_template('messages.html', title="Messages", messages=messages, mark="Mark Completed", new_g=new_g, new_u=new_u)
 
 
 @app.route('/completed/', defaults={'id': ''})
 @app.route('/completed/<int:id>', methods=['Get', 'POST'])
 def mark_completion(id):
+  completed_by = ''
   if request.method == 'POST':
     message = Message.query.filter_by(id=id).first()
     if 'email' not in session:
       flash('Login to Mark this Note', 'danger')
-      return redirect('/message')
+      return redirect('/messages')
     if message.status == 1:
       message.status = 0
       db.session.commit()
-      return redirect('/message')
+      return redirect('/messages')
     else:
       message.status = 1
-      completed_by = session['email']
       db.session.commit()
-      return redirect('/message')
+      return redirect('/messages')
+  user = user = User.query.filter_by(email=session['email']).first()
+  completed_by = user.name
   messages = Message.query.filter_by(status=1).all()
-  return render_template('message.html', title="Completed Messages", messages=messages, mark="Unmark Completed")
+  return render_template('messages.html', title="Completed Messages", messages=messages, mark="Unmark Completed", completed_by=completed_by)
 
 
-@app.route('/message/', defaults={'id': ''})
-@app.route('/edit/<int:id>', methods=['POST', 'GET'])
-def edit(id):
+@app.route('/messages/', defaults={'id': ''})
+@app.route('/single/<int:id>', methods=['GET'])
+def single(id):
   
-  message = Message.query.filter_by(id=id).first()
+  message = Message.query.filter_by(id=id).first()  
+  
+  form = MessageForm()  
+  form.title.data = message.title
+  form.category.data = message.category
+  form.shift.data = message.shift
+  form.content.data = message.content
+  
+  return render_template('single.html', message=message, form=form)
 
+
+@app.route('/messages/', defaults={'id': ''})
+@app.route('/single/<int:id>/delete', methods=['POST', 'GET'])
+def delete_single(id):
+  
   if 'email' not in session:
     flash('Login to Edit this Note', 'danger')
-    return redirect('/message')
+    return redirect('/messages')
+  
+  message = Message.query.filter_by(id=id).first()
+  if message.owner.email != session['email']:
+    flash('Unauthorised to Delete this Note', 'danger')
+    return redirect('/messages')
+  
+  db.session.delete(message)
+  db.session.commit()
+  flash('Note deleted successfully', 'success')
+  return redirect('/messages')
+
+
+@app.route('/messages/', defaults={'id': ''})
+@app.route('/single/<int:id>/edit', methods=['POST'])
+def edit_single(id):
+  
+  message = Message.query.filter_by(id=id).first()  
+  form = MessageForm()
+  if 'email' not in session:
+    flash('Login to Modify this Note', 'danger')
+    return redirect('/login')
   
   if message.owner.email != session['email']:
     flash('Unauthorised to Edit this Note', 'danger')
-    return redirect('/message')
+    return redirect(f'/single/{message.id}')
   
-  form = MessageForm()
   if form.validate_on_submit():
     message.title = form.title.data
     message.content = form.content.data
@@ -152,33 +187,10 @@ def edit(id):
     message.status = 0
     db.session.commit()
     flash('Successfully updated note', 'success')
-    return redirect('/message')
-  elif request.method == 'GET':
-    form.title.data = message.title
-    form.category.data = message.category
-    form.shift.data = message.shift
-    form.content.data = message.content
+    return redirect('/messages')
+
 
   return render_template('edit.html', title="Edit", form=form, message=message)
-
-@app.route('/message/', defaults={'id': ''})
-@app.route('/delete/<int:id>', methods=['POST', 'GET'])
-def delete(id):
-  
-  message = Message.query.filter_by(id=id).first()
-
-  if 'email' not in session:
-    flash('Login to Delete this Note', 'danger')
-    return redirect('/message')
-  
-  if message.owner.email != session['email']:
-    flash('Unauthorised to Delete this Note', 'danger')
-    return redirect('/message')
-  
-  db.session.delete(message)
-  db.session.commit()
-  flash('Note deleted successfully', 'success')
-  return redirect('/message')
 
 
 if __name__ == "__main__":

@@ -1,0 +1,162 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12 col-md-3 urgent">
+      <a class="nav-link mb-2 mt-2 text-center urgent-text" href="/messages/urgent">Urgent
+        {% if new_u %}
+        <span class="badge ml-2 badge-danger text-center">New</span>
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-3 general">
+      <a class="nav-link g mb-2 mt-2 text-center general-text" href="/messages/general">General
+        {% if new_g %}
+        <span class="badge ml-2 badge-danger">New</span>
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-3 completed">
+      <a class="nav-link c mb-2 mt-2 text-center completed-text" href="/completed">Completed</a>
+    </div>
+    <div class="col-sm-12 col-md-3 daily-task">
+      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="#">Daily Task</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-3 mt-3 mb-3">
+      <a class="btn btn-dark" href="{{ url_for('newpost') }}">Leave a Note</a>
+    </div>
+  </div>
+</div>
+
+
+<!-- Displaying single message -->
+{% if message %}
+<div class="container">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h2 class="card-title">
+            <a href="" class="title">{{ message.title }}</a>
+            <button class="btn btn-danger btn-sm float-right ml-2" data-toggle="modal"
+              data-target="#deleteModal">Delete</button>
+            <button class="btn btn-warning btn-sm float-right" data-toggle="modal"
+              data-target="#editModal">Edit</button>
+          </h2>
+          <p class="card-text">{{ message.content }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+            From | <a class="mr-2" href=""> {{ message.owner.name }}</a>
+            To | <a class="mr-2" href=""> {{ message.shift }}</a>
+            <a class="mr-2 date" href="">{{ message.pub_date }}</a>
+            Priority | <a class="mr-2" href="">{{ message.category }}</a>
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- This is the delete modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Message?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete ({{ message.title }}) ?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+        <form class="unset-form" method="POST" action="/single/{{ message.id }}/delete">
+          <button type="submit" class="btn btn-danger btn-sm float-right mr-1">Delete</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- This is the edit modal -->
+<div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editModalLabel">Edit ({{ message.title }})</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form method="POST" action="/single/{{ message.id }}/edit">
+
+          {{ form.hidden_tag() }}
+          <!-- This is to protect from form forgery-->
+
+          <div class="form-group">
+            {{ form.title.label(class="form-control-label") }}
+            {% if form.title.errors %}
+            {{ form.title(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.title.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ form.title(class="form-control form-control-lg") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.category.label(class="form-control-label") }}
+            {{ form.category(class="form-control form-control-lg custom-select") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.shift.label(class="form-control-label") }}
+            {{ form.shift(class="form-control form-control-lg custom-select") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.content.label(class="form-control-label") }}
+            {% if form.content.errors %}
+            {{ form.content(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.content.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ form.content(class="form-control form-control-lg", rows='5') }}
+            {% endif %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="unset-form form-group">
+          {{ form.submit(class="btn btn-dark")}}
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+{% endif %}
+
+
+
+{% endblock %}
