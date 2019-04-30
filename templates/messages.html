@@ -55,8 +55,8 @@
           <small class="text-muted">
             From | <a class="mr-2" href=""> {{ message.owner.name }}</a>
             To | <a class="mr-2" href=""> {{ message.shift }}</a>
-            <a class="mr-1 date" href="">{{ message.pub_date }}</a>
-            Priority | <a class="mr-2" href="">{{ message.category }}</a>
+            <a class="mr-2 date" href="">{{ message.pub_date }}</a>
+            <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
             <i class="material-icons" style="vertical-align: middle;">done</i> | 
             {{ completed_by }}
             <a class="float-right" href="/single/{{ message.id }}">

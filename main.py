@@ -115,7 +115,7 @@ def mark_completion(id):
     message = Message.query.filter_by(id=id).first()
     if 'email' not in session:
       flash('Login to Mark this Note', 'danger')
-      return redirect('/messages')
+      return redirect('/login')
     if message.status == 1:
       message.status = 0
       db.session.commit()
@@ -150,13 +150,13 @@ def single(id):
 def delete_single(id):
   
   if 'email' not in session:
-    flash('Login to Edit this Note', 'danger')
-    return redirect('/messages')
+    flash('Login to Modify this Note', 'danger')
+    return redirect('/login')
   
   message = Message.query.filter_by(id=id).first()
   if message.owner.email != session['email']:
     flash('Unauthorised to Delete this Note', 'danger')
-    return redirect('/messages')
+    return redirect(f'/single/{message.id}')
   
   db.session.delete(message)
   db.session.commit()

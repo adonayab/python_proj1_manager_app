@@ -56,7 +56,7 @@
             From | <a class="mr-2" href=""> {{ message.owner.name }}</a>
             To | <a class="mr-2" href=""> {{ message.shift }}</a>
             <a class="mr-2 date" href="">{{ message.pub_date }}</a>
-            Priority | <a class="mr-2" href="">{{ message.category }}</a>
+            <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
           </small>
         </div>
       </div>
@@ -101,9 +101,7 @@
       <div class="modal-body">
 
         <form method="POST" action="/single/{{ message.id }}/edit">
-
           {{ form.hidden_tag() }}
-          <!-- This is to protect from form forgery-->
 
           <div class="form-group">
             {{ form.title.label(class="form-control-label") }}
