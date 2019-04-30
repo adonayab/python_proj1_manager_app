@@ -29,7 +29,9 @@
 
   <div class="row">
     <div class="col-sm-12 col-md-3 mt-3 mb-3">
-      <a class="btn btn-dark" href="{{ url_for('newpost') }}">Leave a Note</a>
+      <!-- <a class="btn btn-dark" href="/newpost">Leave a Note</a> -->
+      <button class="btn btn-dark" data-toggle="modal"
+              data-target="#addModal">Leave a Note</button>
     </div>
   </div>
 </div>
@@ -68,10 +70,73 @@
     </div>
   </div>
 </div>
-
 {% endfor %}
-
 {% endif %}
+
+<!-- This is the Add modal -->
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="addModalLabel">New Note</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+
+        <form method="POST" action="/newpost">
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            {{ form.title.label(class="form-control-label") }}
+            {% if form.title.errors %}
+            {{ form.title(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.title.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ form.title(class="form-control form-control-lg") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.category.label(class="form-control-label") }}
+            {{ form.category(class="form-control form-control-lg custom-select") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.shift.label(class="form-control-label") }}
+            {{ form.shift(class="form-control form-control-lg custom-select") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.content.label(class="form-control-label") }}
+            {% if form.content.errors %}
+            {{ form.content(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.content.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ form.content(class="form-control form-control-lg", rows='5') }}
+            {% endif %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="unset-form form-group">
+          {{ form.submit(class="btn btn-dark")}}
+        </div>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 
 

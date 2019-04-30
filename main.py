@@ -1,8 +1,7 @@
 from flask import Flask, request, redirect, render_template, session, flash
 from flask_sqlalchemy import SQLAlchemy
 from models import User, Message
-from app import app, db, bcrypt
-import re
+from app import app, db
 from hashutils import check_pw_hash
 from datetime import datetime
 from forms import RegistrationForm, LoginForm, MessageForm
@@ -56,8 +55,8 @@ def signup():
 def newpost():
   
   if 'email' not in session:
-    flash('Login to Add a Note', 'danger')
-    return redirect('/messages')
+    flash('Login to Leave a Note', 'danger')
+    return redirect('/login')
   
   form = MessageForm()
   owner = User.query.filter_by(email=session['email']).first()
@@ -75,41 +74,44 @@ def newpost():
 @app.route('/messages/<category>')
 def message(category):
 
-    cat_lower = category.lower()
-    if cat_lower == 'urgent':
-        messages = Message.query.filter_by(
-            category=cat_lower).filter_by(status=0).all()
-        new_u = False
-        if messages:
-            new_u = True
-        return render_template('messages.html', title="Urgent Messages", messages=messages, mark="Mark Completed", new_u=new_u)
+  form = MessageForm()
 
-    if cat_lower == 'general':
-        messages = Message.query.filter_by(
-            category=cat_lower).filter_by(status=0).all()
-        new_g = False
-        if messages:
-            new_g = True
-        return render_template('messages.html', title="General Messages", messages=messages, mark="Mark Completed", new_g=new_g)
+  cat_lower = category.lower()
+  if cat_lower == 'urgent':
+      messages = Message.query.filter_by(
+          category=cat_lower).filter_by(status=0).all()
+      new_u = False
+      if messages:
+          new_u = True
+      return render_template('messages.html', title="Urgent Messages", messages=messages, mark="Mark Completed", new_u=new_u, form=form)
 
-    if cat_lower != 'urgent' and cat_lower != 'general':
-        new_u = False
-        new_g = False
-        urgent_messages = Message.query.filter_by(
-            category='urgent').filter_by(status=0).all()
-        general_messages = Message.query.filter_by(
-            category='general').filter_by(status=0).all()
-        if urgent_messages:
-            new_u = True
-        if general_messages:
-            new_g = True
-        messages = Message.query.filter_by(status=0).all()
-        return render_template('messages.html', title="Messages", messages=messages, mark="Mark Completed", new_g=new_g, new_u=new_u)
+  if cat_lower == 'general':
+      messages = Message.query.filter_by(
+          category=cat_lower).filter_by(status=0).all()
+      new_g = False
+      if messages:
+          new_g = True
+      return render_template('messages.html', title="General Messages", messages=messages, mark="Mark Completed", new_g=new_g, form=form)
+
+  if cat_lower != 'urgent' and cat_lower != 'general':
+      new_u = False
+      new_g = False
+      urgent_messages = Message.query.filter_by(
+          category='urgent').filter_by(status=0).all()
+      general_messages = Message.query.filter_by(
+          category='general').filter_by(status=0).all()
+      if urgent_messages:
+          new_u = True
+      if general_messages:
+          new_g = True
+      messages = Message.query.filter_by(status=0).all()
+      return render_template('messages.html', title="Messages", messages=messages, mark="Mark Completed", new_g=new_g, new_u=new_u, form=form)
 
 
 @app.route('/completed/', defaults={'id': ''})
 @app.route('/completed/<int:id>', methods=['Get', 'POST'])
 def mark_completion(id):
+  form = MessageForm()
   completed_by = ''
   if request.method == 'POST':
     message = Message.query.filter_by(id=id).first()
@@ -127,7 +129,7 @@ def mark_completion(id):
   user = user = User.query.filter_by(email=session['email']).first()
   completed_by = user.name
   messages = Message.query.filter_by(status=1).all()
-  return render_template('messages.html', title="Completed Messages", messages=messages, mark="Unmark Completed", completed_by=completed_by)
+  return render_template('messages.html', title="Completed Messages", messages=messages, mark="Unmark Completed", completed_by=completed_by, form=form)
 
 
 @app.route('/messages/', defaults={'id': ''})
