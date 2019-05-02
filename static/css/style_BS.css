@@ -31,11 +31,8 @@ h2 {
   color: #636868;
 }
 
-.logout, .footer {
+.footer {
   color: rgb(153, 149, 149);
-}
-.logout:hover {
-  color: rgb(211, 207, 207);
 }
 
 a {
