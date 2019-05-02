@@ -60,8 +60,7 @@
   </header>
 
   <!-- Main content of the page -->
-  <main role="main" class="container">
-
+  <main class="container">
     <div class="row">
       <div class="col-sm-12 col-lg-10">
         {% with messages = get_flashed_messages(with_categories=true)%}
@@ -72,11 +71,18 @@
               </div>
             {% endfor %}
           {% endif %}
-        {% endwith %}
-        {% block content%}{% endblock %}
+        {% endwith %}        
       </div>
     </div>
   </main>
+
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        {% block content%}{% endblock %}
+      </div>
+    </div>
+  </div>
 
   <!-- Navbar bottom -->
   <nav class="navbar bg-black fixed-bottom">

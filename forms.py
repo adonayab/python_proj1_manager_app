@@ -31,11 +31,20 @@ class LoginForm(FlaskForm):
 
 class MessageForm(FlaskForm):
   title = StringField('Title', validators=[DataRequired()])
-  content = TextAreaField('Message Content', validators=[DataRequired()])
+  content = TextAreaField('Content', validators=[DataRequired()])
   category = SelectField(
         'Category',
         choices=[('Urgent','Urgent'), ('General','General'), ('Daily Task','Daily Task')]
     )
+  shift = SelectField(
+        'Shift',
+        choices=[('All Shifts','All Shifts'), ('Morning','Morning'), ('Afternoon','Afternoon'),  ('Evening','Evening')]
+    )
+  submit = SubmitField('Post Note')
+  
+
+class TaskForm(FlaskForm):
+  content = TextAreaField('Content', validators=[DataRequired()])
   shift = SelectField(
         'Shift',
         choices=[('All Shifts','All Shifts'), ('Morning','Morning'), ('Afternoon','Afternoon'),  ('Evening','Evening')]

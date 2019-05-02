@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container-fluid">
   <div class="row nav">
     <div class="col-sm-12 col-md-3 urgent nav-item">
       <a class="nav-link mb-2 mt-2 text-center urgent-text" href="/messages/urgent">Urgent
@@ -23,13 +23,12 @@
       <a class="nav-link c mb-2 mt-2 text-center completed-text" href="/completed">Completed</a>
     </div>
     <div class="col-sm-12 col-md-3 daily-task nav-item">
-      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="#">Daily Task</a>
+      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="/daily-tasks">Daily Task</a>
     </div>
   </div>
 
   <div class="row">
     <div class="col-sm-12 col-md-3 mt-3 mb-3">
-      <!-- <a class="btn btn-dark" href="/newpost">Leave a Note</a> -->
       <button class="btn btn-dark" data-toggle="modal"
               data-target="#addModal">Leave a Note</button>
     </div>
@@ -40,9 +39,9 @@
 <!-- Displaying all the messages on the main page -->
 {% if messages %}
 {% for message in messages %}
-<div class="container">
+<div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-md-10 col-lg-8">
       <div class="card mb-3">
         <div class="card-body">
           <h2 class="card-title">
@@ -51,7 +50,7 @@
               <button type="submit" class="btn btn-info btn-sm float-right">{{ mark }}</button>
             </form>
           </h2>
-          <p class="card-text">{{ message.content }}</p>
+          <p class="card-text text-truncate">{{ message.content }}</p>
         </div>
         <div class="card-footer">
           <small class="text-muted">
@@ -59,8 +58,9 @@
             To | <a class="mr-2" href=""> {{ message.shift }}</a>
             <a class="mr-2 date" href="">{{ message.pub_date }}</a>
             <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
-            <i class="material-icons" style="vertical-align: middle;">done</i> | 
-            {{ completed_by }}
+            {% if message.status == 1 %}
+            <i class="material-icons" style="vertical-align: middle;">done</i> | {{ message.completed_by }}
+            {% endif %}
             <a class="float-right" href="/single/{{ message.id }}">
               <i class="material-icons">settings</i>
             </a>

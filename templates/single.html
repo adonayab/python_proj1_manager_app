@@ -3,7 +3,7 @@
 {% block content %}
 
 
-<div class="container">
+<div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 col-md-3 urgent">
       <a class="nav-link mb-2 mt-2 text-center urgent-text" href="/messages/urgent">Urgent
@@ -23,13 +23,7 @@
       <a class="nav-link c mb-2 mt-2 text-center completed-text" href="/completed">Completed</a>
     </div>
     <div class="col-sm-12 col-md-3 daily-task">
-      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="#">Daily Task</a>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12 col-md-3 mt-3 mb-3">
-      <a class="btn btn-dark" href="{{ url_for('newpost') }}">Leave a Note</a>
+      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="/daily-task">Daily Task</a>
     </div>
   </div>
 </div>
@@ -37,9 +31,9 @@
 
 <!-- Displaying single message -->
 {% if message %}
-<div class="container">
+<div class="container-fluid mt-3 ">
   <div class="row">
-    <div class="col-sm-12">
+    <div class="col-sm-12 col-md-10 col-lg-8">
       <div class="card mb-3">
         <div class="card-body">
           <h2 class="card-title">
@@ -57,6 +51,7 @@
             To | <a class="mr-2" href=""> {{ message.shift }}</a>
             <a class="mr-2 date" href="">{{ message.pub_date }}</a>
             <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
+            <i class="material-icons" style="vertical-align: middle;">done</i> |
           </small>
         </div>
       </div>

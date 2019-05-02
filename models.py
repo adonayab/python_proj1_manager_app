@@ -11,6 +11,7 @@ class Message(db.Model):
     status = db.Column(db.Boolean, default=False, nullable=False)
     owner_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     pub_date = db.Column(db.DateTime, default=datetime.utcnow, nullable=False)
+    completed_by = db.Column(db.String(120))
 
     def __init__(self, title, content, category, shift, owner):
         self.title = title
@@ -25,6 +26,7 @@ class User(db.Model):
     name = db.Column(db.String(120), nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
     pw_hash = db.Column(db.String(120), nullable=False)
+    admin = db.Column(db.Boolean, default=False, nullable=False)
     messages = db.relationship('Message', backref='owner', lazy=True)
 
     def __init__(self, name, email, password):

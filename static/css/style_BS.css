@@ -23,7 +23,7 @@ h2 {
   color: rgb(201, 171, 134);
  }
  
-.title {
+.title, .date  {
   color: #07415c;
 }
 
@@ -61,6 +61,7 @@ a:hover {
   all: unset;
 }
 
+/* Notification tabs */
 .urgent {
   background-color: #ff8a65;
 }
@@ -74,7 +75,7 @@ a:hover {
   background-color: #bcaaa4;
 }
 
-.urgent-text, .general-text, .completed-text, .dailytask-text {
+.urgent-text, .general-text, .completed-text, .dailytask-text{
   color: #000000;
   font-size: 16px;
 }
@@ -82,6 +83,13 @@ a:hover {
   color: #363434;
 }
 
-.date {
-  color: rgb(0, 0, 0);
+/* For table head rows */
+.th-m {
+  background-color: #fff176 ;
+}
+.th-a {
+  background-color: #AFC5FF;
+}
+.th-e {
+  background-color: #e0e0e0;
 }

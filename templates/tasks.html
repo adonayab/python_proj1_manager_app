@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+
+{% block content %}
+
+<div class="container-fluid">
+  <div class="row nav">
+    <div class="col-sm-12 col-md-3 urgent nav-item">
+      <a class="nav-link mb-2 mt-2 text-center urgent-text" href="/messages/urgent">Urgent
+        {% if new_u %}
+        <span class="badge ml-2 badge-danger text-center">New</span>
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-3 general nav-item">
+      <a class="nav-link g mb-2 mt-2 text-center general-text" href="/messages/general">General
+        {% if new_g %}
+        <span class="badge ml-2 badge-danger">New</span>
+        {% endif %}
+      </a>
+    </div>
+    <div class="col-sm-12 col-md-3 completed nav-item">
+      <a class="nav-link c mb-2 mt-2 text-center completed-text" href="/completed">Completed</a>
+    </div>
+    <div class="col-sm-12 col-md-3 daily-task nav-item">
+      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="/daily-tasks">Daily Task</a>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12 col-md-3 mt-3 mb-3">
+      <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Add a Task</button>
+    </div>
+  </div>
+</div>
+
+
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col s12 m4 l4">
+      <div>
+        <table class="table">
+          <tr>
+            <th class="text-center th-m">Mornings</th>
+          </tr>
+          {% for task in mornings %}
+          <tr>
+            <td>
+              <i class="material-icons mr-2" style="vertical-align: middle; color:#bdae27 ;">done_all</i>
+              {{ task.content }}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+
+    <div class="col s12 m4 l4">
+      <div>
+        <table class="table">
+          <tr>
+            <th class="text-center th-a">Afternoons</th>
+          </tr>
+          {% for task in afternoons %}
+          <tr>
+            <td>
+              <i class="material-icons mr-2" style="vertical-align: middle; color:rgb(62, 97, 192) ;">done_all</i>
+              {{ task.content }}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+
+    <div class="col s12 m4 l4">
+      <div>
+        <table class="table">
+          <tr>
+            <th class="text-center th-e">Evenings</th>
+          </tr>
+          {% for task in evenings %}
+          <tr>
+            <td>
+              <i class="material-icons mr-2" style="vertical-align: middle; color:#b4a3a3 ;">done_all</i>
+              {{ task.content }}
+            </td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+  
+  <!-- This is the Add modal -->
+  <div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="addModalLabel">New Task</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+
+          <form method="POST" action="/daily-tasks/add">
+            {{ form.hidden_tag() }}
+
+            <div class="form-group">
+              {{ form.shift.label(class="form-control-label") }}
+              {{ form.shift(class="form-control form-control-lg custom-select") }}
+            </div>
+
+            <div class="form-group">
+              {{ form.content.label(class="form-control-label") }}
+              {% if form.content.errors %}
+              {{ form.content(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.content.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ form.content(class="form-control form-control-lg", rows='5') }}
+              {% endif %}
+            </div>
+
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+          <div class="unset-form form-group">
+            {{ form.submit(class="btn btn-dark")}}
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+
+  {% endblock %}

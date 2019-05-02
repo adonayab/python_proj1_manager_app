@@ -1,0 +1,21 @@
+Manager app:
+  // Ctrl + Enter form new todo
+  ☐ Being able to post images too
+  ☐ Add email a schedule feature to schedules
+  ☐ Add "Add a schedule" button
+  ☐ Badges if not mark completed
+  ☐ Make responsive login and signup template bootstrap 
+  ☐ Clean up code in main (using helper functions)
+  ☐ Fix the wierd acting date and format to 12 hours
+  ☐ Add a delete and edit task feature
+  
+  Done:
+  // ALt + D for done
+    ✔ Create backup database and store deleted messages there change name of remove to completed and add a completed tab to show completed messages .... @done(19-05-01 12:06)
+    ✔ Shows the name of the person who marked it as completed @done(19-05-01 18:06)
+  
+  Cancelled:
+    // Ctrl + c for cancel
+
+
+  
