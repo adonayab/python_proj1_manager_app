@@ -47,7 +47,7 @@ class TaskForm(FlaskForm):
   content = TextAreaField('Content', validators=[DataRequired()])
   shift = SelectField(
         'Shift',
-        choices=[('All Shifts','All Shifts'), ('Morning','Morning'), ('Afternoon','Afternoon'),  ('Evening','Evening')]
+        choices=[('Morning','Morning'), ('Afternoon','Afternoon'),  ('Evening','Evening')]
     )
   submit = SubmitField('Add Task')
   
