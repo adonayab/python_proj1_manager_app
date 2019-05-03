@@ -53,7 +53,7 @@ def signup():
     return render_template('signup.html', title='Messagez Signup', form=form)
 
 
-@app.route('/newpost', methods=['POST', 'GET'])
+@app.route('/newpost', methods=['POST'])
 def newpost():
 
     if 'email' not in session:
