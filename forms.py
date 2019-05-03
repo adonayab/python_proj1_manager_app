@@ -49,5 +49,5 @@ class TaskForm(FlaskForm):
         'Shift',
         choices=[('All Shifts','All Shifts'), ('Morning','Morning'), ('Afternoon','Afternoon'),  ('Evening','Evening')]
     )
-  submit = SubmitField('Post Note')
+  submit = SubmitField('Add Task')
   

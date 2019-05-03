@@ -51,7 +51,8 @@
             To | <a class="mr-2" href=""> {{ message.shift }}</a>
             <a class="mr-2 date" href="">{{ message.pub_date }}</a>
             <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
-            <i class="material-icons" style="vertical-align: middle;">done</i> |
+            <i class="material-icons" style="vertical-align: middle;">done</i> | 
+            {{ message.completed_by }}
           </small>
         </div>
       </div>
