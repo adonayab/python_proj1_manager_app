@@ -23,7 +23,6 @@ notify a person in charge about anything new even though they are away from work
 - Email a schedule: Admins can email schedules to other users
 - Grill controller: A user can start a timer for a new food displayed on the Grill
 
-#### Some Features are not working
 
 ### Technologies
 - Python
@@ -31,3 +30,8 @@ notify a person in charge about anything new even though they are away from work
 - MySQL
 - SQLAlchemy
 - Jinja2 templates
+
+
+### Some Features are not working
+- Scheduling
+- Grill
