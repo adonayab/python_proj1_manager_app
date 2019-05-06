@@ -5,7 +5,7 @@ from app import app, db
 from hashutils import check_pw_hash
 from datetime import datetime
 from forms import RegistrationForm, LoginForm, MessageForm, TaskForm
-from helpers import badge_general, badge_urgent
+from helpers import badge_general, badge_urgent, message_query
 
 # @app.before_request
 # def require_login():
@@ -78,46 +78,23 @@ def newpost():
 
 @app.route('/messages/', defaults={'category': ''})
 @app.route('/messages/<category>')
-def message(category):
+def messages(category):
+    
     new_u = True if badge_urgent(
     ) else False  # This is for the urgent note badge
     new_g = True if badge_general(
     ) else False  # This is for the general note badge
+    
     form = MessageForm()
-    cat_lower = category.lower()
 
-    if cat_lower == 'urgent':
-        messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
-            category=cat_lower).filter_by(status=0).all()
-        return render_template('messages.html',
-                               title="Urgent Messages",
-                               messages=messages,
-                               mark="Mark Completed",
-                               new_u=new_u,
-                               new_g=new_g,
-                               form=form)
-
-    if cat_lower == 'general':
-        messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
-            category=cat_lower).filter_by(status=0).all()
-        return render_template('messages.html',
-                               title="General Messages",
-                               messages=messages,
-                               mark="Mark Completed",
-                               new_g=new_g,
-                               new_u=new_u,
-                               form=form)
-
-    if cat_lower != 'urgent' and cat_lower != 'general':
-        messages = Message.query.order_by(Message.pub_date.desc()).filter(
-            Message.category != 'Daily Task').filter_by(status=0).all()
-        return render_template('messages.html',
-                               title="Messages",
-                               messages=messages,
-                               mark="Mark Completed",
-                               new_g=new_g,
-                               new_u=new_u,
-                               form=form)
+    messages = message_query(category.lower())
+    return render_template('messages.html',
+                            title="Messages",
+                            messages=messages,
+                            mark="Mark Completed",
+                            new_g=new_g,
+                            new_u=new_u,
+                            form=form)
 
 
 @app.route('/completed/', defaults={'id': ''})
