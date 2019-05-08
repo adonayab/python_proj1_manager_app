@@ -10,11 +10,7 @@ body {
   background-color: #1b2d3b;
 }
 
-h1 {
-  color: #000000;
-  font-family: 'Oswald', sans-serif;
-}
-h2 {
+h4, h2 {
   color: #424242;
   font-weight:  bold;
 }

@@ -73,8 +73,6 @@ def newpost():
         flash("Posted Note Successfully", 'success')
         return redirect('/messages')
 
-    return render_template('newpost.html', title='Message Post', form=form)
-
 
 @app.route('/messages/', defaults={'category': ''})
 @app.route('/messages/<category>')
