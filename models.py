@@ -1,5 +1,5 @@
 from app import db
-from hashutils import make_pw_hash
+from utils.hashutils import make_pw_hash
 from datetime import datetime
 
 class Message(db.Model):

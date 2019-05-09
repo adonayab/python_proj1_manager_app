@@ -31,7 +31,7 @@
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
           <li class="nav-item">
-            <a class="nav-link mr-2" href="{{ url_for('messages')}}">All Notifications</a>
+            <a class="nav-link mr-2" href="{{ url_for('notes.messages')}}">All Notifications</a>
           </li>
           <li class="nav-item">
             <a class="nav-link mr-2" href="">Schedule</a>
@@ -49,10 +49,10 @@
         {% if 'email' not in session %}
         <ul class="navbar-nav navbar-right">
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('login') }}">Login</a>
+            <a class="nav-link" href="{{ url_for('users.login') }}">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="{{ url_for('signup') }}">Signup</a>
+            <a class="nav-link" href="{{ url_for('users.signup') }}">Signup</a>
           </li>
         </ul>
         {% endif %}

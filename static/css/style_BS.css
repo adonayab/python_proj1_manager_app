@@ -7,7 +7,7 @@ body {
 }
 
 .bg-black {
-  background-color: #1b2d3b;
+  background-color: #1e3242;
 }
 
 h4, h2 {
@@ -41,12 +41,12 @@ a:hover {
 
 .card {
   background: #faf9f9;
-  border-radius: 5px !important;
+  border-radius: 5px;
 }
 
 .card:hover {
   background: #ffffff;
-  border-radius: 5px !important;
+  border-radius: 5px;
   box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
 }
 
