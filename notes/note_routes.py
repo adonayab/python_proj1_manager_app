@@ -90,5 +90,4 @@ def mark_completion(id):
                            form=form,
                            new_g=new_g,
                            new_u=new_u)
-
-
+                           
