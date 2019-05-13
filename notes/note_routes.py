@@ -46,7 +46,6 @@ def messages(category):
     return render_template('messages.html',
                             title="Messages",
                             messages=messages,
-                            mark="Mark Completed",
                             new_g=new_g,
                             new_u=new_u,
                             form=form)
@@ -85,7 +84,6 @@ def mark_completion(id):
     return render_template('messages.html',
                            title="Completed Messages",
                            messages=messages,
-                           mark="Unmark Completed",
                            completed_by=completed_by,
                            form=form,
                            new_g=new_g,

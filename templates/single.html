@@ -17,6 +17,15 @@
         <div class="card-body">
           <h2 class="card-title">
             <a href="" class="title">{{ message.title }}</a>
+            <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
+              <button type="submit" class="btn btn-info btn-sm float-right ml-2">
+                {% if message.status%}
+                  Unmark Completed
+                {% else %}
+                  Mark Completed
+                {% endif %}
+              </button>
+            </form>
             <button class="btn btn-danger btn-sm float-right ml-2" data-toggle="modal"
               data-target="#deleteModal">Delete</button>
             <button class="btn btn-warning btn-sm float-right" data-toggle="modal"
