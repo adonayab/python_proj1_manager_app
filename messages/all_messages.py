@@ -3,11 +3,9 @@ from models import User, Message
 from main import db
 from messages.forms import MessageForm
 from utils.helpers import badge_general, badge_urgent, message_query
-
-
 from flask import Blueprint
 
-all_messages = Blueprint('messages', __name__)
+all_messages = Blueprint('all_messages', __name__)
 
 @all_messages.route('/newpost', methods=['POST'])
 def newpost():
