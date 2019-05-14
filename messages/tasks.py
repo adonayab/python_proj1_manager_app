@@ -1,16 +1,12 @@
-from flask import request, redirect, render_template, session, flash
+from flask import redirect, render_template, session, flash
 from models import User, Message
 from main import db
-from datetime import datetime
-from messages.forms import MessageForm, TaskForm
-from utils.helpers import badge_general, badge_urgent, message_query
-
+from messages.forms import TaskForm
+from utils.helpers import badge_general, badge_urgent
 
 from flask import Blueprint
 
 tasks = Blueprint('tasks', __name__)
-
-
 
 @tasks.route('/daily-tasks')
 def daily_task():

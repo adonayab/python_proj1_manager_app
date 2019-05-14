@@ -1,17 +1,17 @@
-from flask import request, redirect, render_template, session, flash
-from models import User, Message
+from flask import redirect, render_template, session, flash
+from models import Message
 from main import db
 from datetime import datetime
-from messages.forms import MessageForm, TaskForm
-from utils.helpers import badge_general, badge_urgent, message_query
+from messages.forms import MessageForm
+from utils.helpers import badge_general, badge_urgent
 
 
 from flask import Blueprint
 
-singles = Blueprint('singles', __name__)
+single_messages = Blueprint('single_messages', __name__)
 
-@singles.route('/messages/', defaults={'id': ''})
-@singles.route('/single/<int:id>', methods=['GET'])
+@single_messages.route('/messages/', defaults={'id': ''})
+@single_messages.route('/single/<int:id>', methods=['GET'])
 def single(id):
     new_u = True if badge_urgent(
     ) else False  # This is for the urgent note badge
@@ -33,8 +33,8 @@ def single(id):
                            new_u=new_u)
 
 
-@singles.route('/messages/', defaults={'id': ''})
-@singles.route('/single/<int:id>/delete', methods=['POST'])
+@single_messages.route('/messages/', defaults={'id': ''})
+@single_messages.route('/single/<int:id>/delete', methods=['POST'])
 def delete_single(id):
 
     if 'email' not in session:
@@ -52,8 +52,8 @@ def delete_single(id):
     return redirect('/messages')
 
 
-@singles.route('/messages/', defaults={'id': ''})
-@singles.route('/single/<int:id>/edit', methods=['POST'])
+@single_messages.route('/messages/', defaults={'id': ''})
+@single_messages.route('/single/<int:id>/edit', methods=['POST'])
 def edit_single(id):
 
     message = Message.query.filter_by(id=id).first()
