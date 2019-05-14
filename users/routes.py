@@ -1,6 +1,6 @@
 from flask import redirect, render_template, session, flash
 from models import User
-from app import db
+from main import db
 from utils.hashutils import check_pw_hash
 from users.forms import RegistrationForm, LoginForm
 

@@ -16,7 +16,7 @@
   </div>
 </div>
 
-<!-- Displaying all the notes on the main page -->
+<!-- Displaying all the messages on the main page -->
 {% if messages %}
 {% for message in messages %}
 <div class="container-fluid">
@@ -34,6 +34,7 @@
                 Mark Completed
                 {% endif %}
               </button>
+            </form>
           </h4>
           <p class="card-text text-truncate">{{ message.content }}</p>
         </div>

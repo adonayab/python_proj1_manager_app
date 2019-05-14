@@ -1,16 +1,15 @@
 from flask import request, redirect, render_template, session, flash
 from models import User, Message
-from app import db
-from datetime import datetime
-from notes.forms import MessageForm, TaskForm
+from main import db
+from messages.forms import MessageForm
 from utils.helpers import badge_general, badge_urgent, message_query
 
 
 from flask import Blueprint
 
-notes = Blueprint('notes', __name__)
+all_messages = Blueprint('messages', __name__)
 
-@notes.route('/newpost', methods=['POST'])
+@all_messages.route('/newpost', methods=['POST'])
 def newpost():
 
     if 'email' not in session:
@@ -31,8 +30,8 @@ def newpost():
         return redirect('/messages')
 
 
-@notes.route('/messages/', defaults={'category': ''})
-@notes.route('/messages/<category>')
+@all_messages.route('/messages/', defaults={'category': ''})
+@all_messages.route('/messages/<category>')
 def messages(category):
     
     new_u = True if badge_urgent(
@@ -46,13 +45,14 @@ def messages(category):
     return render_template('messages.html',
                             title="Messages",
                             messages=messages,
+                            mark="Mark Completed",
                             new_g=new_g,
                             new_u=new_u,
                             form=form)
 
 
-@notes.route('/completed/', defaults={'id': ''})
-@notes.route('/completed/<int:id>', methods=['Get', 'POST'])
+@all_messages.route('/completed/', defaults={'id': ''})
+@all_messages.route('/completed/<int:id>', methods=['Get', 'POST'])
 def mark_completion(id):
 
     new_u = True if badge_urgent() else False  # This is for the urgent note badge
@@ -77,13 +77,14 @@ def mark_completion(id):
             message.completed_by = user.name
             db.session.commit()
             completed_by = message.completed_by
-            return redirect('/completed')
+            return redirect('/messages')
 
     messages = Message.query.order_by(
         Message.pub_date.desc()).filter_by(status=1).all()
     return render_template('messages.html',
                            title="Completed Messages",
                            messages=messages,
+                           mark="Mark Not Completed",
                            completed_by=completed_by,
                            form=form,
                            new_g=new_g,

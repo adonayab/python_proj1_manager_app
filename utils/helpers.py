@@ -1,5 +1,4 @@
-from flask_sqlalchemy import SQLAlchemy
-from models import User, Message
+from models import Message
 
 def badge_urgent():
     urgent_messages = Message.query.filter_by(
@@ -13,12 +12,11 @@ def badge_general():
     if general_messages:
         return True
 
-
 def message_query(category=None):
-    if category == 'Urgent':
+    if category == 'urgent':
         messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
             category='Urgent').filter_by(status=0).all()
-    elif category == 'General':
+    elif category == 'general':
         messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
             category='General').filter_by(status=0).all()
     else:

@@ -1,8 +1,8 @@
 from flask import request, redirect, render_template, session, flash
 from models import User, Message
-from app import db
+from main import db
 from datetime import datetime
-from notes.forms import MessageForm, TaskForm
+from messages.forms import MessageForm, TaskForm
 from utils.helpers import badge_general, badge_urgent, message_query
 
 
