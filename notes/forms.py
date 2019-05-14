@@ -8,7 +8,7 @@ class MessageForm(FlaskForm):
   content = TextAreaField('Content', validators=[DataRequired()])
   category = SelectField(
         'Category',
-        choices=[('Urgent','Urgent'), ('General','General'), ('Daily Task','Daily Task')]
+        choices=[('Urgent','Urgent'), ('General','General')]
     )
   shift = SelectField(
         'Shift',

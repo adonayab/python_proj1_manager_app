@@ -15,12 +15,12 @@ def badge_general():
 
 
 def message_query(category=None):
-    if category == 'urgent':
+    if category == 'Urgent':
         messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
-            category='urgent').filter_by(status=0).all()
-    elif category == 'general':
+            category='Urgent').filter_by(status=0).all()
+    elif category == 'General':
         messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
-            category='general').filter_by(status=0).all()
+            category='General').filter_by(status=0).all()
     else:
         messages = Message.query.order_by(Message.pub_date.desc()).filter(
         Message.category != 'Daily Task').filter_by(status=0).all()

@@ -86,3 +86,12 @@ a:hover {
 .th-e {
   background-color: #e0e0e0;
 }
+
+.bg-loginout {
+  background: #fdfcfc;
+  padding: 10px 20px;
+  border: 1px solid #dddddd;
+  border-radius: 3px;
+  margin-bottom: 20px;
+  width: 50%;
+}
