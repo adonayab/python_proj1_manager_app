@@ -35,7 +35,7 @@ def login():
         else:
             flash('Login Unsuccessful. Please check email and password',
                   'danger')
-    return render_template('login.html', title='Message Login', form=form)
+    return render_template('login.html', title='Login', form=form)
 
 
 @users.route('/signup', methods=['POST', 'GET'])
@@ -52,4 +52,4 @@ def signup():
         flash(f'Account created for {form.name.data}', 'success')
         return redirect('/login')
 
-    return render_template('signup.html', title='Messagez Signup', form=form)
+    return render_template('signup.html', title='Register', form=form)
