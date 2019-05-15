@@ -1,6 +1,6 @@
 from flask import redirect, render_template, session, flash
 from models import Message
-from main import db
+from app import db
 from datetime import datetime
 from messages.forms import MessageForm
 from utils.helpers import badge_general, badge_urgent

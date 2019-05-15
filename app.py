@@ -1,4 +1,18 @@
-from main import app
+from flask import Flask
+from flask_sqlalchemy import SQLAlchemy
+from config import Config
 
-if __name__ == "__main__":
-    app.run()
+app = Flask(__name__)
+app.config.from_object(Config)
+db = SQLAlchemy(app)
+app.secret_key = 'uahfkahdlfhuhkn8392uh'
+
+from users.routes import users
+from messages.all_messages import all_messages
+from messages.single_messages import single_messages
+from messages.tasks import tasks
+
+app.register_blueprint(users)
+app.register_blueprint(all_messages)
+app.register_blueprint(single_messages)
+app.register_blueprint(tasks)

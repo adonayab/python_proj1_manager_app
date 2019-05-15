@@ -1,4 +1,4 @@
-from main import db
+from app import db
 from utils.hashutils import make_pw_hash
 from datetime import datetime
 
