@@ -25,7 +25,7 @@ def logout():
 @users.route('/login', methods=['POST', 'GET'])
 def login():
     if 'email' in session:
-        return redirect('/messsages')
+        return redirect('/messages')
     form = LoginForm()
     if form.validate_on_submit():
         user = User.query.filter_by(email=form.email.data).first()
