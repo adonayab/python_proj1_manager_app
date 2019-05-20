@@ -60,11 +60,11 @@ def mark_completion(id):
     completed_by = ''
 
     if request.method == 'POST':
-        message = Message.query.filter_by(id=id).first()
-        user = User.query.filter_by(email=session['email']).first()
         if 'email' not in session:
             flash('Login to Mark this Note', 'danger')
             return redirect('/login')
+        message = Message.query.filter_by(id=id).first()
+        user = User.query.filter_by(email=session['email']).first()        
         if message.status == 1:
             message.status = 0
             message.completed_by = ''
