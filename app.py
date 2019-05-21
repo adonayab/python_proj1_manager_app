@@ -11,8 +11,10 @@ from users.routes import users
 from messages.all_messages import all_messages
 from messages.single_messages import single_messages
 from messages.tasks import tasks
+from schedule.schedule import schedules
 
 app.register_blueprint(users)
 app.register_blueprint(all_messages)
 app.register_blueprint(single_messages)
 app.register_blueprint(tasks)
+app.register_blueprint(schedules)
