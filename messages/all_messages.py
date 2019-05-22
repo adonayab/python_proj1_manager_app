@@ -7,6 +7,7 @@ from flask import Blueprint
 
 all_messages = Blueprint('all_messages', __name__)
 
+
 @all_messages.route('/newpost', methods=['POST'])
 def newpost():
 
@@ -31,22 +32,20 @@ def newpost():
 @all_messages.route('/messages/', defaults={'category': ''})
 @all_messages.route('/messages/<category>')
 def messages(category):
-    
-    new_u = True if badge_urgent(
-    ) else False  # This is for the urgent note badge
-    new_g = True if badge_general(
-    ) else False  # This is for the general note badge
-    
+
+    new_u = True if badge_urgent() else False  # This is for the urgent note badge
+    new_g = True if badge_general() else False  # This is for the general note badge
+
     form = MessageForm()
 
     messages = message_query(category.lower())
     return render_template('messages.html',
-                            title="Messages",
-                            messages=messages,
-                            mark="Mark Completed",
-                            new_g=new_g,
-                            new_u=new_u,
-                            form=form)
+                           title="Messages",
+                           messages=messages,
+                           mark="Mark Completed",
+                           new_g=new_g,
+                           new_u=new_u,
+                           form=form)
 
 
 @all_messages.route('/completed/', defaults={'id': ''})
@@ -64,17 +63,19 @@ def mark_completion(id):
             flash('Login to Mark this Note', 'danger')
             return redirect('/login')
         message = Message.query.filter_by(id=id).first()
-        user = User.query.filter_by(email=session['email']).first()        
+        user = User.query.filter_by(email=session['email']).first()
         if message.status == 1:
             message.status = 0
             message.completed_by = ''
             db.session.commit()
+            flash(f"{message.title} unmarked as complete by {user.name}", 'warning')
             return redirect('/completed')
         else:
             message.status = 1
             message.completed_by = user.name
             db.session.commit()
             completed_by = message.completed_by
+            flash(f"{message.title} marked complete by {user.name}", 'success')
             return redirect('/messages')
 
     messages = Message.query.order_by(
@@ -87,4 +88,3 @@ def mark_completion(id):
                            form=form,
                            new_g=new_g,
                            new_u=new_u)
-                           
