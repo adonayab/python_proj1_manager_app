@@ -1,26 +1,80 @@
+<!-- Macro for tabs under all notifications (Urgent, General, Completed) -->
+
 {% macro notification_navs(new_u, new_g) %}
 <div class="container-fluid">
   <div class="row nav">
     <div class="col-sm-12 col-md-3 urgent nav-item">
-      <a class="nav-link mb-2 mt-2 text-center urgent-text" href="/messages/urgent">Urgent
+      <a class="nav-link mb-2 mt-2 text-center urgent-text text-uppercase" href="/messages/urgent">Urgent
         {% if new_u %}
         <span class="badge ml-2 badge-pill badge-danger">NEW</span>
         {% endif %}
       </a>
     </div>
     <div class="col-sm-12 col-md-3 general nav-item">
-      <a class="nav-link g mb-2 mt-2 text-center general-text" href="/messages/general">General
+      <a class="nav-link g mb-2 mt-2 text-center general-text text-uppercase" href="/messages/general">General
         {% if new_g %}
         <span class="badge ml-2 badge-pill badge-danger">NEW</span>
         {% endif %}
       </a>
     </div>
     <div class="col-sm-12 col-md-3 completed nav-item">
-      <a class="nav-link c mb-2 mt-2 text-center completed-text" href="/completed">Completed</a>
+      <a class="nav-link c mb-2 mt-2 text-center completed-text text-uppercase" href="/completed">Completed</a>
     </div>
     <div class="col-sm-12 col-md-3 daily-task nav-item">
-      <a class="nav-link d mb-2 mt-2 text-center dailytask-text" href="/daily-tasks">Daily Task</a>
+      <a class="nav-link d mb-2 mt-2 text-center dailytask-text text-uppercase" href="/daily-tasks">Daily Task</a>
     </div>
   </div>
 </div>
-{% endmacro%}
+{% endmacro %}
+
+<!-- Macro for a message box -->
+
+{% macro message_box(message, all_messages, single_message, trunc) %}
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-sm-12 col-md-10 col-lg-8">
+      <div class="card mb-3">
+        <div class="card-body">
+          <h4 class="card-title">
+            <a href="/single/{{ message.id }}" class="title">{{ message.title }}</a>
+            <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
+              <button type="submit" class="btn btn-info btn-sm float-right ml-2">
+                {% if message.status%}
+                Unmark Completed
+                {% else %}
+                Mark Completed
+                {% endif %}
+              </button>
+            </form>
+            {% if single_message %}
+              <button class="btn btn-danger btn-sm float-right ml-2" data-toggle="modal"
+              data-target="#deleteModal">Delete</button>
+              <button class="btn btn-warning btn-sm float-right" data-toggle="modal"
+              data-target="#editModal">Edit</button>
+            {% endif %}
+          </h4>
+          <p class="card-text {{ trunc }}">{{ message.content }}</p>
+        </div>
+        <div class="card-footer">
+          <small class="text-muted">
+            From | <a class="mr-2" href=""> {{ message.owner.name }}</a>
+            To | <a class="mr-2" href=""> {{ message.shift }}</a>
+            <a class="mr-2 date" href="">{{ message.pub_date.strftime('%d %b, %Y %I:%m %p') }}</a>
+            <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
+            {% if message.status == 1 %}
+            <i class="material-icons" style="vertical-align: middle;">done</i> | {{ message.completed_by }}
+            {% endif %}
+            {% if all_messages %}
+              <a class="float-right" href="/single/{{ message.id }}">
+                <i class="material-icons">settings</i>
+              </a>
+            {% endif %}
+          </small>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+{% endmacro %}

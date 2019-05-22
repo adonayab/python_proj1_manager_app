@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import notification_navs%}
+{% from 'macros.html' import notification_navs, message_box%}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs -->
@@ -10,43 +10,9 @@
 
 <!-- Displaying single message -->
 {% if message %}
-<div class="container-fluid mt-3 ">
-  <div class="row">
-    <div class="col-sm-12 col-md-10 col-lg-8">
-      <div class="card mb-3">
-        <div class="card-body">
-          <h2 class="card-title">
-            <a href="" class="title">{{ message.title }}</a>
-            <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
-              <button type="submit" class="btn btn-info btn-sm float-right ml-2">
-                {% if message.status%}
-                  Unmark Completed
-                {% else %}
-                  Mark Completed
-                {% endif %}
-              </button>
-            </form>
-            <button class="btn btn-danger btn-sm float-right ml-2" data-toggle="modal"
-              data-target="#deleteModal">Delete</button>
-            <button class="btn btn-warning btn-sm float-right" data-toggle="modal"
-              data-target="#editModal">Edit</button>
-          </h2>
-          <p class="card-text">{{ message.content }}</p>
-        </div>
-        <div class="card-footer">
-          <small class="text-muted">
-            From | <a class="mr-2" href=""> {{ message.owner.name }}</a>
-            To | <a class="mr-2" href=""> {{ message.shift }}</a>
-            <a class="mr-2 date" href="">{{ message.pub_date }}</a>
-            <a class="mr-2 text-uppercase font-weight-bold" href="">{{ message.category }}</a>
-            <i class="material-icons" style="vertical-align: middle;">done</i> | 
-            {{ message.completed_by }}
-          </small>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
+{% block message_box %}
+{{ message_box(message, single_message = true) }}
+{% endblock%}
 
 <!-- This is the delete modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
