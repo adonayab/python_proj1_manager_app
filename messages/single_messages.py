@@ -25,10 +25,13 @@ def single(id):
     form.shift.data = message.shift
     form.content.data = message.content
 
+    add_form = MessageForm()
+
     return render_template('single.html',
                            title=message.title,
                            message=message,
                            form=form,
+                           add_form=add_form,
                            new_g=new_g,
                            new_u=new_u)
 
@@ -81,5 +84,3 @@ def edit_single(id):
                            title="Edit",
                            form=form,
                            message=message)
-
-

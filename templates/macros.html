@@ -1,5 +1,4 @@
 <!-- Macro for tabs under all notifications (Urgent, General, Completed) -->
-
 {% macro notification_navs(new_u, new_g) %}
 <div class="container-fluid">
   <div class="row nav">
@@ -27,8 +26,19 @@
 </div>
 {% endmacro %}
 
-<!-- Macro for a message box -->
+<!-- Macro for leave a note button -->
+{% macro add_btn() %}
+<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-3 mt-1 mb-3">
+        <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Leave a Note</button>
+      </div>
+    </div>
+  </div>
+{% endmacro %}
 
+
+<!-- Macro for a message box -->
 {% macro message_box(message, all_messages, single_message, trunc) %}
 
 <div class="container-fluid">
@@ -73,6 +83,86 @@
           </small>
         </div>
       </div>
+    </div>
+  </div>
+</div>
+
+{% endmacro %}
+
+<!-- Macro for the Add or edit Modal  -->
+
+{% macro add_or_edit_modal(form, modal_id, add, edit, message) %}
+
+<div class="modal fade" id="{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        {% if add %}
+          <h5 class="modal-title" id="addModalLabel">New Message</h5>
+        {% endif %} 
+        {% if edit %}
+          <h5 class="modal-title" id="addModalLabel">Edit ({{ message.title }})</h5>
+        {% endif %}       
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        {% if add %}
+        <form method="POST" action="/newpost">
+        {% endif %}  
+        {% if edit %}
+        <form method="POST" action="/single/{{ message.id }}/edit">
+        {% endif %}
+
+          {{ form.hidden_tag() }}
+
+          <div class="form-group">
+            {{ form.title.label(class="form-control-label") }}
+            {% if form.title.errors %}
+            {{ form.title(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.title.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ form.title(class="form-control form-control-lg") }}
+            {% endif %}
+          </div>
+
+          <div class="form-group">
+            {{ form.category.label(class="form-control-label") }}
+            {{ form.category(class="form-control form-control-lg custom-select") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.shift.label(class="form-control-label") }}
+            {{ form.shift(class="form-control form-control-lg custom-select") }}
+          </div>
+
+          <div class="form-group">
+            {{ form.content.label(class="form-control-label") }}
+            {% if form.content.errors %}
+            {{ form.content(class="form-control form-control-lg is-invalid") }}
+            <div class="invalid-feedback">
+              {% for error in form.content.errors %}
+              <span>{{ error }}</span>
+              {% endfor %}
+            </div>
+            {% else %}
+            {{ form.content(class="form-control form-control-lg", rows='5') }}
+            {% endif %}
+          </div>
+
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <div class="unset-form form-group">
+          {{ form.submit(class="btn btn-dark")}}
+        </div>
+      </div>
+      </form>
     </div>
   </div>
 </div>

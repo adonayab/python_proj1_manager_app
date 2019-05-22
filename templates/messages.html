@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% from 'macros.html' import notification_navs, message_box %}
+{% from 'macros.html' import notification_navs, message_box, add_or_edit_modal %}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs: The two arguments are for the badges -->
@@ -18,82 +18,15 @@
 
 <!-- Displaying all the messages on the main page -->
 {% if messages %}
-
-{% block message_box %}
-
-{% for message in messages %}
-{{ message_box(message, all_messages = true, trunc = 'text-truncate') }}
-{% endfor %}
-
-{% endblock%}
-
+  {% block message_box %}
+    {% for message in messages %}
+      {{ message_box(message, all_messages = true, trunc = 'text-truncate') }}
+    {% endfor %}
+  {% endblock%}
 {% endif %}
 
-<!-- This is the Add modal -->
-<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="addModalLabel">New Note</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-
-        <form method="POST" action="/newpost">
-          {{ form.hidden_tag() }}
-
-          <div class="form-group">
-            {{ form.title.label(class="form-control-label") }}
-            {% if form.title.errors %}
-            {{ form.title(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.title.errors %}
-              <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-            {% else %}
-            {{ form.title(class="form-control form-control-lg") }}
-            {% endif %}
-          </div>
-
-          <div class="form-group">
-            {{ form.category.label(class="form-control-label") }}
-            {{ form.category(class="form-control form-control-lg custom-select") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.shift.label(class="form-control-label") }}
-            {{ form.shift(class="form-control form-control-lg custom-select") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.content.label(class="form-control-label") }}
-            {% if form.content.errors %}
-            {{ form.content(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.content.errors %}
-              <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-            {% else %}
-            {{ form.content(class="form-control form-control-lg", rows='5') }}
-            {% endif %}
-          </div>
-
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <div class="unset-form form-group">
-          {{ form.submit(class="btn btn-dark")}}
-        </div>
-      </div>
-      </form>
-    </div>
-  </div>
-</div>
-
-
+{% block add_or_edit_modal %}
+{{ add_or_edit_modal(form=form, modal_id='addModal', add=true) }}
+{% endblock%}
 
 {% endblock %}
