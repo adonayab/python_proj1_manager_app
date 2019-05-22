@@ -4,31 +4,31 @@
   {{ form.hidden_tag() }}
   <!-- This is to protect from form forgery-->
   <fieldset class="form-group">
-    <h2>LogIn</h2>
+    <h2>Login</h2>
     <div class="form-group">
       {{ form.email.label(class="form-control-label") }}
       {% if form.email.errors %}
-      {{ form.email(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6") }}
+      {{ form.email(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
       <div class="invalid-feedback">
         {% for error in form.email.errors %}
         <span>{{ error }}</span>
         {% endfor %}
       </div>
       {% else %}
-      {{ form.email(class="form-control form-control-lg col-12 col-sm-8 col-md-6") }}
+      {{ form.email(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
       {% endif %}
     </div>
     <div class="form-group">
       {{ form.password.label(class="form-control-label") }}
       {% if form.password.errors %}
-      {{ form.password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6") }}
+      {{ form.password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
       <div class="invalid-feedback">
         {% for error in form.password.errors %}
         <span>{{ error }}</span>
         {% endfor %}
       </div>
       {% else %}
-      {{ form.password(class="form-control form-control-lg col-12 col-sm-8 col-md-6") }}
+      {{ form.password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
       {% endif %}
     </div>
   </fieldset>
@@ -39,7 +39,7 @@
 <div class="border-top pt-3">
   <small class='text-muted'>
     Or |
-    <a class="ml-2" href="/signup">Sign Up</a>
+    <a class="ml-2" href="/signup">Register</a>
   </small>
 </div>
 {% endblock content %}

@@ -10,54 +10,54 @@
         {{ form.name.label(class="form-control-label") }}
 
         {% if form.name.errors %}
-        {{ form.name(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6") }}
+        {{ form.name(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
         <div class="invalid-feedback">
           {% for error in form.name.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
         {% else %}
-        {{ form.name(class="form-control form-control-lg col-12 col-sm-8 col-md-6") }}
+        {{ form.name(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
         {% endif %}
 
       </div>
       <div class="form-group">
         {{ form.email.label(class="form-control-label") }}
         {% if form.email.errors %}
-        {{ form.email(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6") }}
+        {{ form.email(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
         <div class="invalid-feedback">
           {% for error in form.email.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
         {% else %}
-        {{ form.email(class="form-control form-control-lg col-12 col-sm-8 col-md-6") }}
+        {{ form.email(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
         {% endif %}
       </div>
       <div class="form-group">
         {{ form.password.label(class="form-control-label") }}
         {% if form.password.errors %}
-        {{ form.password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6") }}
+        {{ form.password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
         <div class="invalid-feedback">
           {% for error in form.password.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
         {% else %}
-        {{ form.password(class="form-control form-control-lg col-12 col-sm-8 col-md-6") }}
+        {{ form.password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
         {% endif %}
       </div>
       <div class="form-group">
         {{ form.confirm_password.label(class="form-control-label") }}
         {% if form.confirm_password.errors %}
-        {{ form.confirm_password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6") }}
+        {{ form.confirm_password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
         <div class="invalid-feedback">
           {% for error in form.confirm_password.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
         {% else %}
-        {{ form.confirm_password(class="form-control form-control-lg col-12 col-sm-8 col-md-6") }}
+        {{ form.confirm_password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
         {% endif %}
       </div>
     </fieldset>
@@ -70,7 +70,7 @@
 <div class="border-top pt-3">
   <small class='text-muted'>
     Or |
-    <a class="ml-2" href="/login">Log in</a>
+    <a class="ml-2" href="/login">Login</a>
   </small>
 </div>
 {% endblock content %}
