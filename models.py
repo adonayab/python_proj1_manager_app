@@ -48,6 +48,6 @@ class UserSchedule(db.Model):
     saturday = db.Column(db.String(120))
     sunday = db.Column(db.String(120))
 
-    def __init__(self, created_by, week):
-        self.created_by = created_by
+    def __init__(self, name, week):
+        self.name = name
         self.week = week

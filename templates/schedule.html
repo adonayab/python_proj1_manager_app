@@ -1,14 +1,41 @@
 {% extends "base.html" %}
-{% from 'macros.html' import select_hours, insert_schedule_row %}
+{% from 'macros.html' import gen_schedule_form %}
 {% block content %}
 
 <div class="container-fluid">
-  <form action="/schedule/create">
-    <table class="table">
+  <form action="/schedule" method='post'>
+
+    <div class="row">
+      <div class="col-1">
+        <button class="btn btn-default">From:</button>
+      </div>
+      <div class="col-3">
+        <div class="input-group">
+          <input type="date" class="form-control" name='start_day' />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="material-icons">calendar_today</i>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-1">
+        <button class="btn btn-default">To:</button>
+      </div>
+      <div class="col-3">
+        <div class="input-group">
+          <input type="date" class="form-control" name='end_day' />
+          <div class="input-group-prepend">
+            <div class="input-group-text">
+              <i class="material-icons">calendar_today</i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <table class="table mt-2">
       <thead>
-        <tr>
-          <td><button type="submit" class="btn btn-outline-dark">Generate Table</button></td>
-        </tr>
         <tr>
           <th>Emp. Name</th>
           <th>Friday</th>
@@ -20,13 +47,46 @@
           <th>Thursday</th>
         </tr>
       </thead>
+      </tr>
       <tbody>
-        {% for user in users %}
-        {{ insert_schedule_row(users) }}
-        {% endfor %}
+        {{ gen_schedule_form(form=form, users=users) }}
       </tbody>
     </table>
+    <div class="row">
+      <div class="col-12">
+          <button type="submit" class="btn btn-block btn-dark btn-sm">Submit</button>
+      </div>
+    </div>
   </form>
+  <table class="table mt-2">
+    <thead>
+      <tr>
+        <th>Emp. Name</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in current_users_on_schedule %}
+      <tr>
+        <td>user.name</td>
+        <td>user.friday</td>
+        <td>user.saturday</td>
+        <td>user.sunday</td>
+        <td>user.monday</td>
+        <td>user.tuesday</td>
+        <td>user.wednesday</td>
+        <td>user.thursday</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+
 </div>
 
 {% endblock %}

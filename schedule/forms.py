@@ -1,15 +1,14 @@
 from flask_wtf import FlaskForm
-from wtforms import StringField, SubmitField, TextAreaField,SelectField
+from wtforms import StringField, SubmitField, TextAreaField, SelectField
 from wtforms.validators import DataRequired
 
-time_list = ['OFF', 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
-time_state = ['AM', 'PM']
+time_list = [('OFF', 'OFF'), (1, 1), (2, 2), (3, 3), (4, 4), (5, 5),
+             (6, 6), (7, 7), (8, 8), (9, 9), (10, 10), (11, 11), (12, 12)]
+time_state = [('OFF', 'OFF'), ('AM', 'AM'), ('PM', 'PM')]
+
 
 class ScheduleForm(FlaskForm):
-
-    name = StringField('Title', validators=[DataRequired()])
-    week = StringField('Title', validators=[DataRequired()])
-
+  
     start_friday = SelectField('', choices=time_list)
     start_friday_state = SelectField('', choices=time_state)
     end_friday = SelectField('', choices=time_list)
@@ -44,5 +43,3 @@ class ScheduleForm(FlaskForm):
     start_thursday_state = SelectField('', choices=time_state)
     end_thursday = SelectField('', choices=time_list)
     end_thursday_state = SelectField('', choices=time_state)
-
-
