@@ -29,12 +29,12 @@
 <!-- Macro for leave a note button -->
 {% macro add_btn() %}
 <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-12 col-md-3 mt-1 mb-3">
-        <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Leave a Note</button>
-      </div>
+  <div class="row">
+    <div class="col-sm-12 col-md-3 mt-1 mb-3">
+      <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Leave a Note</button>
     </div>
   </div>
+</div>
 {% endmacro %}
 
 
@@ -58,9 +58,9 @@
               </button>
             </form>
             {% if single_message %}
-              <button class="btn btn-danger btn-sm float-right ml-2" data-toggle="modal"
+            <button class="btn btn-danger btn-sm float-right ml-2" data-toggle="modal"
               data-target="#deleteModal">Delete</button>
-              <button class="btn btn-warning btn-sm float-right" data-toggle="modal"
+            <button class="btn btn-warning btn-sm float-right" data-toggle="modal"
               data-target="#editModal">Edit</button>
             {% endif %}
           </h4>
@@ -76,9 +76,9 @@
             <i class="material-icons" style="vertical-align: middle;">done</i> | {{ message.completed_by }}
             {% endif %}
             {% if all_messages %}
-              <a class="float-right" href="/single/{{ message.id }}">
-                <i class="material-icons">settings</i>
-              </a>
+            <a class="float-right" href="/single/{{ message.id }}">
+              <i class="material-icons">settings</i>
+            </a>
             {% endif %}
           </small>
         </div>
@@ -93,16 +93,17 @@
 
 {% macro add_or_edit_modal(form, modal_id, add, edit, message) %}
 
-<div class="modal fade" id="{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="addModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+  aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
         {% if add %}
-          <h5 class="modal-title" id="addModalLabel">New Message</h5>
-        {% endif %} 
+        <h5 class="modal-title" id="addModalLabel">New Message</h5>
+        {% endif %}
         {% if edit %}
-          <h5 class="modal-title" id="addModalLabel">Edit ({{ message.title }})</h5>
-        {% endif %}       
+        <h5 class="modal-title" id="addModalLabel">Edit ({{ message.title }})</h5>
+        {% endif %}
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -110,50 +111,50 @@
       <div class="modal-body">
         {% if add %}
         <form method="POST" action="/newpost">
-        {% endif %}  
-        {% if edit %}
-        <form method="POST" action="/single/{{ message.id }}/edit">
-        {% endif %}
-
-          {{ form.hidden_tag() }}
-
-          <div class="form-group">
-            {{ form.title.label(class="form-control-label") }}
-            {% if form.title.errors %}
-            {{ form.title(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.title.errors %}
-              <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-            {% else %}
-            {{ form.title(class="form-control form-control-lg") }}
+          {% endif %}
+          {% if edit %}
+          <form method="POST" action="/single/{{ message.id }}/edit">
             {% endif %}
-          </div>
 
-          <div class="form-group">
-            {{ form.category.label(class="form-control-label") }}
-            {{ form.category(class="form-control form-control-lg custom-select") }}
-          </div>
+            {{ form.hidden_tag() }}
 
-          <div class="form-group">
-            {{ form.shift.label(class="form-control-label") }}
-            {{ form.shift(class="form-control form-control-lg custom-select") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.content.label(class="form-control-label") }}
-            {% if form.content.errors %}
-            {{ form.content(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.content.errors %}
-              <span>{{ error }}</span>
-              {% endfor %}
+            <div class="form-group">
+              {{ form.title.label(class="form-control-label") }}
+              {% if form.title.errors %}
+              {{ form.title(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ form.title(class="form-control form-control-lg") }}
+              {% endif %}
             </div>
-            {% else %}
-            {{ form.content(class="form-control form-control-lg", rows='5') }}
-            {% endif %}
-          </div>
+
+            <div class="form-group">
+              {{ form.category.label(class="form-control-label") }}
+              {{ form.category(class="form-control form-control-lg custom-select") }}
+            </div>
+
+            <div class="form-group">
+              {{ form.shift.label(class="form-control-label") }}
+              {{ form.shift(class="form-control form-control-lg custom-select") }}
+            </div>
+
+            <div class="form-group">
+              {{ form.content.label(class="form-control-label") }}
+              {% if form.content.errors %}
+              {{ form.content(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.content.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ form.content(class="form-control form-control-lg", rows='5') }}
+              {% endif %}
+            </div>
 
       </div>
       <div class="modal-footer">
@@ -167,4 +168,72 @@
   </div>
 </div>
 
+{% endmacro %}
+
+<!-- This are the select buttons in schedule box for time of a day -->
+{% macro select_hours() %}
+<div class="form-row">
+  <div class="form-group col-auto">
+    <select class="form-control custom-select">
+      {% for n in range(0, 13) %}
+      <option>{{ n }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group col-auto">
+    <select class="form-control custom-select">
+      <option>AM</option>
+      <option>PM</option>
+    </select>
+  </div>
+</div>
+<div class="form-row">
+  <div class="form-group col-auto">
+    <select class="form-control custom-select">
+      {% for n in range(0, 13) %}
+      <option>{{ n }}</option>
+      {% endfor %}
+    </select>
+  </div>
+  <div class="form-group col-auto">
+    <select class="form-control custom-select">
+      <option>AM</option>
+      <option>PM</option>
+    </select>
+  </div>
+</div>
+{% endmacro %}
+
+<!-- Schedule row -->
+{% macro insert_schedule_row(users) %}
+<tr>
+  <td>
+    <select class="form-control custom-select">
+      {% for user in users %}
+      <option>{{ user.name }}</option>
+      {% endfor %}
+    </select>
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+  <td>
+    {{ select_hours() }}
+  </td>
+</tr>
 {% endmacro %}
