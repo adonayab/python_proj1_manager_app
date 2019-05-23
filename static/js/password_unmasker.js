@@ -1,4 +1,4 @@
-function myFunction() {
+function showHidePassFunc() {
   var password = document.querySelector(".passwordElement");
   if (password.type === "password") {
     password.type = "text";
