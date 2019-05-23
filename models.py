@@ -37,7 +37,8 @@ class User(db.Model):
 
 class UserSchedule(db.Model):
 
-    created_by = db.Column(db.String(120), nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False)
     week = db.Column(db.String(120), nullable=False)
     monday = db.Column(db.String(120))
     tuesday = db.Column(db.String(120))

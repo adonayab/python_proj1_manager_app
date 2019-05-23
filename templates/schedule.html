@@ -3,25 +3,28 @@
 {% block content %}
 
 <div class="container-fluid">
-  <form action="">
+  <form action="/schedule/create">
     <table class="table">
-      <tr>
-        <td><button class="btn btn-outline-dark" id="add">Add a Person</button></td>
-        <td><button class="btn btn-outline-info">Generate Table</button></td>
-      </tr>
-      <tr>
-        <th>Emp. Name</th>
-        <th>Friday</th>
-        <th>Saturday</th>
-        <th>Sunday</th>
-        <th>Monday</th>
-        <th>Tuesday</th>
-        <th>Wednesday</th>
-        <th>Thursday</th>
-      </tr>
-      {% for user in users %}
-      {{ insert_schedule_row(users) }}
-      {% endfor %}
+      <thead>
+        <tr>
+          <td><button type="submit" class="btn btn-outline-dark">Generate Table</button></td>
+        </tr>
+        <tr>
+          <th>Emp. Name</th>
+          <th>Friday</th>
+          <th>Saturday</th>
+          <th>Sunday</th>
+          <th>Monday</th>
+          <th>Tuesday</th>
+          <th>Wednesday</th>
+          <th>Thursday</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for user in users %}
+        {{ insert_schedule_row(users) }}
+        {% endfor %}
+      </tbody>
     </table>
   </form>
 </div>
