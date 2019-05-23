@@ -33,3 +33,20 @@ class User(db.Model):
         self.name = name
         self.email = email
         self.pw_hash = make_pw_hash(password)
+
+
+class UserSchedule(db.Model):
+
+    created_by = db.Column(db.String(120), nullable=False)
+    week = db.Column(db.String(120), nullable=False)
+    monday = db.Column(db.String(120))
+    tuesday = db.Column(db.String(120))
+    wednesday = db.Column(db.String(120))
+    thursday = db.Column(db.String(120))
+    friday = db.Column(db.String(120))
+    saturday = db.Column(db.String(120))
+    sunday = db.Column(db.String(120))
+
+    def __init__(self, created_by, week):
+        self.created_by = created_by
+        self.week = week
