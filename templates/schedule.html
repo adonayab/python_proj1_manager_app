@@ -1,6 +1,29 @@
 {% extends "base.html" %}
+{% from 'macros.html' import select_hours, insert_schedule_row %}
 {% block content %}
 
-<h1>This page is under construction ...</h1>
-<h2>Coming soon ...</h2>
+<div class="container-fluid">
+  <form action="">
+    <table class="table">
+      <tr>
+        <td><button class="btn btn-outline-dark" id="add">Add a Person</button></td>
+        <td><button class="btn btn-outline-info">Generate Table</button></td>
+      </tr>
+      <tr>
+        <th>Emp. Name</th>
+        <th>Friday</th>
+        <th>Saturday</th>
+        <th>Sunday</th>
+        <th>Monday</th>
+        <th>Tuesday</th>
+        <th>Wednesday</th>
+        <th>Thursday</th>
+      </tr>
+      {% for user in users %}
+      {{ insert_schedule_row(users) }}
+      {% endfor %}
+    </table>
+  </form>
+</div>
+
 {% endblock %}
