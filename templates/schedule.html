@@ -3,7 +3,7 @@
 {% block content %}
 
 <div class="container-fluid">
-  <form action="/schedule" method='post'>
+  <form action="{{url_for('schedules.add')}}" method='post'>
 
     <div class="row">
       <div class="col-1">
@@ -54,7 +54,7 @@
     </table>
     <div class="row">
       <div class="col-12">
-          <button type="submit" class="btn btn-block btn-dark btn-sm">Submit</button>
+        {{ form.submit(class="btn btn-block btn-dark")}}
       </div>
     </div>
   </form>
