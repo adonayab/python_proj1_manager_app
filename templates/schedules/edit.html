@@ -1,0 +1,34 @@
+{% extends "layout/base.html" %}
+{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar, table_head_days %}
+
+{% block content %}
+
+<div class="container-fluid">
+  {% if user_schedule %}
+  <div class="row">
+    <h2>Edit schedule for ({{ user_schedule.name }})</h2>
+  </div>
+  <div class="row">
+    <form action="{{url_for('schedules.add')}}" method='post'>
+      <table class="table mt-2">
+        {{ table_head_days() }}
+        <tbody>
+          {{ insert_schedule_row(users) }}
+        </tbody>
+      </table>
+      <div class="row">
+        <div class="col-12">
+          <input type="hidden" name="week_id" value="{{ user_schedule.week_id }}" />
+          <input type="hidden" name="old_id" value="{{ user_schedule.id }}" />
+          <button type="submit" class="btn btn-block btn-dark">Add To Schedule</button>
+          <a href="/schedule/add?id={{ user_schedule.week_id }}" class="btn btn-block btn-info">Go to this week Schedule</a>
+          <a href="/schedule" class="btn btn-block btn-danger">Exit</a>
+        </div>
+      </div>
+    </form>
+  </div>
+  {% endif %}
+
+</div>
+
+{% endblock %}

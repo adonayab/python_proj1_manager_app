@@ -98,6 +98,13 @@ def add():
         flash(
             f"Schedule for {user_schedule.name} created Successfully", 'success')
 
+        # When a editing a user schedule this block deletes the old user from the database
+        if request.form['old_id']:
+            old_id = request.form['old_id']
+            user_schedule = UserSchedule.query.filter_by(id=old_id).first()
+            db.session.delete(user_schedule)
+            db.session.commit()
+
         return redirect(f'/schedule/add?id={week_id}')
 
     users = User.query.all()
@@ -113,3 +120,14 @@ def view():
     all_schedules = WeekSchedule.query.all()
 
     return render_template('schedules/index.html', view_schedule=view_schedule, all_schedules=all_schedules)
+
+
+@schedules.route('/schedule/edit')
+def edit():
+
+    id = request.args.get('id')
+
+    user_schedule = UserSchedule.query.filter_by(id=id).first()
+    users = User.query.all()
+
+    return render_template('schedules/edit.html', user_schedule=user_schedule, users=users)

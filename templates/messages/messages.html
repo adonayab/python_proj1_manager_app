@@ -1,6 +1,6 @@
 {% extends "layout/base.html" %}
 {% from 'layout/macros.html' import notification_navs %}
-{% from 'messages/macros.html' import message_box, add_or_edit_modal %}
+{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn %}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs: The two arguments are for the badges -->
@@ -9,13 +9,8 @@
 
 {% block content %}
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-sm-12 col-md-3 mt-1 mb-3">
-      <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Leave a Note</button>
-    </div>
-  </div>
-</div>
+<!-- Leave a note button -->
+{{ add_btn() }}
 
 <!-- Displaying all the messages on the main page -->
 {% if messages %}

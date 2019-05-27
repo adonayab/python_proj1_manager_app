@@ -82,7 +82,7 @@
 
 
 <!--Table head list of days-->
-{% macro table_head_days() %}
+{% macro table_head_days(edit) %}
 
 <thead>
   <tr>
@@ -94,6 +94,9 @@
     <th>Tuesday</th>
     <th>Wednesday</th>
     <th>Thursday</th>
+    {% if edit %}
+    <th class="bg-warning">EDIT</th>
+    {% endif %}
   </tr>
 </thead>
 
