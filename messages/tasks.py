@@ -23,7 +23,7 @@ def daily_task():
     evenings = Message.query.order_by(Message.pub_date.desc()).filter_by(
         category='Daily Task').filter_by(shift='Evening').all()
 
-    return render_template('tasks.html',
+    return render_template('messages/tasks.html',
                            title="Daily Task",
                            mornings=mornings,
                            afternoons=afternoons,
@@ -54,7 +54,7 @@ def daily_task_add():
         flash("Task added Successfully", 'success')
         return redirect('/daily-tasks')
 
-    return render_template('tasks.html', form=form)
+    return render_template('messages/tasks.html', form=form)
 
 
 @tasks.route('/daily-tasks-delete')
@@ -72,7 +72,7 @@ def modify_daily_task():
     evenings = Message.query.order_by(Message.pub_date.desc()).filter_by(
         category='Daily Task').filter_by(shift='Evening').all()
 
-    return render_template('task-delete.html',
+    return render_template('messages/task-delete.html',
                            title="Daily Task",
                            mornings=mornings,
                            afternoons=afternoons,

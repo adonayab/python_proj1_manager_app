@@ -2,31 +2,26 @@
 {% from 'macros.html' import notification_navs, message_box, add_or_edit_modal, add_btn %}
 
 {% block notification_navs %}
-<!-- This is a function to display the notification tabs -->
+<!-- This is a function to display the notification tabs: The two arguments are for the badges -->
 {{ notification_navs(new_u, new_g) }}
 {% endblock%}
 
 {% block content %}
 
 <!-- Leave a note button -->
-{% block add_btn %}
 {{ add_btn() }}
-{% endblock%}
 
 <!-- Displaying single message -->
 {% if message %}
-{% block message_box %}
 {{ message_box(message, single_message = true) }}
-{% endblock%}
 
 <!-- This is the edit modal -->
-{% block add_or_edit_modal %}
-{{ add_or_edit_modal(form=add_form, modal_id='addModal', add=true) }}
-{{ add_or_edit_modal(form = form, 
-                modal_id = 'editModal',
+{{ add_or_edit_modal(form=add_form, modal_id="addModal", add=true) }}
+
+{{ add_or_edit_modal(form = edit_form,
+                modal_id = "editModal",
                 edit = true,
                 message = message) }}
-{% endblock%}
 
 <!-- This is the delete modal -->
 <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"

@@ -19,18 +19,18 @@ def single(id):
     ) else False  # This is for the general note badge
     message = Message.query.filter_by(id=id).first()
 
-    form = MessageForm()
-    form.title.data = message.title
-    form.category.data = message.category
-    form.shift.data = message.shift
-    form.content.data = message.content
+    edit_form = MessageForm()
+    edit_form.title.data = message.title
+    edit_form.category.data = message.category
+    edit_form.shift.data = message.shift
+    edit_form.content.data = message.content
 
     add_form = MessageForm()
 
-    return render_template('single.html',
+    return render_template('messages/single.html',
                            title=message.title,
                            message=message,
-                           form=form,
+                           edit_form=edit_form,
                            add_form=add_form,
                            new_g=new_g,
                            new_u=new_u)
@@ -80,7 +80,7 @@ def edit_single(id):
         flash('Successfully updated note', 'success')
         return redirect('/messages')
 
-    return render_template('edit.html',
+    return render_template('messages/edit.html',
                            title="Edit",
                            form=form,
                            message=message)

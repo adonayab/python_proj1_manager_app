@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar %}
+{% block content %}
+
+<div class="container-fluid">
+  <h1>Select Schedule Week. Go to <a href="/schedule/add">add</a></h1>
+  <form method="post">
+    <div class="row">
+      {{ calendar(prefix='FROM', name='start_day') }}
+      {{ calendar(prefix='TO', name='end_day') }}
+    </div>
+    <div class="row">
+      <div class="col-8">
+        <button type="submit" class="btn btn-block btn-dark">Go To Scheduling Table</button>
+      </div>
+    </div>
+  </form>
+</div>
+
+{% endblock %}

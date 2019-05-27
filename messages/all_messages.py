@@ -39,7 +39,7 @@ def messages(category):
     form = MessageForm()
 
     messages = message_query(category.lower())
-    return render_template('messages.html',
+    return render_template('messages/messages.html',
                            title="Messages",
                            messages=messages,
                            mark="Mark Completed",
@@ -80,7 +80,7 @@ def mark_completion(id):
 
     messages = Message.query.order_by(
         Message.pub_date.desc()).filter_by(status=1).all()
-    return render_template('messages.html',
+    return render_template('messages/messages.html',
                            title="Completed Messages",
                            messages=messages,
                            mark="Mark Not Completed",

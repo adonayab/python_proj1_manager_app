@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar, table_head_days %}
+{% block content %}
+
+<div class="container-fluid">
+  <form action="{{url_for('schedules.add')}}" method='post'>
+    <table class="table mt-2">
+      {{ table_head_days() }}
+      <tbody>
+        {{ insert_schedule_row(users) }}
+      </tbody>
+    </table>
+    <div class="row">
+      <div class="col-12">
+        <input type="hidden" name="week_id" value="{{ week_id }}" />
+        <button type="submit" class="btn btn-block btn-dark">Add To Schedule</button>
+      </div>
+    </div>
+  </form>
+
+  {% if current_schedule %}
+  <table class="table mt-2">
+    {{ table_head_days() }}
+    <tbody>
+      {% for user in current_schedule.week_schedule %}
+      <tr>
+        <td>{{ user.name }}</td>
+        <td>{{ user.friday }}</td>
+        <td>{{ user.saturday }}</td>
+        <td>{{ user.sunday }}</td>
+        <td>{{ user.monday }}</td>
+        <td>{{ user.tuesday }}</td>
+        <td>{{ user.wednesday }}</td>
+        <td>{{ user.thursday }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+</div>
+
+{% endblock %}

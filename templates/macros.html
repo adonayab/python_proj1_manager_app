@@ -90,10 +90,9 @@
 {% endmacro %}
 
 <!-- Macro for the Add or edit Modal  -->
-
 {% macro add_or_edit_modal(form, modal_id, add, edit, message) %}
 
-<div class="modal fade" id="{{ modal_id }}" tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
+<div class="modal fade" id={{ modal_id }} tabindex="-1" role="dialog" aria-labelledby="addModalLabel"
   aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
@@ -108,6 +107,7 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
+      <div class="modal-body">
       {% if add %}
       <form method="POST" action="/newpost">
         {% endif %}
@@ -120,7 +120,7 @@
           <div class="form-group">
             {{ form.title.label(class="form-control-label") }}
             {% if form.title.errors %}
-            {{ form.title(class="form-control form-control-lg is-invalid") }}
+            {{ form.title(class="form-control form-control-lg is-invalid ") }}
             <div class="invalid-feedback">
               {% for error in form.title.errors %}
               <span>{{ error }}</span>
@@ -162,148 +162,9 @@
         </div>
       </div>
       </form>
+      </div>
     </div>
   </div>
 </div>
 
-{% endmacro %}
-
-<!-- This is schedule form -->
-{% macro gen_schedule_form(form, users) %}
-
-<tr>
-  <td>
-    <select class="form-control custom-select" name=name>
-      {% for user in users %}
-      <option>{{ user.name }}</option>
-      {% endfor %}
-    </select>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_friday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_friday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_friday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_friday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_saturday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_saturday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_saturday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_saturday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_sunday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_sunday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_sunday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_sunday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_monday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_monday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_monday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_monday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_tuesday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_tuesday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_tuesday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_tuesday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_wednesday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_wednesday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_wednesday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_wednesday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-  <td>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.start_thursday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.start_thursday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-    <div class="form-row">
-      <div class="form-group col-auto">
-        {{ form.end_thursday(class="form-control custom-select") }}
-      </div>
-      <div class="form-group col-auto">
-        {{ form.end_thursday_state(class="form-control custom-select") }}
-      </div>
-    </div>
-  </td>
-</tr>
 {% endmacro %}

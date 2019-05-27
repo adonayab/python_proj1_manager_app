@@ -15,12 +15,12 @@ class RegistrationForm(FlaskForm):
     def validate_name(self, name):
         user = User.query.filter_by(name=name.data).first()
         if user:
-            raise ValidationError('A user with the same name exists.')
+            raise ValidationError('A users with the same name exists.')
 
     def validate_email(self, email):
         user = User.query.filter_by(email=email.data).first()
         if user:
-            raise ValidationError('A user with the same email exists.')
+            raise ValidationError('A users with the same email exists.')
 
 
 class LoginForm(FlaskForm):

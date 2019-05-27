@@ -1,61 +1,95 @@
 from flask import Blueprint, render_template, request, flash, redirect
 from app import db
-from models import User, UserSchedule
-from schedule.forms import ScheduleForm
+from models import User, UserSchedule, WeekSchedule
 
 
 schedules = Blueprint('schedules', __name__)
 
-current_users_on_schedule = []
 
 @schedules.route('/schedule', methods=['GET', 'POST'])
 def schedule():
-    form = ScheduleForm()
-    users = User.query.all()
-    return render_template('schedule.html', users=users, form=form, current_users_on_schedule=current_users_on_schedule)
 
-@schedules.route('/add', methods=['POST'])
+    if request.method == 'POST':
+
+        start_day = request.form['start_day']
+        end_day = request.form['end_day']
+        week = str(start_day).replace('-','/') + ' to ' + str(end_day).replace('-','/')
+        current_week_schedule = WeekSchedule()
+        current_week_schedule.on_week = week
+        db.session.add(current_week_schedule)
+        db.session.commit()
+        flash(
+            f"Add users to schedule for {week}", 'success')
+
+        return redirect(f'/schedule/add?id={current_week_schedule.id}')
+
+    return render_template('/schedules/index.html')
+
+
+@schedules.route('/schedule/add', methods=['GET', 'POST'])
 def add():
-    form = ScheduleForm()
-    name = request.form['name']
-    start_day = request.form['start_day']
-    end_day = request.form['end_day']
-    week = str(start_day) + '-' + str(end_day)
-    user_schedule = UserSchedule(name=name, week=week)
 
-    if form.validate_on_submit():
+    id = request.args.get('id')
 
-        print('In the validation')
+    if request.method == 'POST':
 
-        user_schedule.friday = form.start_friday.data + \
-            form.start_friday_state.data + '-' + form.end_friday.data + form.end_friday_state.data
+        week_id = request.form['week_id']
+        current_week = WeekSchedule.query.filter_by(id=week_id).first()
 
-        user_schedule.saturday = form.start_saturday.data + \
-            form.start_saturday_state.data + '-' + form.end_saturday.data + form.end_saturday_state.data
+        name = request.form['name']
+        user_schedule = UserSchedule(name=name, week=current_week)
 
-        user_schedule.sunday = form.start_sunday.data + \
-            form.start_sunday_state.data + '-' + form.end_sunday.data + form.end_sunday_state.data
+        fri_start = request.form['fri_start']
+        fri_start_state = request.form['fri_start_state']
+        fri_end = request.form['fri_end']
+        fri_end_state = request.form['fri_end_state']
 
-        user_schedule.monday = form.start_monday.data + \
-            form.start_monday_state.data + '-' + form.end_monday.data + form.end_monday_state.data
+        sat_start = request.form['sat_start']
+        sat_start_state = request.form['sat_start_state']
+        sat_end = request.form['sat_end']
+        sat_end_state = request.form['sat_end_state']
 
-        user_schedule.tuesday = form.start_tuesday.data + \
-            form.start_tuesday_state.data + '-' + form.end_tuesday.data + form.end_tuesday_state.data
+        sun_start = request.form['sun_start']
+        sun_start_state = request.form['sun_start_state']
+        sun_end = request.form['sun_end']
+        sun_end_state = request.form['sun_end_state']
 
-        user_schedule.wednesday = form.start_wednesday.data + \
-            form.start_wednesday_state.data + '-' + form.end_wednesday.data + form.end_wednesday_state.data
+        mon_start = request.form['mon_start']
+        mon_start_state = request.form['mon_start_state']
+        mon_end = request.form['mon_end']
+        mon_end_state = request.form['mon_end_state']
 
-        user_schedule.thursday = form.start_thursday.data + \
-            form.start_thursday_state.data + '-' + form.end_thursday.data + form.end_thursday_state.data
+        tue_start = request.form['tue_start']
+        tue_start_state = request.form['tue_start_state']
+        tue_end = request.form['tue_end']
+        tue_end_state = request.form['tue_end_state']
+
+        wed_start = request.form['wed_start']
+        wed_start_state = request.form['wed_start_state']
+        wed_end = request.form['wed_end']
+        wed_end_state = request.form['wed_end_state']
+
+        thu_start = request.form['thu_start']
+        thu_start_state = request.form['thu_start_state']
+        thu_end = request.form['thu_end']
+        thu_end_state = request.form['thu_end_state']
+
+        user_schedule.saturday = sat_start + sat_start_state + ' - ' + sat_end + sat_end_state
+        user_schedule.sunday = sun_start + sun_start_state + ' - ' + sun_end + sun_end_state
+        user_schedule.monday = mon_start + mon_start_state + ' - ' + mon_end + mon_end_state
+        user_schedule.tuesday = tue_start + tue_start_state + ' - ' + tue_end + tue_end_state
+        user_schedule.wednesday = wed_start + wed_start_state + ' - ' + wed_end + wed_end_state
+        user_schedule.thursday = thu_start + thu_start_state + ' - ' + thu_end + thu_end_state
+        user_schedule.friday = fri_start + fri_start_state + ' - ' + fri_end + fri_end_state
 
         db.session.add(user_schedule)
         db.session.commit()
-        current_users_on_schedule.append(user_schedule)
 
         flash(
             f"Schedule for {user_schedule.name} created Successfully", 'success')
 
-        return redirect('/schedule')
+        return redirect(f'/schedule/add?id={week_id}')
 
-    flash('Unsuccessful submit', 'danger')
-    return redirect('/schedule')
+    users = User.query.all()
+    current_schedule = WeekSchedule.query.filter_by(id=id).first()
+    return render_template('schedules/add.html', users=users, current_schedule=current_schedule, week_id=id)

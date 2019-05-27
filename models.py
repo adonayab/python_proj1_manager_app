@@ -39,7 +39,6 @@ class UserSchedule(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(120), nullable=False)
-    week = db.Column(db.String(120), nullable=False)
     monday = db.Column(db.String(120))
     tuesday = db.Column(db.String(120))
     wednesday = db.Column(db.String(120))
@@ -47,7 +46,15 @@ class UserSchedule(db.Model):
     friday = db.Column(db.String(120))
     saturday = db.Column(db.String(120))
     sunday = db.Column(db.String(120))
+    week_id = db.Column(db.Integer, db.ForeignKey('week_schedule.id'),
+                          nullable=False)
 
     def __init__(self, name, week):
         self.name = name
         self.week = week
+
+
+class WeekSchedule(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    on_week = db.Column(db.String(120), nullable=False)
+    week_schedule = db.relationship('UserSchedule', backref='week', lazy=True)
