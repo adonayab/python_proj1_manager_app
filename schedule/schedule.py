@@ -13,7 +13,8 @@ def schedule():
 
         start_day = request.form['start_day']
         end_day = request.form['end_day']
-        week = str(start_day).replace('-','/') + ' to ' + str(end_day).replace('-','/')
+        week = str(start_day).replace('-', '/') + \
+            ' to ' + str(end_day).replace('-', '/')
         current_week_schedule = WeekSchedule()
         current_week_schedule.on_week = week
         db.session.add(current_week_schedule)
@@ -74,13 +75,20 @@ def add():
         thu_end = request.form['thu_end']
         thu_end_state = request.form['thu_end_state']
 
-        user_schedule.saturday = sat_start + sat_start_state + ' - ' + sat_end + sat_end_state
-        user_schedule.sunday = sun_start + sun_start_state + ' - ' + sun_end + sun_end_state
-        user_schedule.monday = mon_start + mon_start_state + ' - ' + mon_end + mon_end_state
-        user_schedule.tuesday = tue_start + tue_start_state + ' - ' + tue_end + tue_end_state
-        user_schedule.wednesday = wed_start + wed_start_state + ' - ' + wed_end + wed_end_state
-        user_schedule.thursday = thu_start + thu_start_state + ' - ' + thu_end + thu_end_state
-        user_schedule.friday = fri_start + fri_start_state + ' - ' + fri_end + fri_end_state
+        user_schedule.saturday = sat_start + \
+            sat_start_state + ' - ' + sat_end + sat_end_state
+        user_schedule.sunday = sun_start + \
+            sun_start_state + ' - ' + sun_end + sun_end_state
+        user_schedule.monday = mon_start + \
+            mon_start_state + ' - ' + mon_end + mon_end_state
+        user_schedule.tuesday = tue_start + \
+            tue_start_state + ' - ' + tue_end + tue_end_state
+        user_schedule.wednesday = wed_start + \
+            wed_start_state + ' - ' + wed_end + wed_end_state
+        user_schedule.thursday = thu_start + \
+            thu_start_state + ' - ' + thu_end + thu_end_state
+        user_schedule.friday = fri_start + \
+            fri_start_state + ' - ' + fri_end + fri_end_state
 
         db.session.add(user_schedule)
         db.session.commit()

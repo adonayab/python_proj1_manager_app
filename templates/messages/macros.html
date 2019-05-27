@@ -1,31 +1,3 @@
-<!-- Macro for tabs under all notifications (Urgent, General, Completed) -->
-{% macro notification_navs(new_u, new_g) %}
-<div class="container-fluid">
-  <div class="row nav">
-    <div class="col-sm-12 col-md-3 urgent nav-item">
-      <a class="nav-link mb-2 mt-2 text-center urgent-text text-uppercase" href="/messages/urgent">Urgent
-        {% if new_u %}
-        <span class="badge ml-2 badge-pill badge-danger">NEW</span>
-        {% endif %}
-      </a>
-    </div>
-    <div class="col-sm-12 col-md-3 general nav-item">
-      <a class="nav-link g mb-2 mt-2 text-center general-text text-uppercase" href="/messages/general">General
-        {% if new_g %}
-        <span class="badge ml-2 badge-pill badge-danger">NEW</span>
-        {% endif %}
-      </a>
-    </div>
-    <div class="col-sm-12 col-md-3 completed nav-item">
-      <a class="nav-link c mb-2 mt-2 text-center completed-text text-uppercase" href="/completed">Completed</a>
-    </div>
-    <div class="col-sm-12 col-md-3 daily-task nav-item">
-      <a class="nav-link d mb-2 mt-2 text-center dailytask-text text-uppercase" href="/daily-tasks">Daily Task</a>
-    </div>
-  </div>
-</div>
-{% endmacro %}
-
 <!-- Macro for leave a note button -->
 {% macro add_btn() %}
 <div class="container-fluid">
@@ -108,60 +80,60 @@
         </button>
       </div>
       <div class="modal-body">
-      {% if add %}
-      <form method="POST" action="/newpost">
-        {% endif %}
-        {% if edit %}
-        <form method="POST" action="/single/{{ message.id }}/edit">
+        {% if add %}
+        <form method="POST" action="/newpost">
           {% endif %}
-
-          {{ form.hidden_tag() }}
-
-          <div class="form-group">
-            {{ form.title.label(class="form-control-label") }}
-            {% if form.title.errors %}
-            {{ form.title(class="form-control form-control-lg is-invalid ") }}
-            <div class="invalid-feedback">
-              {% for error in form.title.errors %}
-              <span>{{ error }}</span>
-              {% endfor %}
-            </div>
-            {% else %}
-            {{ form.title(class="form-control form-control-lg") }}
+          {% if edit %}
+          <form method="POST" action="/single/{{ message.id }}/edit">
             {% endif %}
-          </div>
 
-          <div class="form-group">
-            {{ form.category.label(class="form-control-label") }}
-            {{ form.category(class="form-control form-control-lg custom-select") }}
-          </div>
+            {{ form.hidden_tag() }}
 
-          <div class="form-group">
-            {{ form.shift.label(class="form-control-label") }}
-            {{ form.shift(class="form-control form-control-lg custom-select") }}
-          </div>
-
-          <div class="form-group">
-            {{ form.content.label(class="form-control-label") }}
-            {% if form.content.errors %}
-            {{ form.content(class="form-control form-control-lg is-invalid") }}
-            <div class="invalid-feedback">
-              {% for error in form.content.errors %}
-              <span>{{ error }}</span>
-              {% endfor %}
+            <div class="form-group">
+              {{ form.title.label(class="form-control-label") }}
+              {% if form.title.errors %}
+              {{ form.title(class="form-control form-control-lg is-invalid ") }}
+              <div class="invalid-feedback">
+                {% for error in form.title.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ form.title(class="form-control form-control-lg") }}
+              {% endif %}
             </div>
-            {% else %}
-            {{ form.content(class="form-control form-control-lg", rows='5') }}
-            {% endif %}
-          </div>
 
-          <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <div class="unset-form form-group">
-          {{ form.submit(class="btn btn-dark")}}
-        </div>
-      </div>
-      </form>
+            <div class="form-group">
+              {{ form.category.label(class="form-control-label") }}
+              {{ form.category(class="form-control form-control-lg custom-select") }}
+            </div>
+
+            <div class="form-group">
+              {{ form.shift.label(class="form-control-label") }}
+              {{ form.shift(class="form-control form-control-lg custom-select") }}
+            </div>
+
+            <div class="form-group">
+              {{ form.content.label(class="form-control-label") }}
+              {% if form.content.errors %}
+              {{ form.content(class="form-control form-control-lg is-invalid") }}
+              <div class="invalid-feedback">
+                {% for error in form.content.errors %}
+                <span>{{ error }}</span>
+                {% endfor %}
+              </div>
+              {% else %}
+              {{ form.content(class="form-control form-control-lg", rows='5') }}
+              {% endif %}
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+              <div class="unset-form form-group">
+                {{ form.submit(class="btn btn-dark")}}
+              </div>
+            </div>
+          </form>
       </div>
     </div>
   </div>
