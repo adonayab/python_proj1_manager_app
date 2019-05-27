@@ -24,7 +24,9 @@ def schedule():
 
         return redirect(f'/schedule/add?id={current_week_schedule.id}')
 
-    return render_template('/schedules/index.html')
+    all_schedules = WeekSchedule.query.all()
+
+    return render_template('/schedules/index.html', all_schedules=all_schedules)
 
 
 @schedules.route('/schedule/add', methods=['GET', 'POST'])
@@ -101,3 +103,13 @@ def add():
     users = User.query.all()
     current_schedule = WeekSchedule.query.filter_by(id=id).first()
     return render_template('schedules/add.html', users=users, current_schedule=current_schedule, week_id=id)
+
+@schedules.route('/schedule/view')
+def view():
+
+    week_id = request.args.get('week_id')
+
+    view_schedule = WeekSchedule.query.filter_by(id=week_id).first()
+    all_schedules = WeekSchedule.query.all()
+
+    return render_template('schedules/index.html', view_schedule=view_schedule, all_schedules=all_schedules)

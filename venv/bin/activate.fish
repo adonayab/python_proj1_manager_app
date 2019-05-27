@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/ado/projects/bz_proj1_manager_app/venv"
+set -gx VIRTUAL_ENV "/home/ado/PycharmProjects/python_proj1_manager_app/venv"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

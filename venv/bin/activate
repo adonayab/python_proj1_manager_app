@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/ado/projects/bz_proj1_manager_app/venv"
+VIRTUAL_ENV="/home/ado/PycharmProjects/python_proj1_manager_app/venv"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

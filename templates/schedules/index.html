@@ -1,21 +1,86 @@
 {% extends "layout/base.html" %}
-{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar %}
+{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar, table_head_days %}
 
 {% block content %}
 
 <div class="container-fluid">
-  <h1>Select Schedule Week. Go to <a href="/schedule/add">add</a></h1>
-  <form method="post">
+  <div class="row">
+    <button class="btn btn-dark btn-lg float-right"
+            data-toggle="modal"
+            data-target="#scheduleModal">Create Schedule</button>
+  </div>
+
+  <div class="row mt-3">
+    <h1>View Schedules</h1>
+  </div>
+  <form action="/schedule/view">
     <div class="row">
-      {{ calendar(prefix='FROM', name='start_day') }}
-      {{ calendar(prefix='TO', name='end_day') }}
-    </div>
-    <div class="row">
-      <div class="col-8">
-        <button type="submit" class="btn btn-block btn-dark">Go To Scheduling Table</button>
+      <div class="form-group col-auto">
+        <select class="form-control custom-select" name="week_id">
+          {% for schedule in all_schedules %}
+          <option value="{{ schedule.id }}">{{ schedule.on_week }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-auto">
+        <button type="submit" class="btn btn-dark">View</button>
       </div>
     </div>
   </form>
+
+  <div class="row">
+    {% if view_schedule %}
+    <table class="table mt-2">
+      {{ table_head_days() }}
+      <tbody>
+        {% for user in view_schedule.week_schedule %}
+        <tr>
+          <td>{{ user.name }}</td>
+          <td>{{ user.friday }}</td>
+          <td>{{ user.saturday }}</td>
+          <td>{{ user.sunday }}</td>
+          <td>{{ user.monday }}</td>
+          <td>{{ user.tuesday }}</td>
+          <td>{{ user.wednesday }}</td>
+          <td>{{ user.thursday }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    {% endif %}
+  </div>
+
+</div>
+
+
+<!-- This is the schedule modal -->
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="scheduleModalLabel">Select schedule week</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="post">
+          <div class="container">
+            <div class="row">
+              {{ calendar(prefix='FROM', name='start_day') }}
+            </div>
+            <div class="row">
+              {{ calendar(prefix='TO', name='end_day') }}
+            </div>
+            <div class="row">
+              <button type="submit" class="btn btn-block btn-dark">Go To Scheduling Table</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
 </div>
 
 {% endblock %}
