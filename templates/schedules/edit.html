@@ -21,14 +21,13 @@
           <input type="hidden" name="week_id" value="{{ user_schedule.week_id }}" />
           <input type="hidden" name="old_id" value="{{ user_schedule.id }}" />
           <button type="submit" class="btn btn-block btn-dark">Add To Schedule</button>
-          <a href="/schedule/add?id={{ user_schedule.week_id }}" class="btn btn-block btn-info">Go to this week Schedule</a>
+          <a href="/schedule/add/{{ user_schedule.week_id }}" class="btn btn-block btn-info">Go to this week Schedule</a>
           <a href="/schedule" class="btn btn-block btn-danger">Exit</a>
         </div>
       </div>
     </form>
   </div>
   {% endif %}
-
 </div>
 
 {% endblock %}

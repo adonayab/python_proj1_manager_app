@@ -1,5 +1,5 @@
 {% extends "layout/base.html" %}
-{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar, table_head_days %}
+{% from 'schedules/macros.html' import calendar, schedule_table %}
 
 {% block content %}
 
@@ -54,30 +54,7 @@
   <div class="row mt-2">
     <h1>Schedule from {{ view_schedule.on_week }}</h1>
   </div>
-  <div class="row">
-    <table class="table mt-2">
-      {{ table_head_days(edit=true) }}
-      <tbody>
-        {% for user in view_schedule.week_schedule %}
-        <tr>
-          <td>{{ user.name }}</td>
-          <td>{{ user.friday }}</td>
-          <td>{{ user.saturday }}</td>
-          <td>{{ user.sunday }}</td>
-          <td>{{ user.monday }}</td>
-          <td>{{ user.tuesday }}</td>
-          <td>{{ user.wednesday }}</td>
-          <td>{{ user.thursday }}</td>
-          <td>
-            <a href="/schedule/edit?id={{ user.id }}">
-              <i class="material-icons">edit</i>
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
+    {{ schedule_table(schedule=view_schedule) }}
   {% endif %}
 
   <!-- This is the schedule modal -->

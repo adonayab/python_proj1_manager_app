@@ -1,9 +1,9 @@
 {% extends "layout/base.html" %}
-{% from 'schedules/macros.html' import select_hours, insert_schedule_row, calendar, table_head_days %}
+{% from 'schedules/macros.html' import insert_schedule_row, table_head_days, schedule_table %}
 {% block content %}
 
 <div class="container-fluid">
-  <form action="{{url_for('schedules.add')}}" method='post'>
+  <form action="/schedule/add/{{ week_id }}" method='post'>
     <table class="table mt-2">
       {{ table_head_days() }}
       <tbody>
@@ -12,7 +12,6 @@
     </table>
     <div class="row">
       <div class="col-12">
-        <input type="hidden" name="week_id" value="{{ week_id }}" />
         <button type="submit" class="btn btn-block btn-dark">Add To Schedule</button>
         <a href="/schedule" class="btn btn-block btn-danger">Exit</a>
       </div>
@@ -20,30 +19,9 @@
   </form>
 
   {% if current_schedule %}
-  <table class="table mt-2">
-    {{ table_head_days(edit=true) }}
-    <tbody>
-      {% for user in current_schedule.week_schedule %}
-      <tr>
-        <td>{{ user.name }}</td>
-        <td>{{ user.friday }}</td>
-        <td>{{ user.saturday }}</td>
-        <td>{{ user.sunday }}</td>
-        <td>{{ user.monday }}</td>
-        <td>{{ user.tuesday }}</td>
-        <td>{{ user.wednesday }}</td>
-        <td>{{ user.thursday }}</td>
-        <td>
-          <a href="/schedule/edit?id={{ user.id }}">
-            <i class="material-icons">edit</i>
-          </a>
-        </td>
-      </tr>
-      {% endfor %}
-    </tbody>
-  </table>
+    {{ schedule_table(schedule=current_schedule) }}
   {% endif %}
-
 </div>
+
 
 {% endblock %}
