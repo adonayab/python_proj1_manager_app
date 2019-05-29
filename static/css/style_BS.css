@@ -1,3 +1,7 @@
+* {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
 body {
   background: #fafafa;
   color: #333232;
@@ -10,16 +14,18 @@ body {
   background-color: #1e3242;
 }
 
-h4, h2 {
+h4,
+h2 {
   color: #424242;
-  font-weight:  bold;
+  font-weight: bold;
 }
 
-.user-name { 
+.user-name {
   color: rgb(201, 171, 134);
- }
- 
-.title, .date  {
+}
+
+.title,
+.date {
   color: #07415c;
 }
 
@@ -58,31 +64,53 @@ a:hover {
 .urgent {
   background-color: #ff8a65;
 }
-.general{
+.general {
   background-color: #b2dfdb;
 }
-.completed{
+.completed {
   background-color: #aed581;
 }
-.daily-task{
+.daily-task {
   background-color: #bcaaa4;
 }
 
-.urgent-text, .general-text, .completed-text, .dailytask-text{
+.urgent-text,
+.general-text,
+.completed-text,
+.dailytask-text {
   color: #000000;
   font-size: 16px;
 }
-.urgent-text:hover, .general-text:hover, .completed-text:hover, .dailytask-text:hover {
+.urgent-text:hover,
+.general-text:hover,
+.completed-text:hover,
+.dailytask-text:hover {
   color: #363434;
 }
 
 /* For table head rows */
 .th-m {
-  background-color: #fff176 ;
+  background-color: #fff176;
 }
 .th-a {
-  background-color: #AFC5FF;
+  background-color: #afc5ff;
 }
 .th-e {
   background-color: #e0e0e0;
+}
+
+/* For the schedule */
+.create-sche {
+  background-color: #d6d5e9;
+}
+.view-sche {
+  background-color: #d6cfcb;
+}
+
+h1 {
+  font-family: "Roboto Condensed", sans-serif;
+}
+
+.t-head-days {
+  background-color: #dce9d8;
 }

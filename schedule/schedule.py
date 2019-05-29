@@ -111,12 +111,14 @@ def add():
     current_schedule = WeekSchedule.query.filter_by(id=id).first()
     return render_template('schedules/add.html', users=users, current_schedule=current_schedule, week_id=id)
 
+
 @schedules.route('/schedule/view')
 def view():
 
     week_id = request.args.get('week_id')
 
-    view_schedule = WeekSchedule.query.filter_by(id=week_id).first()
+    view_schedule = WeekSchedule.query.filter_by(
+        id=week_id).order_by(WeekSchedule.id.desc()).first()
     all_schedules = WeekSchedule.query.all()
 
     return render_template('schedules/index.html', view_schedule=view_schedule, all_schedules=all_schedules)
