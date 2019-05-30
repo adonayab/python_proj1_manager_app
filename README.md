@@ -34,5 +34,4 @@ notify a person in charge about anything new even though they are away from work
 
 
 ### Some Features are not available
-- Scheduling
 - Grill
