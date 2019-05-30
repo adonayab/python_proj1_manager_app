@@ -1,9 +1,8 @@
-from flask import request, redirect, render_template, session, flash
+from flask import request, redirect, render_template, session, flash, Blueprint
 from models import User, Message
 from app import db
 from messages.forms import MessageForm
 from utils.helpers import badge_general, badge_urgent, message_query
-from flask import Blueprint
 
 all_messages = Blueprint('all_messages', __name__)
 
