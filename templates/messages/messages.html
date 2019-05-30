@@ -1,6 +1,6 @@
 {% extends "layout/base.html" %}
 {% from 'layout/macros.html' import notification_navs %}
-{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn %}
+{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn, badge_anim %}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs: The two arguments are for the badges -->
@@ -10,7 +10,7 @@
 {% block content %}
 
 <!-- Leave a note button -->
-{{ add_btn() }}
+{{ add_btn(title='Leave a Note') }}
 
 <!-- Displaying all the messages on the main page -->
 {% if messages %}
@@ -24,12 +24,5 @@
 {% endblock %}
 
 {% block scripts%}
-<script>
-  $(document).ready(function () {    
-    for (var i = 0; i < 300; i++) {
-      $('#badge_u').fadeOut(900).fadeIn(900);
-      $('#badge_g').fadeOut(900).fadeIn(900);
-    }
-  });
-</script>
+{{ badge_anim() }}
 {% endblock %}

@@ -1,12 +1,24 @@
 <!-- Macro for leave a note button -->
-{% macro add_btn() %}
+{% macro add_btn(title) %}
 <div class="container-fluid">
   <div class="row">
     <div class="col-sm-12 col-md-3 mt-1 mb-3">
-      <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Leave a Note</button>
+      <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">{{ title }}</button>
     </div>
   </div>
 </div>
+{% endmacro %}
+
+<!-- Badge animation -->
+{% macro badge_anim() %}
+<script>
+  $(document).ready(function () {
+    for (var i = 0; i < 300; i++) {
+      $('#badge_u').fadeOut(900).fadeIn(900);
+      $('#badge_g').fadeOut(900).fadeIn(900);
+    }
+  });
+</script>
 {% endmacro %}
 
 
@@ -187,14 +199,14 @@
               {% endif %}
             </a>
             <div class="dropdown-menu" aria-labelledby="menu">
-              <a href="/daily-tasks/{{ task.id }}/delete" class="dropdown-item">Delete</a>
               <a href="/daily-tasks/{{ task.id }}/mark" class="dropdown-item">
                 {% if task.status %}
-                UnMark
+                Not Completed
                 {% else %}
-                Mark
+                Completed
                 {% endif %}
               </a>
+              <a href="/daily-tasks/{{ task.id }}/delete" class="dropdown-item">Delete</a>
             </div>
           </span>
           {{ task.content }}

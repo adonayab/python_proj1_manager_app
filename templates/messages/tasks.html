@@ -1,6 +1,6 @@
 {% extends "layout/base.html" %}
 {% from 'layout/macros.html' import notification_navs %}
-{% from 'messages/macros.html' import task_table, add_modal %}
+{% from 'messages/macros.html' import add_btn, task_table, add_modal, badge_anim %}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs: The two arguments are for the badges -->
@@ -9,30 +9,19 @@
 
 {% block content %}
 
-<div class="container-fluid">
-  <div class="row">
-    <div class="col-2 col-md-1 mt-3 mb-3">
-      <button class="btn btn-dark" data-toggle="modal" data-target="#addModal">Add</button>
-    </div>
-  </div>
+{{ add_btn(title='Add a Task') }}
 
+<div class="container-fluid">
   <div class="row">
     {{ task_table(title='Mornings', shift=mornings, head_color='th-m', icon_color='#bdae27') }}
     {{ task_table(title='Afternoons', shift=afternoons, head_color='th-a', icon_color='#667eb1') }}
     {{ task_table(title='Evenings', shift=evenings, head_color='th-e', icon_color='#b4a3a3') }}
   </div>
   {{ add_modal(id='addModal', title='New Task', form=form) }}
+</div>
 
+{% endblock %}
 
-  {% endblock %}
-
-  {% block scripts%}
-  <script>
-    $(document).ready(function () {
-      for (var i = 0; i < 300; i++) {
-        $('#badge_u').fadeOut(900).fadeIn(900);
-        $('#badge_g').fadeOut(900).fadeIn(900);
-      }
-    });
-  </script>
-  {% endblock %}
+{% block scripts%}
+{{ badge_anim() }}
+{% endblock %}
