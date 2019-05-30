@@ -8,6 +8,7 @@ from flask import Blueprint
 
 tasks = Blueprint('tasks', __name__)
 
+
 @tasks.route('/daily-tasks')
 def daily_task():
     new_u = True if badge_urgent(
@@ -16,11 +17,11 @@ def daily_task():
     ) else False  # This is for the general note badge
     form = TaskForm()
 
-    mornings = Message.query.order_by(Message.pub_date.desc()).filter_by(
+    mornings = Message.query.order_by(Message.status).filter_by(
         category='Daily Task').filter_by(shift='Morning').all()
-    afternoons = Message.query.order_by(Message.pub_date.desc()).filter_by(
+    afternoons = Message.query.order_by(Message.status).filter_by(
         category='Daily Task').filter_by(shift='Afternoon').all()
-    evenings = Message.query.order_by(Message.pub_date.desc()).filter_by(
+    evenings = Message.query.order_by(Message.status).filter_by(
         category='Daily Task').filter_by(shift='Evening').all()
 
     return render_template('messages/tasks.html',
@@ -57,41 +58,46 @@ def daily_task_add():
     return render_template('messages/tasks.html', form=form)
 
 
-@tasks.route('/daily-tasks-delete')
-def modify_daily_task():
-    new_u = True if badge_urgent(
-    ) else False  # This is for the urgent note badge
-    new_g = True if badge_general(
-    ) else False  # This is for the general note badge
-    form = TaskForm()
-
-    mornings = Message.query.order_by(Message.pub_date.desc()).filter_by(
-        category='Daily Task').filter_by(shift='Morning').all()
-    afternoons = Message.query.order_by(Message.pub_date.desc()).filter_by(
-        category='Daily Task').filter_by(shift='Afternoon').all()
-    evenings = Message.query.order_by(Message.pub_date.desc()).filter_by(
-        category='Daily Task').filter_by(shift='Evening').all()
-
-    return render_template('messages/task-delete.html',
-                           title="Daily Task",
-                           mornings=mornings,
-                           afternoons=afternoons,
-                           evenings=evenings,
-                           form=form,
-                           new_g=new_g,
-                           new_u=new_u)
-
-
 @tasks.route('/daily-tasks/', defaults={'id': ''})
-@tasks.route('/daily-tasks-delete/<int:id>/delete', methods=['POST'])
+@tasks.route('/daily-tasks/<int:id>/delete')
 def delete_task(id):
 
     if 'email' not in session:
-        flash('Login to Modify this Note', 'danger')
+        flash('Login to Delete this Note', 'danger')
         return redirect('/login')
 
     message = Message.query.filter_by(id=id).first()
     db.session.delete(message)
     db.session.commit()
     flash('Task deleted successfully', 'success')
-    return redirect('/daily-tasks-delete')
+    return redirect('/daily-tasks')
+
+
+@tasks.route('/daily-tasks/', defaults={'id': ''})
+@tasks.route('/daily-tasks/<int:id>/mark')
+def mark_task(id):
+
+    if 'email' not in session:
+        flash('Login to Mark this Note', 'danger')
+        return redirect('/login')
+
+    task = Message.query.filter_by(id=id).first()
+    user = User.query.filter_by(email=session['email']).first()
+
+    if task.status == 1:
+        task.status = 0
+        task.completed_by = ''
+        db.session.commit()
+        flash(f"Marked not complete", 'warning')
+        return redirect('/daily-tasks')
+    else:
+        task.status = 1
+        task.completed_by = user.name
+        db.session.commit()
+        flash(f"Marked complete", 'success')
+        return redirect('/daily-tasks')
+
+    db.session.delete(task)
+    db.session.commit()
+    flash('Task deleted successfully', 'success')
+    return redirect('/daily-tasks')

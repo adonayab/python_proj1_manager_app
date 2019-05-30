@@ -1,6 +1,6 @@
 {% extends "layout/base.html" %}
 {% from 'layout/macros.html' import notification_navs %}
-{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn %}
+{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn, delete_modal %}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs: The two arguments are for the badges -->
@@ -25,29 +25,19 @@
                 message = message) }}
 
 <!-- This is the delete modal -->
-<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="deleteModalLabel">Delete Message?</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        Are you sure you want to delete ({{ message.title }}) ?
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-        <form class="unset-form" method="POST" action="/single/{{ message.id }}/delete">
-          <button type="submit" class="btn btn-danger btn-sm float-right mr-1">Delete</button>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
+{{ delete_modal(id='deleteModal', obj=message) }}
 
 {% endif %}
 
+{% endblock %}
+
+{% block scripts%}
+<script>
+  $(document).ready(function () {    
+    for (var i = 0; i < 300; i++) {
+      $('#badge_u').fadeOut(900).fadeIn(900);
+      $('#badge_g').fadeOut(900).fadeIn(900);
+    }
+  });
+</script>
 {% endblock %}

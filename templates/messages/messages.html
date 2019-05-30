@@ -22,3 +22,14 @@
 {{ add_or_edit_modal(form=form, modal_id='addModal', add=true) }}
 
 {% endblock %}
+
+{% block scripts%}
+<script>
+  $(document).ready(function () {    
+    for (var i = 0; i < 300; i++) {
+      $('#badge_u').fadeOut(900).fadeIn(900);
+      $('#badge_g').fadeOut(900).fadeIn(900);
+    }
+  });
+</script>
+{% endblock %}
