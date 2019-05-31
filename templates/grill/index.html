@@ -2,12 +2,62 @@
 
 {% block content %}
 
-<h1>Grill Under Constraction ... </h1>
+<h1>The Grill</h1>
+
+<div class="container-fluid">
+
+  <table class="table">
+    <thead>
+      <th>Foods</th>
+      <th>Timer</th>
+    </thead>
+    <tbody>
+      <tr>
+        <td id="timerPlace">Hot Dog</td>
+        <td class="timer">
+          <div class="row">
+            <div class="col-auto">
+              <p>S</p>
+            </div>
+            <div class="col-auto">
+              <p id="t1"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <p>R</p>
+            </div>
+            <div class="col-auto">
+              <p id="t2"></p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <p>E</p>
+            </div>
+            <div class="col-auto">
+              <p id="t3"></p>
+            </div>
+          </div>
+        </td>
+        <td>
+          <button class="btn btn-dark" id="add">Add</button>
+        </td>
+      </tr>
+      <tr>
+        <td>Select Food</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
 
 {% endblock %}
 
 
 
 {% block scripts%}
+
+<script src="../../static/js/grill.js"></script>
+<script src="../../static/js/moment.js"></script>
 
 {% endblock %}

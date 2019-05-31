@@ -114,3 +114,8 @@ h1 {
 .t-head-days {
   background-color: #dce9d8;
 }
+
+
+.timer {
+  display: none;
+}
