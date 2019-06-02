@@ -11,7 +11,7 @@ body {
 }
 
 .bg-black {
-  background-color: #1e3242;
+  background-color: #02040f;
 }
 
 h4,
@@ -115,7 +115,26 @@ h1 {
   background-color: #dce9d8;
 }
 
-
 .timer {
   display: none;
+}
+
+/* Main nav bar */
+.bg-not {
+  background-color: #b6b293;
+}
+.bg-sch {
+  background-color: #9aa3bd;
+}
+.bg-gril {
+  background-color: #c0adad;
+}
+.bg-not:hover {
+  background-color: #e2dfc3;
+}
+.bg-sch:hover {
+  background-color: #dadfec;
+}
+.bg-gril:hover {
+  background-color: #f3eaea;
 }

@@ -6,12 +6,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
-
+  <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/bootstrap.css') }}">
   <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/style_BS.css') }}">
+
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">  
 
   <link rel="stylesheet"
     href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
@@ -23,21 +22,30 @@
 
   <!-- Top navbar -->
   <header>
-    <nav class="navbar navbar-expand-md navbar-dark bg-black fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light bg-black fixed-top">
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item">
-            <a class="nav-link mr-2" href="/messages">All Notifications</a>
+          <li class="nav-item bg-not btn">
+            <a class="nav-link" href="/messages">
+              Notifications
+              <i class="fas fa-envelope ml-2"></i>
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link mr-2" href="/schedule">Schedule</a>
+          <li class="nav-item bg-sch ml-2 btn">
+            <a class="nav-link" href="/schedule">
+              Schedule
+              <i class="fas fa-calendar-alt ml-2"></i>
+            </a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/grill">Grill</a>
+          <li class="nav-item bg-gril ml-2 btn">
+            <a class="nav-link" href="/grill">
+              Grill
+              <i class="fas fa-hotdog ml-2"></i>
+            </a>
           </li>
         </ul>
         {% if 'email' in session %}
@@ -89,17 +97,9 @@
     </div>
   </nav>
 
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"
-    integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
-    integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
-    crossorigin="anonymous"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-    integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o"
-    crossorigin="anonymous"></script>
-
+  <script src="{{  url_for('static', filename='./js/lib/jquery.js') }}"></script>
+  <script src="{{  url_for('static', filename='./js/lib/bootstrap.bundle.js') }}"></script>
+  
   {% block scripts%}{% endblock %}
 
 
