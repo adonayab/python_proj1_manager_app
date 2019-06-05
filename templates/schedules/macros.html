@@ -1,14 +1,12 @@
 <!--Calendar-->
-{% macro calendar(prefix, name) %}
-<div class="col-2">
-  <p class="btn btn-default">{{ prefix }}</p>
-</div>
-<div class="col">
+{% macro calendar(prefix, name, col_sm) %}
+<div class="col-12 {{ col_sm }}">
+  <label class="font-weight-bold">{{ prefix }}</label>
   <div class="input-group">
     <input type="date" class="form-control" name={{ name }} />
-    <div class="input-group-prepend">
+    <div class="input-group-append">
       <div class="input-group-text">
-        <i class="material-icons">calendar_today</i>
+        <i class="fa fa-calendar"></i>
       </div>
     </div>
   </div>
@@ -19,7 +17,7 @@
 {% macro select_hours(time, state) %}
 <div class="form-row">
   <div class="form-group col-auto">
-    <select class="form-control custom-select" name={{ time }}>
+    <select class="form-control" name={{ time }}>
       {% for n in range(0, 13) %}
       {% if n == 0 %}
       <option>OFF</option>
@@ -29,7 +27,7 @@
     </select>
   </div>
   <div class="form-group col-auto">
-    <select class="form-control custom-select" name={{ state }}>
+    <select class="form-control" name={{ state }}>
       <option>OFF</option>
       <option>AM</option>
       <option>PM</option>
@@ -42,57 +40,57 @@
 {% macro insert_schedule_row(users) %}
 <tr>
   <td>
-    <select class="form-control custom-select" name="name">
+    <select class="form-control" name="name">
       {% for user in users %}
       <option value="{{ user.name }}">{{ user.name }}</option>
       {% endfor %}
     </select>
   </td>
-<td>
-  {{ select_hours(time='fri_start', state='fri_start_state') }}
-  {{ select_hours(time='fri_end', state='fri_end_state') }}
-</td>
-<td>
-  {{ select_hours(time='sat_start', state='sat_start_state') }}
-  {{ select_hours(time='sat_end', state='sat_end_state') }}
-</td>
-<td>
-  {{ select_hours(time='sun_start', state='sun_start_state') }}
-  {{ select_hours(time='sun_end', state='sun_end_state') }}
-</td>
-<td>
-  {{ select_hours(time='mon_start', state='mon_start_state') }}
-  {{ select_hours(time='mon_end', state='mon_end_state') }}
-</td>
-<td>
-  {{ select_hours(time='tue_start', state='tue_start_state') }}
-  {{ select_hours(time='tue_end', state='tue_end_state') }}
-</td>
-<td>
-  {{ select_hours(time='wed_start', state='wed_start_state') }}
-  {{ select_hours(time='wed_end', state='wed_end_state') }}
-</td>
-<td>
-  {{ select_hours(time='thu_start', state='thu_start_state') }}
-  {{ select_hours(time='thu_end', state='thu_end_state') }}
-</td>
+  <td>
+    {{ select_hours(time='fri_start', state='fri_start_state') }}
+    {{ select_hours(time='fri_end', state='fri_end_state') }}
+  </td>
+  <td>
+    {{ select_hours(time='sat_start', state='sat_start_state') }}
+    {{ select_hours(time='sat_end', state='sat_end_state') }}
+  </td>
+  <td>
+    {{ select_hours(time='sun_start', state='sun_start_state') }}
+    {{ select_hours(time='sun_end', state='sun_end_state') }}
+  </td>
+  <td>
+    {{ select_hours(time='mon_start', state='mon_start_state') }}
+    {{ select_hours(time='mon_end', state='mon_end_state') }}
+  </td>
+  <td>
+    {{ select_hours(time='tue_start', state='tue_start_state') }}
+    {{ select_hours(time='tue_end', state='tue_end_state') }}
+  </td>
+  <td>
+    {{ select_hours(time='wed_start', state='wed_start_state') }}
+    {{ select_hours(time='wed_end', state='wed_end_state') }}
+  </td>
+  <td>
+    {{ select_hours(time='thu_start', state='thu_start_state') }}
+    {{ select_hours(time='thu_end', state='thu_end_state') }}
+  </td>
 </tr>
 {% endmacro %}
 
 <!--Table head list of days-->
 {% macro table_head_days(edit) %}
 <thead>
-  <tr class="t-head-days">
-    <th class="text-center">Name</th>
-    <th class="text-center">Friday</th>
-    <th class="text-center">Saturday</th>
-    <th class="text-center">Sunday</th>
-    <th class="text-center">Monday</th>
-    <th class="text-center">Tuesday</th>
-    <th class="text-center">Wednesday</th>
-    <th class="text-center">Thursday</th>
+  <tr class="light-green lighten-4">
+    <td class="text-center font-weight-bold">Name</td>
+    <td class="text-center font-weight-bold">Friday</td>
+    <td class="text-center font-weight-bold">Saturday</td>
+    <td class="text-center font-weight-bold">Sunday</td>
+    <td class="text-center font-weight-bold">Monday</td>
+    <td class="text-center font-weight-bold">Tuesday</td>
+    <td class="text-center font-weight-bold">Wednesday</td>
+    <td class="text-center font-weight-bold">tdursday</td>
     {% if edit %}
-    <th class="bg-warning text-center">EDIT</th>
+    <td class="bg-warning text-center text-white">EDIT</td>
     {% endif %}
   </tr>
 </thead>
@@ -101,27 +99,27 @@
 <!--Delete modal-->
 {% macro delete_schedule(week_schedule) %}
 {% for user in week_schedule %}
-  <!-- This is the delete modal -->
-  <div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="deleteModalLabel">Delete Schedule?</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          Are you sure you want to delete the schedule for ({{ user.name }})?
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-          <a href="/schedule/delete/{{ user.id }}" class="btn btn-danger btn-sm float-right mr-1">Delete</a>
-        </div>
+<!-- This is the delete modal -->
+<div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Schedule?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Are you sure you want to delete the schedule for ({{ user.name }})?
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
+        <a href="/schedule/delete/{{ user.id }}" class="btn btn-danger btn-sm float-right mr-1">Delete</a>
       </div>
     </div>
   </div>
+</div>
 {% endfor %}
 {% endmacro %}
 
@@ -130,34 +128,34 @@
 
 {% macro schedule_table(schedule) %}
 
-  <div class="row">
-    <table class="table mt-2">
-      {{ table_head_days(edit=true) }}
-      <tbody>
-        {% for user in schedule.week_schedule %}
-        <tr>
-          <td class="text-center">{{ user.name }}</td>
-          <td class="text-center">{{ user.friday }}</td>
-          <td class="text-center">{{ user.saturday }}</td>
-          <td class="text-center">{{ user.sunday }}</td>
-          <td class="text-center">{{ user.monday }}</td>
-          <td class="text-center">{{ user.tuesday }}</td>
-          <td class="text-center">{{ user.wednesday }}</td>
-          <td class="text-center">{{ user.thursday }}</td>
-          <td class="text-center">
-            <a href="/schedule/edit/{{ user.id }}">
-              <i class="material-icons">edit</i>
-            </a>
-            <a href="" data-toggle="modal" data-target="#deleteModal{{ user.id }}">
-              <i class="material-icons" style="color: red;">delete_forever</i>
-            </a>
-          </td>
-        </tr>
-        {% endfor %}
-      </tbody>
-    </table>
-  </div>
-  <!--This is the delete modal-->
-  {{ delete_schedule(week_schedule=schedule.week_schedule) }}
+<div class="row">
+  <table class="table mt-2">
+    {{ table_head_days(edit=true) }}
+    <tbody>
+      {% for user in schedule.week_schedule %}
+      <tr>
+        <td class="text-center">{{ user.name }}</td>
+        <td class="text-center">{{ user.friday }}</td>
+        <td class="text-center">{{ user.saturday }}</td>
+        <td class="text-center">{{ user.sunday }}</td>
+        <td class="text-center">{{ user.monday }}</td>
+        <td class="text-center">{{ user.tuesday }}</td>
+        <td class="text-center">{{ user.wednesday }}</td>
+        <td class="text-center">{{ user.thursday }}</td>
+        <td class="text-center">
+          <a href="/schedule/edit/{{ user.id }}">
+            <i class="material-icons">edit</i>
+          </a>
+          <a href="" data-toggle="modal" data-target="#deleteModal{{ user.id }}">
+            <i class="material-icons" style="color: red;">delete_forever</i>
+          </a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+<!--This is the delete modal-->
+{{ delete_schedule(week_schedule=schedule.week_schedule) }}
 
 {% endmacro %}

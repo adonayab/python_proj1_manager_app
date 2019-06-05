@@ -4,6 +4,9 @@
 
 <div class="container-fluid">
 
+  <h1>Count Down</h1>
+  <h2 id="ct"></h2>
+
   <table class="table">
     <thead>
       <th style="width: 15%;">Foods</th>
@@ -12,20 +15,51 @@
     <tbody>
       <tr>
         <td id="timerPlace">Hot Dog</td>
+        <!-- <td style="width: 25%;">
+          <div class="row">
+            <div class="col-auto">
+              <p>S</p>
+            </div>
+            <div class="col-auto">
+              <p id="%t1%">00:00:00PM</p>
+            </div>
+            <div class="col-auto">
+              <i class="material-icons btn" id="" style="color: red;">
+                timer_off
+              </i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <p>R</p>
+            </div>
+            <div class="col-auto">
+              <p id="%t2%">00:00:00PM</p>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-auto">
+              <p>E</p>
+            </div>
+            <div class="col-auto">
+              <p id="%t3%">00:00:00</p>
+            </div>
+          </div>
+        </td> -->
         <td>
-          <button class="btn btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
+          <button class="btn btn-raised btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
         </td>
       </tr>
       <tr>
         <td id="timerPlace">Cheeseburger</td>
         <td>
-          <button class="btn btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
+          <button class="btn btn-raised btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
         </td>
       </tr>
       <tr>
         <td id="timerPlace">BBQ Hot Dog</td>
         <td>
-          <button class="btn btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
+          <button class="btn btn-raised btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
         </td>
       </tr>
       <tr>
@@ -42,6 +76,6 @@
 {% block scripts%}
 
 <script src="{{  url_for('static', filename='./js/grill.js') }}"></script>
-<script src="{{  url_for('static', filename='./js/lib/moment.js') }}"></script>
+<script src="{{  url_for('static', filename='./js/libs/countDownTimer.js') }}"></script>
 
 {% endblock %}

@@ -7,38 +7,39 @@
 
   <div class="row">
     <div class="col-12 col-sm-6">
-      <div class="row create-sche">
-        <div class="col-2">
-          <i class="material-icons mt-2 text-center" style="font-size: 45px; color:#bb3716;">schedule</i>
+      <div class="row  brown lighten-5">
+        <div class="col-auto">
+          <i class="material-icons mt-2 red-text text-darken-4" style="font-size: 40px;">schedule</i>
         </div>
-        <div class="col-10">
-          <h1 class="text-center mt-2">Create a Schedule</h1>
+        <div class="col-auto">
+          <h2 class="text-center mt-2 ">Create a Schedule</h2>
         </div>
       </div>
       <div class="row mt-2">
         <div class="col-12">
-          <button class="btn btn-dark btn-lg btn-block" data-toggle="modal" data-target="#scheduleModal">Start</button>
+          <button class="btn btn-raised btn-lg btn-block blue-grey lighten-3" data-toggle="modal"
+            data-target="#scheduleModal">Start</button>
         </div>
       </div>
     </div>
     <div class="col-12 col-sm-6">
-      <div class="row view-sche">
-        <div class="col-2">
-          <i class="material-icons mt-2 text-center" style="font-size: 45px; color:#167ebb;">view_module</i>
+      <div class="row  brown lighten-4">
+        <div class="col-auto">
+          <i class="material-icons mt-2 light-blue-text text-darken-2" style="font-size: 40px;">view_module</i>
         </div>
-        <div class="col-10">
-          <h1 class="text-center mt-2">View a Schedule</h1>
+        <div class="col-auto">
+          <h2 class="text-center mt-2">View a Schedule</h2>
         </div>
       </div>
       <div class="row mt-2">
         <div class="col">
           <form action="/schedule/view" class="unset-form">
             <div class="col-12">
-              <button type="submit" class="btn btn-dark btn-block btn-lg">View</button>
+              <button type="submit" class="btn btn-raised btn-block btn-lg blue-grey lighten-3">View</button>
             </div>
             <div class="form-group col-12 mt-2">
-              <label class="font-weight-bold">Select a Week</label>
-              <select class="form-control custom-select" name="week_id">
+              <label class="font-weight-bold ml-4">Select a Week</label>
+              <select class="form-control mt-2" name="week_id">
                 {% for schedule in all_schedules %}
                 <option value="{{ schedule.id }}">{{ schedule.on_week }}</option>
                 {% endfor %}
@@ -54,7 +55,7 @@
   <div class="row mt-2">
     <h1>Schedule from {{ view_schedule.on_week }}</h1>
   </div>
-    {{ schedule_table(schedule=view_schedule) }}
+  {{ schedule_table(schedule=view_schedule) }}
   {% endif %}
 
   <!-- This is the schedule modal -->
@@ -72,13 +73,12 @@
           <form action="/schedule" method="post">
             <div class="container">
               <div class="row">
-                {{ calendar(prefix='FROM', name='start_day') }}
+                {{ calendar(prefix='START DAY', name='start_day', col_sm='col-sm-6') }}
+                {{ calendar(prefix='END DAY', name='end_day', col_sm='col-sm-6') }}
               </div>
               <div class="row">
-                {{ calendar(prefix='TO', name='end_day') }}
-              </div>
-              <div class="row">
-                <button type="submit" class="btn btn-block btn-dark">Go To Scheduling Table</button>
+                <button type="submit" class="btn btn-block btn-raised btn-secondary mt-4">Go To Scheduling
+                  Table</button>
               </div>
             </div>
           </form>

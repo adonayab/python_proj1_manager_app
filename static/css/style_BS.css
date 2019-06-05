@@ -20,10 +20,6 @@ h2 {
   font-weight: bold;
 }
 
-.user-name {
-  color: rgb(201, 171, 134);
-}
-
 .title,
 .date {
   color: #07415c;
@@ -60,20 +56,6 @@ a:hover {
   all: unset;
 }
 
-/* Notification tabs */
-.urgent {
-  background-color: #ff8a65;
-}
-.general {
-  background-color: #b2dfdb;
-}
-.completed {
-  background-color: #aed581;
-}
-.daily-task {
-  background-color: #bcaaa4;
-}
-
 .urgent-text,
 .general-text,
 .completed-text,
@@ -99,16 +81,8 @@ a:hover {
   background-color: #e0e0e0;
 }
 
-/* For the schedule */
-.create-sche {
-  background-color: #d6d5e9;
-}
-.view-sche {
-  background-color: #d6cfcb;
-}
-
-h1 {
-  font-family: "Roboto Condensed", sans-serif;
+p {
+  font-size: 1.2rem;
 }
 
 .t-head-days {
@@ -121,7 +95,7 @@ h1 {
 
 /* Main nav bar */
 .bg-not {
-  background-color: #b6b293;
+  background-color: #bebca1;
 }
 .bg-sch {
   background-color: #9aa3bd;

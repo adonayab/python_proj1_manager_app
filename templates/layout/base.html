@@ -6,14 +6,16 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-  <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/bootstrap.css') }}">
+  <!-- Style Sheets  -->
+  <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/bootstrap-material.css') }}">
   <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/style_BS.css') }}">
-
-  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">  
-
+  <link rel="stylesheet" type="text/css" href="{{  url_for('static', filename='./css/colors-materialize.css') }}">
   <link rel="stylesheet"
-    href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css" />
+    href="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/css/tempusdominus-bootstrap-4.min.css" />
+
+  <!-- Fonts and Icons -->
+  <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css"
     integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 </head>
@@ -22,45 +24,46 @@
 
   <!-- Top navbar -->
   <header>
-    <nav class="navbar navbar-expand-md navbar-light bg-black fixed-top">
-      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    <nav class="navbar navbar-expand-md navbar-light grey lighten-2 fixed-top">
+      <button class="navbar-toggler btn bmd-btn-icon" type="button" data-toggle="collapse" data-target="#navbarNav"
         aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
+        <!-- <span class="navbar-toggler-icon"></span> -->
+        <i class="fas fa-ellipsis-v"></i>
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
-          <li class="nav-item bg-not btn">
-            <a class="nav-link" href="/messages">
+          <li class="nav-item ml-2 btn btn-raised bg-not">
+            <a class="nav-link black-text" href="/messages">
               Notifications
               <i class="fas fa-envelope ml-2"></i>
             </a>
           </li>
-          <li class="nav-item bg-sch ml-2 btn">
-            <a class="nav-link" href="/schedule">
+          <li class="nav-item bg-sch ml-2 btn btn-raised">
+            <a class="nav-link black-text" href="/schedule">
               Schedule
               <i class="fas fa-calendar-alt ml-2"></i>
             </a>
           </li>
-          <li class="nav-item bg-gril ml-2 btn">
-            <a class="nav-link" href="/grill">
-              Grill
+          <li class="nav-item bg-gril ml-2 btn btn-raised">
+            <a class="nav-link black-text" href="/grill">
+              V - Grill
               <i class="fas fa-hotdog ml-2"></i>
             </a>
           </li>
         </ul>
         {% if 'email' in session %}
         <form class="form-inline" action="/logout" method="POST">
-          <input type="submit" value="Logout" class="btn btn-sm btn-outline-light">
-          <a class="user-name ml-2" href="">{{ session['email'] }}</a>
+          <input type="submit" value="Logout" class="btn btn-raised btn-sm white-text blue-grey darken-1 mt-2">
+          <a class="black-text ml-2 mt-2" href="">{{ session['email'] }}</a>
         </form>
         {% endif %}
         {% if 'email' not in session %}
         <ul class="navbar-nav navbar-right">
           <li class="nav-item">
-            <a class="nav-link" href="/login">Login</a>
+            <a class="nav-link btn btn-raised btn-sm white-text blue-grey darken-1 mr-2" href="/login">Login</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="/signup">Register</a>
+            <a class="nav-link btn btn-raised btn-sm white-text blue-grey darken-1" href="/signup">Register</a>
           </li>
         </ul>
         {% endif %}
@@ -97,9 +100,23 @@
     </div>
   </nav>
 
-  <script src="{{  url_for('static', filename='./js/lib/jquery.js') }}"></script>
-  <script src="{{  url_for('static', filename='./js/lib/bootstrap.bundle.js') }}"></script>
-  
+  <script src="{{  url_for('static', filename='./js/libs/jquery.js') }}"></script>
+  <!-- <script src="{{  url_for('static', filename='./js/libs/bootstrap.bundle.js') }}"></script> -->
+  <script src="https://unpkg.com/popper.js@1.12.6/dist/umd/popper.js"
+    integrity="sha384-fA23ZRQ3G/J53mElWqVJEGJzU0sTs+SvzG8fXVWP+kJQ1lwFAOkcUOysnlKJC33U"
+    crossorigin="anonymous"></script>
+  <script src="{{  url_for('static', filename='./js/libs/bootstrap-material-design.js') }}"></script>
+  <script src="{{  url_for('static', filename='./js/libs/moment.js') }}"></script>
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/tempusdominus-bootstrap-4/5.0.1/js/tempusdominus-bootstrap-4.min.js"></script>
+
+  <script>
+    $(document).ready(function () {
+      $('body').bootstrapMaterialDesign();
+    });
+  </script>
+
+
   {% block scripts%}{% endblock %}
 
 
