@@ -31,7 +31,3 @@ notify a person in charge about anything new even though they are away from work
 - SQLAlchemy
 - Jinja2 templates
 - Javascript
-
-
-### Some Features are not available
-- Grill
