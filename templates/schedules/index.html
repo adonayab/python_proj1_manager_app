@@ -6,86 +6,76 @@
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col-12 col-sm-6">
-      <div class="row  brown lighten-5">
-        <div class="col-auto">
-          <i class="material-icons mt-2 red-text text-darken-4" style="font-size: 40px;">schedule</i>
-        </div>
-        <div class="col-auto">
-          <h2 class="text-center mt-2 ">Create a Schedule</h2>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col-12">
-          <button class="btn btn-raised btn-lg btn-block blue-grey lighten-3" data-toggle="modal"
-            data-target="#scheduleModal">Start</button>
-        </div>
-      </div>
+    <div class="col-12 col-sm-4">
+      <h2 class="mt-2 ">
+        <i class="material-icons mt-2 red-text text-darken-4">schedule</i>
+        Create a Schedule
+      </h2>
     </div>
-    <div class="col-12 col-sm-6">
-      <div class="row  brown lighten-4">
-        <div class="col-auto">
-          <i class="material-icons mt-2 light-blue-text text-darken-2" style="font-size: 40px;">view_module</i>
-        </div>
-        <div class="col-auto">
-          <h2 class="text-center mt-2">View a Schedule</h2>
-        </div>
-      </div>
-      <div class="row mt-2">
-        <div class="col">
-          <form action="/schedule/view" class="unset-form">
-            <div class="col-12">
-              <button type="submit" class="btn btn-raised btn-block btn-lg blue-grey lighten-3">View</button>
-            </div>
-            <div class="form-group col-12 mt-2">
-              <label class="font-weight-bold ml-4">Select a Week</label>
-              <select class="form-control mt-2" name="week_id">
-                {% for schedule in all_schedules %}
-                <option value="{{ schedule.id }}">{{ schedule.on_week }}</option>
-                {% endfor %}
-              </select>
-            </div>
-          </form>
-        </div>
-      </div>
+    <div class="col-12 col-sm-2">
+      <button class="btn btn-raised mt-2 blue-grey lighten-3" data-toggle="modal"
+        data-target="#scheduleModal">Start</button>
     </div>
   </div>
+  <form action="/schedule/view" class="unset-form">
+    <div class="row">
+      <div class="col-12 col-sm-4">
+        <h2 class="mt-2">
+          <i class="material-icons mt-2 light-blue-text text-darken-2">view_module</i>
+          View a Schedule
+        </h2>
+      </div>
+      <div class="form-group col-12 col-sm-4">
+        <label class="font-weight-bold ml-4">Select a Week</label>
+        <select class="form-control mt-2" name="week_id">
+          {% for schedule in all_schedules %}
+          <option value="{{ schedule.id }}">{{ schedule.on_week }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div class="col-12 col-sm-1">
+        <button type="submit" class="btn btn-raised mt-2 blue-grey lighten-3">View</button>
+      </div>
+    </div>
+  </form>
 
   {% if view_schedule %}
   <div class="row mt-2">
-    <h1>Schedule from {{ view_schedule.on_week }}</h1>
+    <h3>Schedule from {{ view_schedule.on_week }}</h3>
   </div>
   {{ schedule_table(schedule=view_schedule) }}
   {% endif %}
 
-  <!-- This is the schedule modal -->
-  <div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
-    aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="scheduleModalLabel">Select schedule week</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          <form action="/schedule" method="post">
-            <div class="container">
-              <div class="row">
-                {{ calendar(prefix='START DAY', name='start_day', col_sm='col-sm-6') }}
-                {{ calendar(prefix='END DAY', name='end_day', col_sm='col-sm-6') }}
-              </div>
-              <div class="row">
-                <button type="submit" class="btn btn-block btn-raised btn-secondary mt-4">Go To Scheduling
-                  Table</button>
-              </div>
+</div>
+
+<!-- This is the schedule modal -->
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="scheduleModalLabel">Select schedule week</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/schedule" method="post">
+          <div class="container">
+            <div class="row">
+              {{ calendar(prefix='START DAY', name='start_day', col_sm='col-sm-6') }}
+              {{ calendar(prefix='END DAY', name='end_day', col_sm='col-sm-6') }}
             </div>
-          </form>
-        </div>
+            <div class="row">
+              <button type="submit" class="btn btn-block btn-raised btn-secondary mt-4">Go To Scheduling
+                Table</button>
+            </div>
+          </div>
+        </form>
       </div>
     </div>
   </div>
+</div>
 </div>
 
 {% endblock %}
