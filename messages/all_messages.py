@@ -47,8 +47,8 @@ def messages(category):
                            form=form)
 
 
-@all_messages.route('/completed/', defaults={'id': ''})
-@all_messages.route('/completed/<int:id>', methods=['Get', 'POST'])
+@all_messages.route('/messages/completed/', defaults={'id': ''})
+@all_messages.route('/messages/completed/<int:id>', methods=['Get', 'POST'])
 def mark_completion(id):
 
     new_u = True if badge_urgent() else False  # This is for the urgent note badge

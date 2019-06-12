@@ -5,21 +5,18 @@
 <div class="container-fluid">
   <form action="/schedule/add/{{ week_id }}" method='post'>
     <table class="table mt-2">
-      {{ table_head_days() }}
-      <tbody>
-        {{ insert_schedule_row(users) }}
-      </tbody>
+      {{ insert_schedule_row(users) }}
     </table>
     <div class="row">
       <div class="col-12">
-        <button type="submit" class="btn btn-block btn-dark">Add To Schedule</button>
-        <a href="/schedule" class="btn btn-block btn-danger">Exit</a>
+        <button type="submit" class="btn btn-raised white-text blue-grey darken-1">Add To Schedule</button>
+        <a href="/schedule" class="btn btn-raised white-text red lighten-2 ml-3">Exit</a>
       </div>
     </div>
   </form>
 
   {% if current_schedule %}
-    {{ schedule_table(schedule=current_schedule) }}
+  {{ schedule_table(schedule=current_schedule) }}
   {% endif %}
 </div>
 

@@ -1,4 +1,20 @@
-document.getElementById("add").addEventListener("click", addHtml);
+document.getElementById("addRow").addEventListener("click", addRow);
+
+let tPlace = 0;
+
+function addRow() {
+  let addBtn = Math.floor(Math.random() * 1000);
+  tPlace = Math.floor(Math.random() * 1000);
+  
+  let rowHtml = '<tr><td id="%timerPlace%">%A Food Type%</td><td><button class="btn btn-raised btn-dark" id="%add%">ADD<i class="far fa-clock ml-2"></i></button></td></tr>';
+  
+  let newHtmlRow = rowHtml.replace("%add%", addBtn);
+  newHtmlRow = newHtmlRow.replace("%timerPlace%", tPlace);
+
+  document.getElementById("t-body").insertAdjacentHTML("afterend", newHtmlRow);
+  document.getElementById(addBtn).addEventListener("click", addHtml);
+}
+
 
 function addHtml() {
   var t1 = 0, t2 = 0, t3 = 0, timer = 0, stbt = 0;
@@ -16,7 +32,7 @@ function addHtml() {
   newHtml = newHtml.replace("%timer%", timer);
   newHtml = newHtml.replace("%stbt%", stbt);
 
-  document.getElementById("timerPlace").insertAdjacentHTML("afterend", newHtml);
+  document.getElementById(tPlace).insertAdjacentHTML("afterend", newHtml);
 
   countdown(t1, t2, t3, stbt, timer);
 }

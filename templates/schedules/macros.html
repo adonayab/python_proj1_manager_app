@@ -15,62 +15,65 @@
 
 <!-- This are the select buttons in schedule box for time of a day -->
 {% macro select_hours(time, state) %}
-<div class="form-row">
-  <div class="form-group col-auto">
-    <select class="form-control" name={{ time }}>
-      {% for n in range(0, 13) %}
-      {% if n == 0 %}
-      <option>OFF</option>
-      {% endif %}
-      <option>{{ n|string }}</option>
-      {% endfor %}
-    </select>
-  </div>
-  <div class="form-group col-auto">
-    <select class="form-control" name={{ state }}>
-      <option>OFF</option>
-      <option>AM</option>
-      <option>PM</option>
-    </select>
+<div class="container">
+  <div class="row">
+    <div class="form-group col-12 col-sm-12 col-md-6">
+      <select class="form-control text-center" name={{ time }}>
+        {% for n in range(0, 13) %}
+        {% if n == 0 %}
+        <option>OFF</option>
+        {% endif %}
+        <option>{{ n|string }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="form-group col-12 col-sm-12 col-md-6">
+      <select class="form-control text-center" name={{ state }}>
+        <option>OFF</option>
+        <option>AM</option>
+        <option>PM</option>
+      </select>
+    </div>
   </div>
 </div>
 {% endmacro %}
 
 <!-- Schedule row -->
 {% macro insert_schedule_row(users) %}
+{{ table_head_days(edit=false) }}
 <tr>
   <td>
-    <select class="form-control" name="name">
+    <select class="form-control text-center" name="name">
       {% for user in users %}
       <option value="{{ user.name }}">{{ user.name }}</option>
       {% endfor %}
     </select>
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='fri_start', state='fri_start_state') }}
     {{ select_hours(time='fri_end', state='fri_end_state') }}
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='sat_start', state='sat_start_state') }}
     {{ select_hours(time='sat_end', state='sat_end_state') }}
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='sun_start', state='sun_start_state') }}
     {{ select_hours(time='sun_end', state='sun_end_state') }}
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='mon_start', state='mon_start_state') }}
     {{ select_hours(time='mon_end', state='mon_end_state') }}
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='tue_start', state='tue_start_state') }}
     {{ select_hours(time='tue_end', state='tue_end_state') }}
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='wed_start', state='wed_start_state') }}
     {{ select_hours(time='wed_end', state='wed_end_state') }}
   </td>
-  <td>
+  <td class="text-center">
     {{ select_hours(time='thu_start', state='thu_start_state') }}
     {{ select_hours(time='thu_end', state='thu_end_state') }}
   </td>
@@ -88,7 +91,7 @@
     <td class="text-center font-weight-bold">Monday</td>
     <td class="text-center font-weight-bold">Tuesday</td>
     <td class="text-center font-weight-bold">Wednesday</td>
-    <td class="text-center font-weight-bold">tdursday</td>
+    <td class="text-center font-weight-bold">Thursday</td>
     {% if edit %}
     <td class="bg-warning text-center text-white">EDIT</td>
     {% endif %}
@@ -100,8 +103,7 @@
 {% macro delete_schedule(week_schedule) %}
 {% for user in week_schedule %}
 <!-- This is the delete modal -->
-<div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
-  aria-hidden="true">
+<div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">

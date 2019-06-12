@@ -11,7 +11,7 @@ from flask import Blueprint
 single_messages = Blueprint('single_messages', __name__)
 
 @single_messages.route('/messages/', defaults={'id': ''})
-@single_messages.route('/single/<int:id>', methods=['GET'])
+@single_messages.route('/messages/single/<int:id>', methods=['GET'])
 def single(id):
     new_u = True if badge_urgent(
     ) else False  # This is for the urgent note badge
@@ -37,7 +37,7 @@ def single(id):
 
 
 @single_messages.route('/messages/', defaults={'id': ''})
-@single_messages.route('/single/<int:id>/delete', methods=['POST'])
+@single_messages.route('/messages/single/<int:id>/delete', methods=['POST'])
 def delete_single(id):
 
     if 'email' not in session:
@@ -56,7 +56,7 @@ def delete_single(id):
 
 
 @single_messages.route('/messages/', defaults={'id': ''})
-@single_messages.route('/single/<int:id>/edit', methods=['POST'])
+@single_messages.route('/messages/single/<int:id>/edit', methods=['POST'])
 def edit_single(id):
 
     message = Message.query.filter_by(id=id).first()

@@ -28,11 +28,11 @@
 
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12 col-md-10 col-lg-8">
+    <div class="col-sm-12 col-md-10">
       <div class="card mb-3">
         <div class="card-body">
           <h4 class="card-title">
-            <a href="/single/{{ message.id }}" class="title">{{ message.title }}</a>
+            <a href="/messages/single/{{ message.id }}" class="title">{{ message.title }}</a>
             <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
               <button type="submit"
                 class="btn btn-raised btn-sm float-right ml-2 font-weight-bold blue-grey darken-1 mr-2 white-text">
@@ -98,7 +98,7 @@
         <form method="POST" action="/newpost">
           {% endif %}
           {% if edit %}
-          <form method="POST" action="/single/{{ message.id }}/edit">
+          <form method="POST" action="/messages/single/{{ message.id }}/edit">
             {% endif %}
 
             {{ form.hidden_tag() }}
@@ -171,7 +171,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-        <form class="unset-form" method="POST" action="/single/{{ obj.id }}/delete">
+        <form class="unset-form" method="POST" action="/messages/single/{{ obj.id }}/delete">
           <button type="submit" class="btn btn-danger btn-sm float-right mr-1">Delete</button>
         </form>
       </div>

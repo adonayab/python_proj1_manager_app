@@ -8,25 +8,20 @@
   <div class="row">
     <h2>Edit schedule for ({{ user_schedule.name }})</h2>
   </div>
-  <div class="row">
-    <form action="{{url_for('schedules.add')}}" method='post'>
-      <table class="table mt-2">
-        {{ table_head_days() }}
-        <tbody>
-          {{ insert_schedule_row(users) }}
-        </tbody>
-      </table>
-      <div class="row">
-        <div class="col-12">
-          <input type="hidden" name="week_id" value="{{ user_schedule.week_id }}" />
-          <input type="hidden" name="old_id" value="{{ user_schedule.id }}" />
-          <button type="submit" class="btn btn-raised btn-block text-dark">Add To Schedule</button>
-          <a href="/schedule/add/{{ user_schedule.week_id }}" class="btn btn-raised btn-block text-info">Go to this week's Schedule</a>
-          <a href="/schedule" class="btn btn-raised btn-block text-danger">Exit</a>
-        </div>
+  <form action="{{url_for('schedules.add')}}" method='post'>
+    <table class="table mt-2">
+        {{ insert_schedule_row(users) }}
+    </table>
+    <div class="row">
+      <div class="col-12">
+        <input type="hidden" name="week_id" value="{{ user_schedule.week_id }}" />
+        <input type="hidden" name="old_id" value="{{ user_schedule.id }}" />
+        <button type="submit" class="btn btn-raised text-dark white-text blue-grey darken-1">Save Changes</button>
+        <a href="/schedule/add/{{ user_schedule.week_id }}" class="btn btn-raised white-text blue-grey darken-1 ml-3">Go to this week's Schedule</a>
+        <a href="/schedule" class="btn btn-raised white-text red lighten-2 ml-3">Exit</a>
       </div>
-    </form>
-  </div>
+    </div>
+  </form>
   {% endif %}
 </div>
 
