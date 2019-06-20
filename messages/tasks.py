@@ -1,4 +1,4 @@
-from flask import redirect, render_template, session, flash
+from flask import redirect, render_template, session, flash, request
 from models import User, Message
 from app import db
 from messages.forms import TaskForm
@@ -17,12 +17,15 @@ def daily_task():
     ) else False  # This is for the general note badge
     form = TaskForm()
 
-    mornings = Message.query.order_by(Message.status).filter_by(
-        category='Daily Task').filter_by(shift='Morning').all()
-    afternoons = Message.query.order_by(Message.status).filter_by(
-        category='Daily Task').filter_by(shift='Afternoon').all()
-    evenings = Message.query.order_by(Message.status).filter_by(
-        category='Daily Task').filter_by(shift='Evening').all()
+    # mornings = Message.query.order_by(Message.status).filter_by(
+    #     category='high').filter_by(shift='Morning').all()
+    afternoons = Message.query.order_by(Message.status).filter(
+        (Message.category == 'high') | (Message.category == 'low')).filter_by(shift='Afternoon').all()
+    evenings = Message.query.order_by(Message.status).filter(
+        (Message.category == 'high') | (Message.category == 'low')).filter_by(shift='Evening').all()
+
+    mornings = Message.query.order_by(Message.status).filter(
+        (Message.category == 'high') | (Message.category == 'low')).filter_by(shift='Morning').all()
 
     return render_template('messages/tasks.html',
                            title="Daily Task",
@@ -47,7 +50,7 @@ def daily_task_add():
     if form.validate_on_submit():
         message = Message(title='daily-task',
                           content=form.content.data,
-                          category='Daily Task',
+                          category=form.category.data,
                           shift=form.shift.data,
                           owner=owner)
         db.session.add(message)

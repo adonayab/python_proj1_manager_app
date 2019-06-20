@@ -44,10 +44,10 @@
               </button>
             </form>
             {% if single_message %}
-            <button class="btn btn-raised btn-sm float-right ml-2 font-weight-bold red lighten-2 white-text" data-toggle="modal"
-              data-target="#deleteModal">Delete</button>
-            <button class="btn btn-raised btn-sm float-right font-weight-bold  amber darken-2 white-text" data-toggle="modal"
-              data-target="#editModal">Edit</button>
+            <button class="btn btn-raised btn-sm float-right ml-2 font-weight-bold red lighten-2 white-text"
+              data-toggle="modal" data-target="#deleteModal">Delete</button>
+            <button class="btn btn-raised btn-sm float-right font-weight-bold  amber darken-2 white-text"
+              data-toggle="modal" data-target="#editModal">Edit</button>
             {% endif %}
           </h4>
           <p class="card-text {{ trunc }}">{{ message.content }}</p>
@@ -194,6 +194,11 @@
           <span class="dropdown">
             <a class="" href="#" role="button" id="menu" data-toggle="dropdown" aria-haspopup="true"
               aria-expanded="false">
+              {% if task.category == 'high' %}
+              <i class="fas fa-exclamation-triangle red-text"></i>
+              {% else %}
+              <i class="fas fa-exclamation-triangle green-text"></i>
+              {% endif %}
               {% if task.status %}
               <button type="button" class="btn bmd-btn-icon ">
                 <i class="material-icons">done_all</i>
@@ -244,6 +249,15 @@
           <div class="form-group">
             {{ form.shift.label(class="bmd-label-floating") }}
             {{ form.shift(class="form-control") }}
+          </div>
+
+          <div>
+            {{ form.category.label(class="bmd-label-floating") }}
+            {% for cat in form.category %}
+            <div class="radio">
+              {{ cat }} {{ cat.label(class="black-text") }}
+            </div>
+            {% endfor %}
           </div>
 
           <div class="form-group">
