@@ -15,14 +15,14 @@ def schedule():
 
         if not start_day and not end_day:
             flash("Select start day and end day", 'danger')
-            return render_template('/schedules/index.html', all_schedules=all_schedules)
+            return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
         if not start_day:
             flash("Select the start day", 'danger')
-            return render_template('/schedules/index.html', all_schedules=all_schedules)
+            return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
 
         if not end_day:
             flash("Select the end day", 'danger')
-            return render_template('/schedules/index.html', all_schedules=all_schedules)
+            return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
 
         week = str(start_day).replace('-', '/') + \
                ' to ' + str(end_day).replace('-', '/')
@@ -34,7 +34,7 @@ def schedule():
 
         return redirect(f'/schedule/add/{current_week_schedule.id}')
 
-    return render_template('/schedules/index.html', all_schedules=all_schedules)
+    return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
 
 
 @schedules.route('/schedule', defaults={'id': ''})
@@ -144,7 +144,7 @@ def add(id):
 
         return redirect(f'/schedule/add/{week_id}')
 
-    return render_template('schedules/add.html', users=users, current_schedule=current_schedule, week_id=id)
+    return render_template('schedules/add.html', title='Create Schedules' ,users=users, current_schedule=current_schedule, week_id=id)
 
 
 @schedules.route('/schedule/view')
@@ -155,7 +155,7 @@ def view():
         id=week_id).order_by(WeekSchedule.id.desc()).first()
     all_schedules = WeekSchedule.query.all()
 
-    return render_template('schedules/index.html', view_schedule=view_schedule, all_schedules=all_schedules)
+    return render_template('schedules/index.html', title='View Schedules', view_schedule=view_schedule, all_schedules=all_schedules)
 
 
 @schedules.route('/schedule/edit/<id>')
@@ -163,7 +163,7 @@ def edit(id):
     user_schedule = UserSchedule.query.filter_by(id=id).first()
     users = User.query.all()
 
-    return render_template('schedules/edit.html', user_schedule=user_schedule, users=users)
+    return render_template('schedules/edit.html', title='Edit Schedules', user_schedule=user_schedule, users=users)
 
 
 @schedules.route('/schedule/delete/<id>')

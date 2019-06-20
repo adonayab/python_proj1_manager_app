@@ -28,7 +28,7 @@ def daily_task():
         (Message.category == 'high') | (Message.category == 'low')).filter_by(shift='Morning').all()
 
     return render_template('messages/tasks.html',
-                           title="Daily Task",
+                           title="Daily Tasks",
                            mornings=mornings,
                            afternoons=afternoons,
                            evenings=evenings,

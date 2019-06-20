@@ -39,7 +39,7 @@ def messages(category):
 
     messages = message_query(category.lower())
     return render_template('messages/messages.html',
-                           title="Messages",
+                           title=f"{category} Messages",
                            messages=messages,
                            mark="Mark Completed",
                            new_g=new_g,
