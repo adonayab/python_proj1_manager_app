@@ -33,7 +33,7 @@
         <div class="card-body">
           <h4 class="card-title">
             <a href="/messages/single/{{ message.id }}" class="title">{{ message.title }}</a>
-            <form class="unset-form" method="POST" action="/completed/{{ message.id }}">
+            <form class="unset-form" method="POST" action="/messages/completed/{{ message.id }}">
               <button type="submit"
                 class="btn btn-raised btn-sm float-right ml-2 font-weight-bold blue-grey darken-1 mr-2 white-text">
                 {% if message.status%}

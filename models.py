@@ -58,3 +58,6 @@ class WeekSchedule(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     on_week = db.Column(db.String(120), nullable=False)
     week_schedule = db.relationship('UserSchedule', backref='week', lazy=True)
+
+    def __init__(self, on_week):
+        self.on_week = on_week

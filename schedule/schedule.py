@@ -26,8 +26,7 @@ def schedule():
 
         week = str(start_day).replace('-', '/') + \
                ' to ' + str(end_day).replace('-', '/')
-        current_week_schedule = WeekSchedule()
-        current_week_schedule.on_week = week
+        current_week_schedule = WeekSchedule(on_week = week)
         db.session.add(current_week_schedule)
         db.session.commit()
         flash(
