@@ -47,6 +47,10 @@ def daily_task_add():
         return redirect('/login')
 
     owner = User.query.filter_by(email=session['email']).first()
+    if not owner.admin:
+        flash("Log in as Admin to create a Task", 'danger')
+        return redirect('/daily-tasks')
+
     if form.validate_on_submit():
         message = Message(title='daily-task',
                           content=form.content.data,
@@ -68,6 +72,11 @@ def delete_task(id):
     if 'email' not in session:
         flash('Login to Delete this Note', 'danger')
         return redirect('/login')
+
+    owner = User.query.filter_by(email=session['email']).first()
+    if not owner.admin:
+        flash("Log in as admin to delete a Task", 'danger')
+        return redirect('/daily-tasks')
 
     message = Message.query.filter_by(id=id).first()
     db.session.delete(message)

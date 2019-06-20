@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, flash, redirect
+from flask import Blueprint, render_template, request, flash, redirect, session
 from app import db
 from models import User, UserSchedule, WeekSchedule
 
@@ -10,6 +10,16 @@ def schedule():
     all_schedules = WeekSchedule.query.all()
 
     if request.method == 'POST':
+
+        if 'email' not in session:
+            flash('Login as Admin to create a schedule', 'danger')
+            return redirect('/login')
+
+        owner = User.query.filter_by(email=session['email']).first()
+        if not owner.admin:
+            flash("Log in as Admin to create a schedule", 'danger')
+            return redirect('/schedule')
+
         start_day = request.form['start_day']
         end_day = request.form['end_day']
 
@@ -25,8 +35,8 @@ def schedule():
             return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
 
         week = str(start_day).replace('-', '/') + \
-               ' to ' + str(end_day).replace('-', '/')
-        current_week_schedule = WeekSchedule(on_week = week)
+            ' to ' + str(end_day).replace('-', '/')
+        current_week_schedule = WeekSchedule(on_week=week)
         db.session.add(current_week_schedule)
         db.session.commit()
         flash(
@@ -45,6 +55,15 @@ def add(id):
     current_schedule = WeekSchedule.query.filter_by(id=id).first()
 
     if request.method == 'POST':
+
+        if 'email' not in session:
+            flash('Login as Admin to create user schedules', 'danger')
+            return redirect('/login')
+
+        owner = User.query.filter_by(email=session['email']).first()
+        if not owner.admin:
+            flash("Login as Admin to create user schedules", 'danger')
+            return redirect('/schedule')
 
         week_id = id
         current_week = WeekSchedule.query.filter_by(id=week_id).first()
@@ -91,43 +110,43 @@ def add(id):
             user_schedule.saturday = 'OFF'
         else:
             user_schedule.saturday = sat_start + \
-                                     sat_start_state + ' - ' + sat_end + sat_end_state
+                sat_start_state + ' - ' + sat_end + sat_end_state
 
         if sun_start == 'OFF' and sun_start_state == 'OFF' and sun_end == 'OFF' and sun_end_state == 'OFF':
             user_schedule.sunday = 'OFF'
         else:
             user_schedule.sunday = sun_start + \
-                                   sun_start_state + ' - ' + sun_end + sun_end_state
+                sun_start_state + ' - ' + sun_end + sun_end_state
 
         if mon_start == 'OFF' and mon_start_state == 'OFF' and mon_end == 'OFF' and mon_end_state == 'OFF':
             user_schedule.monday = 'OFF'
         else:
             user_schedule.monday = mon_start + \
-                                   mon_start_state + ' - ' + mon_end + mon_end_state
+                mon_start_state + ' - ' + mon_end + mon_end_state
 
         if tue_start == 'OFF' and tue_start_state == 'OFF' and tue_end == 'OFF' and tue_end_state == 'OFF':
             user_schedule.tuesday = 'OFF'
         else:
             user_schedule.tuesday = tue_start + \
-                                    tue_start_state + ' - ' + tue_end + tue_end_state
+                tue_start_state + ' - ' + tue_end + tue_end_state
 
         if wed_start == 'OFF' and wed_start_state == 'OFF' and wed_end == 'OFF' and wed_end_state == 'OFF':
             user_schedule.wednesday = 'OFF'
         else:
             user_schedule.wednesday = wed_start + \
-                                      wed_start_state + ' - ' + wed_end + wed_end_state
+                wed_start_state + ' - ' + wed_end + wed_end_state
 
         if thu_start == 'OFF' and thu_start_state == 'OFF' and thu_end == 'OFF' and thu_end_state == 'OFF':
             user_schedule.thursday = 'OFF'
         else:
             user_schedule.thursday = thu_start + \
-                                     thu_start_state + ' - ' + thu_end + thu_end_state
+                thu_start_state + ' - ' + thu_end + thu_end_state
 
         if fri_start == 'OFF' and fri_start_state == 'OFF' and fri_end == 'OFF' and fri_end_state == 'OFF':
             user_schedule.friday = 'OFF'
         else:
             user_schedule.friday = fri_start + \
-                                   fri_start_state + ' - ' + fri_end + fri_end_state
+                fri_start_state + ' - ' + fri_end + fri_end_state
 
         db.session.add(user_schedule)
         db.session.commit()
@@ -144,11 +163,16 @@ def add(id):
 
         return redirect(f'/schedule/add/{week_id}')
 
-    return render_template('schedules/add.html', title='Create Schedules' ,users=users, current_schedule=current_schedule, week_id=id)
+    return render_template('schedules/add.html', title='Create Schedules', users=users, current_schedule=current_schedule, week_id=id)
 
 
 @schedules.route('/schedule/view')
 def view():
+
+    if 'email' not in session:
+        flash('Login to View a schedule', 'danger')
+        return redirect('/login')
+
     week_id = request.args.get('week_id')
 
     view_schedule = WeekSchedule.query.filter_by(
@@ -160,6 +184,16 @@ def view():
 
 @schedules.route('/schedule/edit/<id>')
 def edit(id):
+
+    if 'email' not in session:
+        flash('Login as Admin to Edit a schedule', 'danger')
+        return redirect('/login')
+
+    owner = User.query.filter_by(email=session['email']).first()
+    if not owner.admin:
+        flash("Login as Admin to Edit a schedule", 'danger')
+        return redirect('/schedule')
+
     user_schedule = UserSchedule.query.filter_by(id=id).first()
     users = User.query.all()
 
@@ -168,6 +202,16 @@ def edit(id):
 
 @schedules.route('/schedule/delete/<id>')
 def delete(id):
+
+    if 'email' not in session:
+        flash('Login as Admin to Delete a schedule', 'danger')
+        return redirect('/login')
+
+    owner = User.query.filter_by(email=session['email']).first()
+    if not owner.admin:
+        flash("Login as Admin to Delete a schedule", 'danger')
+        return redirect('/schedule')
+
     user_schedule = UserSchedule.query.filter_by(id=id).first()
     name = user_schedule.name
     week_id = user_schedule.week_id

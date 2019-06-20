@@ -38,28 +38,36 @@
       <div class="form-group">
         {{ form.password.label(class="bmd-label-floating") }}
         {% if form.password.errors %}
-        {{ form.password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
+        {{ form.password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4 passwordElement") }}
         <div class="invalid-feedback">
           {% for error in form.password.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
         {% else %}
-        {{ form.password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
+        {{ form.password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4 passwordElement") }}
         {% endif %}
       </div>
       <div class="form-group">
         {{ form.confirm_password.label(class="bmd-label-floating") }}
         {% if form.confirm_password.errors %}
-        {{ form.confirm_password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4") }}
+        {{ form.confirm_password(class="form-control form-control-lg is-invalid col-12 col-sm-8 col-md-6 col-lg-4 passwordElement2") }}
         <div class="invalid-feedback">
           {% for error in form.confirm_password.errors %}
           <span>{{ error }}</span>
           {% endfor %}
         </div>
         {% else %}
-        {{ form.confirm_password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4") }}
+        {{ form.confirm_password(class="form-control form-control-lg col-12 col-sm-8 col-md-6 col-lg-4 passwordElement2") }}
         {% endif %}
+      </div>
+      <div class="form-group">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" id="check" onclick="showHidePassFunc()">
+            Show Password
+          </label>
+        </div>
       </div>
     </fieldset>
     <div class="form-group">

@@ -5,10 +5,12 @@ db.drop_all()
 db.create_all()
 
 # These are users
-
+admin = User(name='Admin', email='admin@admin.com', password='admin')
 adonay = User(name='Adonay', email='ado@ado.com', password='aaa')
 mark = User(name='Mark', email='mark@mark.com', password='mmm')
 john = User(name='John', email='john@john.com', password='jjj')
+
+admin.admin = True
 
 db.session.add(adonay)
 db.session.add(mark)
