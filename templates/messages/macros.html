@@ -2,12 +2,26 @@
 {% macro add_btn(title) %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12 col-md-3 mt-1 mb-3">
+    <div class="col-sm-12 col-md-2 mt-1 mb-3">
       <button class="btn btn-raised font-weight-bold blue-grey darken-1 mr-2 white-text" data-toggle="modal"
         data-target="#addModal">{{ title }}</button>
     </div>
+    <div class="col-sm-12 col-md-8 mt-1 mb-3">
+      <form action="/messages/search">
+        <div class="bmd-form-group bmd-collapse-inline pull-xs-right">
+          <button class="btn bmd-btn-icon" for="search" data-target="#collapse-search" aria-expanded="false"
+            aria-controls="collapse-search">
+            <i class="material-icons">search</i>
+          </button>
+          <span id="collapse-search">
+            <input class="form-control" type="text" id="search" placeholder="Search notes ... " name='search'>
+          </span>
+        </div>
+      </form>
+    </div>
   </div>
 </div>
+
 {% endmacro %}
 
 <!-- Badge animation -->
@@ -34,8 +48,7 @@
           <h4 class="card-title">
             <a href="/messages/single/{{ message.id }}" class="title">{{ message.title }}</a>
             <form class="unset-form" method="POST" action="/messages/completed/{{ message.id }}">
-              <button type="submit"
-                class="btn btn-raised btn-sm float-right ml-2 font-weight-bold blue-grey darken-1 mr-2 white-text">
+              <button type="submit" class="btn btn-raised btn-sm float-right ml-2 blue-grey darken-1 mr-2 white-text">
                 {% if message.status%}
                 Unmark<i class="fas fa-check ml-2"></i>
                 {% else %}
@@ -43,12 +56,6 @@
                 {% endif %}
               </button>
             </form>
-            {% if single_message %}
-            <button class="btn btn-raised btn-sm float-right ml-2 font-weight-bold red lighten-2 white-text"
-              data-toggle="modal" data-target="#deleteModal">Delete</button>
-            <button class="btn btn-raised btn-sm float-right font-weight-bold  amber darken-2 white-text"
-              data-toggle="modal" data-target="#editModal">Edit</button>
-            {% endif %}
           </h4>
           <p class="card-text {{ trunc }}">{{ message.content }}</p>
         </div>
@@ -61,10 +68,18 @@
             {% if message.status == 1 %}
             <i class="material-icons" style="vertical-align: middle;">done</i> | {{ message.completed_by }}
             {% endif %}
-            {% if all_messages %}
-            <a class="float-right" href="/single/{{ message.id }}">
-              <i class="material-icons">settings</i>
-            </a>
+            {% if single_message %}
+            <span class="dropdown">
+              <button class="btn bmd-btn-icon float-right dropdown-toggle red-text text-lighten-2" type="button"
+                id="msgMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="material-icons">settings</i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-left" aria-labelledby="msgMenu">
+                <button class="btn float-right dropdown-item" data-toggle="modal"
+                  data-target="#deleteModal">Delete</button>
+                <button class="btn float-right dropdown-item" data-toggle="modal" data-target="#editModal">Edit</button>
+              </div>
+            </span>
             {% endif %}
           </small>
         </div>

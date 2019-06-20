@@ -83,8 +83,37 @@ def mark_completion(id):
     return render_template('messages/messages.html',
                            title="Completed Messages",
                            messages=messages,
-                           mark="Mark Not Completed",
                            completed_by=completed_by,
+                           form=form,
+                           new_g=new_g,
+                           new_u=new_u)
+
+
+@all_messages.route('/messages/search')
+def search():
+
+    new_u = True if badge_urgent() else False
+    new_g = True if badge_general() else False
+    form = MessageForm()
+
+    messages = []
+    data = Message.query.order_by(Message.pub_date.desc()).filter(
+        Message.title != 'daily-task').all()
+    if 'search' in request.args:
+        searchText = request.args.get('search').lower()
+        print(searchText)
+
+        for message in data:
+            if searchText in message.content.lower():
+                if message not in messages:
+                    messages.append(message)
+            if searchText in message.title.lower():
+                if message not in messages:
+                    messages.append(message)
+
+    return render_template('messages/messages.html',
+                           title="Search Result",
+                           messages=messages,
                            form=form,
                            new_g=new_g,
                            new_u=new_u)
