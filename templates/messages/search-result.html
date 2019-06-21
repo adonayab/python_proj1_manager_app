@@ -1,6 +1,6 @@
 {% extends "layout/base.html" %}
 {% from 'layout/macros.html' import notification_navs %}
-{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn, badge_anim, pagination %}
+{% from 'messages/macros.html' import message_box, add_or_edit_modal, add_btn, badge_anim %}
 
 {% block notification_navs %}
 <!-- This is a function to display the notification tabs: The two arguments are for the badges -->
@@ -14,13 +14,11 @@
 
 <!-- Displaying all the messages on the main page -->
 {% if messages %}
-{{ pagination(messages=messages, cat=category) }}
 
-{% for message in messages.items %}
+{% for message in messages %}
 {{ message_box(message, all_messages = true, trunc = 'text-truncate') }}
 {% endfor %}
 
-{{ pagination(messages=messages, cat=category) }}
 {% endif %}
 
 {{ add_or_edit_modal(form=form, modal_id='addModal', add=true) }}

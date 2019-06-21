@@ -44,7 +44,8 @@ def messages(category):
                            mark="Mark Completed",
                            new_g=new_g,
                            new_u=new_u,
-                           form=form)
+                           form=form,
+                           category=category)
 
 
 @all_messages.route('/messages/completed/', defaults={'id': ''})
@@ -68,7 +69,7 @@ def mark_completion(id):
             message.completed_by = ''
             db.session.commit()
             flash(f"{message.title} unmarked as complete by {user.name}", 'warning')
-            return redirect('/completed')
+            return redirect('/messages/completed')
         else:
             message.status = 1
             message.completed_by = user.name
@@ -111,7 +112,7 @@ def search():
                 if message not in messages:
                     messages.append(message)
 
-    return render_template('messages/messages.html',
+    return render_template('messages/search-result.html',
                            title="Search Result",
                            messages=messages,
                            form=form,

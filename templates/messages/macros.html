@@ -2,11 +2,11 @@
 {% macro add_btn(title) %}
 <div class="container-fluid">
   <div class="row">
-    <div class="col-sm-12 col-md-2 mt-1 mb-3">
+    <div class="col-sm-12 col-md-3 col-lg-2 mt-1 mb-3">
       <button class="btn btn-raised font-weight-bold blue-grey darken-1 mr-2 white-text" data-toggle="modal"
         data-target="#addModal">{{ title }}</button>
     </div>
-    <div class="col-sm-12 col-md-8 mt-1 mb-3">
+    <div class="col-sm-12 col-md-8 col-lg-6 mt-1 mb-3">
       <form action="/messages/search">
         <div class="bmd-form-group bmd-collapse-inline pull-xs-right">
           <button class="btn bmd-btn-icon" for="search" data-target="#collapse-search" aria-expanded="false"
@@ -299,5 +299,27 @@
     </div>
   </div>
 </div>
+
+{% endmacro %}
+
+<!-- Pagination -->
+
+{% macro pagination(messages, cat) %}
+
+<ul class="pagination pagination-sm ">
+  {% for page_num in messages.iter_pages() %}
+  {% if page_num %}
+  {% if messages.page == page_num %}
+  <li class="page-item active"><a class='page-link'
+      href="{{ url_for('all_messages.messages', category=cat, page=page_num) }}">{{ page_num }}</a></li>
+  {% else %}
+  <li class="page-item"><a class='page-link' class='pag'
+      href="{{ url_for('all_messages.messages', category=cat, page=page_num) }}">{{ page_num }}</a></li>
+  {% endif %}
+  {% else %}
+  ...
+  {% endif %}
+  {% endfor %}
+</ul>
 
 {% endmacro %}

@@ -11,7 +11,8 @@
         </button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete ({{ user.name }}) ?
+        <p>Are you sure you want to delete ({{ user.name }}) ?</p>
+        <p>Notes created by this user will have no Author names.</p>
       </div>
       <div class="modal-footer">
         <form action="/admin/delete" method="POST">
