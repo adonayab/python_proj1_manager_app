@@ -1,4 +1,4 @@
-from flask import redirect, render_template, session, flash
+from flask import redirect, render_template, session, flash, request
 from models import User
 from app import db
 from utils.hashutils import check_pw_hash
@@ -53,3 +53,42 @@ def signup():
         return redirect('/login')
 
     return render_template('users/signup.html', title='Register', form=form)
+
+
+@users.route('/admin', methods=['POST', 'GET'])
+def admin():
+
+    if 'email' not in session:
+        flash('Log in as Admin', 'warning')
+        return redirect('/login')
+
+    current_user = User.query.filter_by(email=session['email']).first()
+    if not current_user.admin:
+        flash('Log in as Admin', 'warning')
+        return redirect('/login')
+
+    users = User.query.all()
+    return render_template('users/admin.html', title='Admin', users=users)
+
+
+@users.route('/admin/role', methods=['POST'])
+def adminRoleChange():
+    id = request.form['id']
+    user = User.query.filter_by(id=id).first()
+    if user.admin:
+        user.admin = False
+    else:
+        user.admin = True
+
+    db.session.add(user)
+    db.session.commit()
+    return redirect('/admin')
+
+
+@users.route('/admin/delete', methods=['POST'])
+def removeUser():
+    id = request.form['id']
+    user = User.query.filter_by(id=id).first()
+    db.session.delete(user)
+    db.session.commit()
+    return redirect('/admin')

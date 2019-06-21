@@ -1,0 +1,42 @@
+{% extends "layout/base.html" %}
+
+{% from 'users/macros.html' import delete_modal %}
+
+{% block content %}
+
+<table class="table">
+  <tr>
+    <th>Name</th>
+    <th>Email</th>
+    <th>Admin</th>
+    <th>Change Role</th>
+    <th>Delete</th>
+  </tr>
+  {% for user in users %}
+  <tr>
+    <td>{{user.name}}</td>
+    <td>{{user.email}}</td>
+    {% if user.admin %}
+    <td>YES</td>
+    {% else %}
+    <td>NO</td>
+    {% endif %}
+    <td>
+      <form class="form-inline unset-form" class="form-inline" action="/admin/role" method="POST">
+        <input type="hidden" name="id" value="{{ user.id }}">
+        <input type="submit" value="Change Role" class="btn btn-raised btn-sm white-text blue-grey darken-1 mt-2">
+      </form>
+    </td>
+    <td>
+      <button class="btn btn-sm white-text red lighten-2 mt-2" data-toggle="modal"
+        data-target="#deleteModal{{user.id}}">Delete</button>
+    </td>
+  </tr>
+  {% endfor %}
+</table>
+
+{% for user in users %}
+{{ delete_modal(id=user.id, user=user) }}
+{% endfor %}
+
+{% endblock %}
