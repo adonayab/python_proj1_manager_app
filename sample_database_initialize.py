@@ -15,6 +15,7 @@ admin.admin = True
 db.session.add(adonay)
 db.session.add(mark)
 db.session.add(john)
+db.session.add(admin)
 
 db.session.commit()
 
@@ -126,7 +127,6 @@ db.session.add(
         owner=john
     )
 )
-
 
 
 db.session.add(
@@ -241,7 +241,6 @@ db.session.add(
         owner=john
     )
 )
-
 
 
 db.session.add(

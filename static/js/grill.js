@@ -1,73 +1,102 @@
-document.getElementById("addRow").addEventListener("click", addRow);
+const htmlElementRemove = el => {
+  el.remove();
+};
 
-let tPlace = 0;
-
-function addRow() {
-  let addBtn = Math.floor(Math.random() * 1000);
-  tPlace = Math.floor(Math.random() * 1000);
-  
-  let rowHtml = '<tr><td id="%timerPlace%">%A Food Type%</td><td><button class="btn btn-raised btn-dark" id="%add%">ADD<i class="far fa-clock ml-2"></i></button></td></tr>';
-  
-  let newHtmlRow = rowHtml.replace("%add%", addBtn);
-  newHtmlRow = newHtmlRow.replace("%timerPlace%", tPlace);
-
-  document.getElementById("t-body").insertAdjacentHTML("afterend", newHtmlRow);
-  document.getElementById(addBtn).addEventListener("click", addHtml);
-}
-
-
-function addHtml() {
-  var t1 = 0, t2 = 0, t3 = 0, timer = 0, stbt = 0;
-  t1 = Math.floor(Math.random() * 1000);
-  t2 = Math.floor(Math.random() * 1000);
-  t3 = Math.floor(Math.random() * 1000);
-  timer = Math.floor(Math.random() * 1000);
-  stbt = Math.floor(Math.random() * 1000);
-  var html =
-    '<td id="%timer%" style="width: 27%;"><div class="row"><div class="col-auto"><p>S</p></div><div class="col-auto"><p id="%t1%"></p></div><div class="col-auto"><button class="btn bmd-btn-icon"><i class="material-icons red-text" id="%stbt%">timer_off</i></button></div></div><div class="row"><div class="col-auto"><p>R</p></div><div class="col-auto"><p id="%t2%"></p></div></div><div class="row"><div class="col-auto"><p>E</p></div><div class="col-auto"><p id="%t3%"></p></div></div></td>';
-
-  var newHtml = html.replace("%t1%", t1);
-  newHtml = newHtml.replace("%t2%", t2);
-  newHtml = newHtml.replace("%t3%", t3);
-  newHtml = newHtml.replace("%timer%", timer);
-  newHtml = newHtml.replace("%stbt%", stbt);
-
-  document.getElementById(tPlace).insertAdjacentHTML("afterend", newHtml);
-
-  countdown(t1, t2, t3, stbt, timer);
-}
-
-function countdown(startT, readyT, counterT, stpBtn, timer) {
-  var start = new Date();
-  // Fetch the display elements
-  var tim1 = document.getElementById(startT);
-  var tim2 = document.getElementById(readyT);
-  var tim3 = document.getElementById(counterT);
-  var timerBody = document.getElementById(timer);
-  var btn = document.getElementById(stpBtn);
-
-  $(function () {
-    $(tim3).countdowntimer({
-      hours: 0,
-      minutes: 0,
-      seconds: 5,
-      size: "sm",
-      timeUp: function () {
-        tim3.innerHTML = "EXPIRED";
-        for (var i = 0; i < 300; i++) {
-          $(tim3)
-            .fadeOut(900)
-            .fadeIn(900);
-          $(btn).click(function () {
-            $(timerBody).remove();
-          });
-        }
+// The contents of a timer
+let timerContent = pos => {
+  let timer = {
+    hours: 0,
+    minutes: 0,
+    seconds: 5,
+    size: "sm",
+    timeUp: () => {
+      $(pos)
+        .html("EXPIRED")
+        .css("color", "#bf360c");
+      for (var i = 0; i < 300; i++) {
+        $(pos)
+          .fadeOut(900)
+          .fadeIn(900);
       }
-    });
-  });
+    }
+  };
+  return timer;
+};
 
-  tim1.innerHTML = start.toLocaleTimeString();
-  tim2.innerHTML = moment(start, "hh:mm:ss A")
+// Function that creates a timer
+const countdown = (counterT, timerBody, stopBtn) => {
+  const tim3 = document.getElementById(counterT);
+  const tBody = document.getElementById(timerBody);
+  const btn = document.getElementById(stopBtn);
+  $(() => {
+    $(tim3).countdowntimer(timerContent(tim3));
+  });
+  $(btn).click(() => {
+    $(tim3).countdowntimer("destroy");
+    htmlElementRemove(tBody);
+  });
+};
+
+// HTML body of a timer
+const timerBody = (place, foodName) => {
+  const now = new Date();
+  const start = now.toLocaleTimeString();
+  const ready = moment(start, "hh:mm:ss A")
     .add(20, "seconds")
     .format("LTS");
-}
+
+  let counterId = "tim" + Math.random();
+  const timerBodyId = "tim" + Math.random();
+  const stopBtn = "tim" + Math.random();
+
+  let markup = `
+    <div class="col-auto ${foodName}" id=${timerBodyId}>
+      <div class="row">
+        <div class="col-auto">
+          <p class="font-weight-bold light-blue-text text-accent-4">S</p>
+        </div>
+        <div class="col-auto">
+          <p>${start}</p>
+        </div>
+        <div class="col-auto">
+          <button class="btn bmd-btn-icon red-text" id="${stopBtn}">
+            <i class="fas fa-times-circle"></i>
+          </button>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <p class="font-weight-bold green-text text-darken-2">R</p>
+        </div>
+        <div class="col-auto">
+          <p>${ready}</p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-auto">
+          <p class="font-weight-bold pink-text text-darken-3">E</p>
+        </div>
+        <div class="col-auto">
+          <p id="${counterId}"></p>
+        </div>
+      </div>
+    </div>
+  `;
+  place.insertAdjacentHTML("beforebegin", markup);
+  countdown(counterId, timerBodyId, stopBtn);
+};
+
+// Generating the timers in the HTML when a person clicks
+let btns = document.querySelectorAll(".addB");
+btns.forEach(btn => {
+  let id = btn.id;
+  $(`#${id}`).click(() => {
+    let btnPos = document.querySelector(`#${id}`);
+    let timers = document.querySelectorAll(`.${id}`);
+    if (timers.length < 3) {
+      timerBody(btnPos.parentNode, id);
+    } else {
+      alert("Max number of timers reached");
+    }
+  });
+});

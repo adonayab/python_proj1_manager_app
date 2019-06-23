@@ -4,56 +4,69 @@
 
 <div class="container-fluid">
 
-  <h1>Virtual Grill</h1>
-
   <div class="row">
     <div class="col-sm-12 col-md-3 mt-1 mb-3">
       <button class="btn btn-raised font-weight-bold blue-grey darken-1 mr-2 white-text" id="addRow">Add Food</button>
     </div>
   </div>
 
-  <table class="table">
-    <thead>
-      <th style="width: 15%;">Foods</th>
-      <th style="width: 15%;">Timers</th>
-    </thead>
-    <tbody id="t-body">
-      <!-- <tr>
-        <td id="timerPlace">Hot Dog</td>
-        <td id="%timer%" style="width: 27%;">
-          <div class="row">
-            <div class="col-auto">
-              <p>S</p>
-            </div>
-            <div class="col-auto">
-              <p id="%t1%"></p>
-            </div>
-            <div class="col-auto"><button class="btn bmd-btn-icon"><i class="material-icons red-text"
-                  id="%stbt%">timer_off</i></button></div>
-          </div>
-          <div class="row">
-            <div class="col-auto">
-              <p>R</p>
-            </div>
-            <div class="col-auto">
-              <p id="%t2%"></p>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col-auto">
-              <p>E</p>
-            </div>
-            <div class="col-auto">
-              <p id="%t3%"></p>
-            </div>
-          </div>
-        </td>
-        <td>
-          <button class="btn btn-raised btn-dark" id="add">ADD<i class="far fa-clock ml-2"></i></button>
-        </td>
-      </tr> -->
-    </tbody>
-  </table>
+  <h1 class="text-center">Virtual Grill</h1>
+
+  <div class="row mt-2 header">
+    <div class="col-2 brown lighten-3">
+      <h2>Foods</h2>
+    </div>
+    <div class="col blue lighten-4">
+      <h2>Timers</h2>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-2 timerPlace">Hot Dog</div>
+    <div class="col-2">
+      <button class="btn btn-raised btn-dark addB" id="Hot-Dog">
+        ADD<i class="far fa-clock ml-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-2 timerPlace">BBQ Hot Dog</div>
+    <div class="col-2">
+      <button class="btn btn-raised btn-dark addB" id="BBQ-Hot-Dog">
+        ADD<i class="far fa-clock ml-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-2 timerPlace">Chs Brg Bite</div>
+    <div class="col-2">
+      <button class="btn btn-raised btn-dark addB" id="Chs-Brg-Bite">
+        ADD<i class="far fa-clock ml-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-2 timerPlace">Taco Chs</div>
+    <div class="col-2">
+      <button class="btn btn-raised btn-dark addB" id="Taco-Chs">
+        ADD<i class="far fa-clock ml-2"></i>
+      </button>
+    </div>
+  </div>
+
+  <div class="row mt-2">
+    <div class="col-2 timerPlace">Mont Jack</div>
+    <div class="col-2">
+      <button class="btn btn-raised btn-dark addB" id="Mont-Jack">
+        ADD<i class="far fa-clock ml-2"></i>
+      </button>
+    </div>
+  </div>
+
+
 </div>
 
 {% endblock %}
