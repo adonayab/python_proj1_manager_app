@@ -61,3 +61,13 @@ class WeekSchedule(db.Model):
 
     def __init__(self, on_week):
         self.on_week = on_week
+
+class Food(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(120), nullable=False, unique=True)
+    cook_time = db.Column(db.Integer, nullable=False)
+    exp_time = db.Column(db.Integer, nullable=False, default=4)
+
+    def __init__(self, name, cook_time):
+        self.name = name
+        self.cook_time = cook_time

@@ -1,5 +1,5 @@
 from app import db
-from models import User, Message, WeekSchedule, UserSchedule
+from models import User, Message, WeekSchedule, UserSchedule, Food
 
 db.drop_all()
 db.create_all()
@@ -574,5 +574,24 @@ db.session.add(us3_w3)
 db.session.add(us1_w4)
 db.session.add(us2_w4)
 db.session.add(us3_w4)
+
+
+########
+# Foods
+########
+
+f1 = Food(name="Hot Dog", cook_time=30)
+f2 = Food(name="BBQ Hot Dog", cook_time=30)
+f3 = Food(name="Chs Brg Bite", cook_time=30)
+f4 = Food(name="Taco Chs", cook_time=20)
+f5 = Food(name="Mont Jack", cook_time=20)
+f6 = Food(name="Chk Rnch", cook_time=20)
+
+db.session.add(f1)
+db.session.add(f2)
+db.session.add(f3)
+db.session.add(f4)
+db.session.add(f5)
+db.session.add(f6)
 
 db.session.commit()
