@@ -1,0 +1,39 @@
+{% from 'schedules/macros.html' import schedule_table %}
+
+<div class="container-fluid">
+
+  {% if schedule %}
+  <div class="row mt-2">
+    <h3>Schedule from {{ schedule.on_week }}</h3>
+  </div>
+  <table class="table">
+    <thead>
+      <tr class="light-green lighten-4">
+        <td class="text-center font-weight-bold">Name</td>
+        <td class="text-center font-weight-bold">Friday</td>
+        <td class="text-center font-weight-bold">Saturday</td>
+        <td class="text-center font-weight-bold">Sunday</td>
+        <td class="text-center font-weight-bold">Monday</td>
+        <td class="text-center font-weight-bold">Tuesday</td>
+        <td class="text-center font-weight-bold">Wednesday</td>
+        <td class="text-center font-weight-bold">Thursday</td>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in schedule.week_schedule %}
+      <tr>
+        <td class="text-center">{{ user.name }}</td>
+        <td class="text-center">{{ user.friday }}</td>
+        <td class="text-center">{{ user.saturday }}</td>
+        <td class="text-center">{{ user.sunday }}</td>
+        <td class="text-center">{{ user.monday }}</td>
+        <td class="text-center">{{ user.tuesday }}</td>
+        <td class="text-center">{{ user.wednesday }}</td>
+        <td class="text-center">{{ user.thursday }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  {% endif %}
+
+</div>

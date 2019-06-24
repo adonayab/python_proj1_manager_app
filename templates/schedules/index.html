@@ -42,8 +42,9 @@
   {% if view_schedule %}
   <div class="row mt-2">
     <h3>Schedule from {{ view_schedule.on_week }}</h3>
+    <h4><a href="/schedule/pdf/{{view_schedule.id}}">Pdf</a></h4>
   </div>
-  {{ schedule_table(schedule=view_schedule) }}
+  {{ schedule_table(schedule=view_schedule, edit_col=true) }}
   {% endif %}
 
 </div>

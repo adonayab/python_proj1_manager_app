@@ -128,11 +128,11 @@
 
 <!--Generate a schedule table-->
 
-{% macro schedule_table(schedule) %}
+{% macro schedule_table(schedule, edit_col) %}
 
 <div class="row">
   <table class="table mt-2">
-    {{ table_head_days(edit=true) }}
+    {{ table_head_days(edit=edit_col) }}
     <tbody>
       {% for user in schedule.week_schedule %}
       <tr>
