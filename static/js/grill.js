@@ -7,7 +7,7 @@ let timerContent = pos => {
   let timer = {
     hours: 0,
     minutes: 0,
-    seconds: 5,
+    seconds: 10,
     size: "sm",
     timeUp: () => {
       $(pos)
@@ -42,7 +42,7 @@ const timerBody = (place, foodName) => {
   const now = new Date();
   const start = now.toLocaleTimeString();
   const ready = moment(start, "hh:mm:ss A")
-    .add(20, "seconds")
+    .add(5, "seconds")
     .format("LTS");
 
   let counterId = "tim" + Math.random();

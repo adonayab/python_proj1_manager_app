@@ -1,71 +1,63 @@
 {% extends "layout/base.html" %}
+{% from "/grill/macros.html" import delete_modal %}
 
 {% block content %}
 
 <div class="container-fluid">
+  <h1 class="text-center">Virtual Grill</h1>
 
   <div class="row">
-    <div class="col-sm-12 col-md-3 mt-1 mb-3">
-      <button class="btn btn-raised font-weight-bold blue-grey darken-1 mr-2 white-text" id="addRow">Add Food</button>
-    </div>
+    <form method="POST" action="/grill/addFood">
+      <div class="form-row align-items-center">
+        <div class="col-sm-5">
+          <input type="text" class="form-control" name="name" placeholder="Food Name">
+        </div>
+        <div class="col-sm-3">
+          <div class="form-group">
+            <label for="cook-time">Cook Time</label>
+            <select class="form-control" name="cook-time" id="cook-time">
+              <option value="20">20 mins</option>
+              <option value="30">30 mins</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-auto my-1">
+          <button class="btn btn-raised font-weight-bold blue-grey darken-1 mr-2 white-text" type="submit">Add
+            Food</button>
+        </div>
+      </div>
+    </form>
   </div>
-
-  <h1 class="text-center">Virtual Grill</h1>
 
   <div class="row mt-2 header">
     <div class="col-2 brown lighten-3">
-      <h2>Foods</h2>
+      <h2 class="mt-1">F - Item</h2>
     </div>
-    <div class="col blue lighten-4">
-      <h2>Timers</h2>
+    <div class="col indigo darken-2">
+      <h2 class="mt-1 white-text">Timers</h2>
     </div>
   </div>
 
+  {% for food in foods %}
   <div class="row mt-2">
-    <div class="col-2 timerPlace">Hot Dog</div>
+    <div class="col-2 timerPlace">
+      <button class="btn bmd-btn-icon red-text text-lighten-2" data-toggle="modal"
+        data-target="#deleteModal{{food.id}}">
+        <i class="fas fa-trash-alt"></i>
+      </button>
+      {{ food.name }}
+    </div>
     <div class="col-2">
-      <button class="btn btn-raised btn-dark addB" id="Hot-Dog">
+      <button class="btn btn-raised btn-dark addB" id="food-{{ food.id }}">
         ADD<i class="far fa-clock ml-2"></i>
       </button>
     </div>
   </div>
+  {% endfor %}
 
-  <div class="row mt-2">
-    <div class="col-2 timerPlace">BBQ Hot Dog</div>
-    <div class="col-2">
-      <button class="btn btn-raised btn-dark addB" id="BBQ-Hot-Dog">
-        ADD<i class="far fa-clock ml-2"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="row mt-2">
-    <div class="col-2 timerPlace">Chs Brg Bite</div>
-    <div class="col-2">
-      <button class="btn btn-raised btn-dark addB" id="Chs-Brg-Bite">
-        ADD<i class="far fa-clock ml-2"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="row mt-2">
-    <div class="col-2 timerPlace">Taco Chs</div>
-    <div class="col-2">
-      <button class="btn btn-raised btn-dark addB" id="Taco-Chs">
-        ADD<i class="far fa-clock ml-2"></i>
-      </button>
-    </div>
-  </div>
-
-  <div class="row mt-2">
-    <div class="col-2 timerPlace">Mont Jack</div>
-    <div class="col-2">
-      <button class="btn btn-raised btn-dark addB" id="Mont-Jack">
-        ADD<i class="far fa-clock ml-2"></i>
-      </button>
-    </div>
-  </div>
-
+  {% for food in foods %}
+  {{ delete_modal(id=food.id, food=food) }}
+  {% endfor %}
 
 </div>
 
