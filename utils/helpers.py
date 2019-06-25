@@ -22,6 +22,10 @@ def message_query(category=None):
     elif category == 'general':
         messages = Message.query.order_by(Message.pub_date.desc()).filter_by(
             category='General').filter_by(status=0).paginate(per_page=5)
+    elif category == 'completed':
+        messages = Message.query.order_by(
+            Message.pub_date.desc()).filter(
+            Message.title != 'daily-task').filter_by(status=1).paginate(per_page=5)
     else:
         messages = Message.query.order_by(Message.pub_date.desc()).filter(
             Message.title != 'daily-task').filter_by(status=0).paginate(per_page=5)

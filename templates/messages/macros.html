@@ -69,12 +69,15 @@
             <i class="material-icons" style="vertical-align: middle;">done</i> | {{ message.completed_by }}
             {% endif %}
             {% if single_message %}
-            <span class="dropdown">
-              <button class="btn bmd-btn-icon float-right dropdown-toggle red-text text-lighten-2" type="button"
-                id="msgMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <i class="material-icons">settings</i>
-              </button>
-              <div class="dropdown-menu dropdown-menu-left" aria-labelledby="msgMenu">
+
+
+            <span class="dropdown float-right">
+              <a href="#" role="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <button type="button" class="btn bmd-btn-icon ">
+                  <i class="material-icons">settings</i>
+                </button>
+              </a>
+              <div class="dropdown-menu" aria-labelledby="menu">
                 <button class="btn float-right dropdown-item" data-toggle="modal"
                   data-target="#deleteModal">Delete</button>
                 <button class="btn float-right dropdown-item" data-toggle="modal" data-target="#editModal">Edit</button>
@@ -207,12 +210,11 @@
       <tr>
         <td>
           <span class="dropdown">
-            <a class="" href="#" role="button" id="menu" data-toggle="dropdown" aria-haspopup="true"
-              aria-expanded="false">
+            <a href="#" role="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               {% if task.category == 'high' %}
-              <i class="fas fa-exclamation-triangle red-text"></i>
+              <i class="fas fa-dot-circle red-text"></i>
               {% else %}
-              <i class="fas fa-exclamation-triangle green-text"></i>
+              <i class="fas fa-dot-circle green-text"></i>
               {% endif %}
               {% if task.status %}
               <button type="button" class="btn bmd-btn-icon ">

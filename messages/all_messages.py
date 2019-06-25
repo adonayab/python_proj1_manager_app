@@ -78,14 +78,13 @@ def mark_completion(id):
             flash(f"{message.title} marked complete by {user.name}", 'success')
             return redirect('/messages')
 
-    messages = Message.query.order_by(
-        Message.pub_date.desc()).filter(
-        Message.title != 'daily-task').filter_by(status=1).all()
+    messages = message_query('completed')
     return render_template('messages/messages.html',
                            title="Completed Messages",
                            messages=messages,
                            completed_by=completed_by,
                            form=form,
+                           category='completed',
                            new_g=new_g,
                            new_u=new_u)
 

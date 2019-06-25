@@ -42,7 +42,13 @@
   {% if view_schedule %}
   <div class="row mt-2">
     <h3>Schedule from {{ view_schedule.on_week }}</h3>
-    <h4><a href="/schedule/pdf/{{view_schedule.id}}">Pdf</a></h4>
+  </div>
+  <div class="row">
+    <h5>
+      <a href="/schedule/pdf/{{view_schedule.id}}">
+        <i class="fas fa-file-download"></i> Download pdf
+      </a>
+    </h5>
   </div>
   {{ schedule_table(schedule=view_schedule, edit_col=true) }}
   {% endif %}
