@@ -8,7 +8,7 @@
   <div class="row">
     <h2>Edit schedule for ({{ user_schedule.name }})</h2>
   </div>
-  <form action="{{url_for('schedules.add')}}" method='post'>
+  <form action="{{url_for('schedules.add', id=user_schedule.week_id  )}}" method='post'>
     <table class="table mt-2">
         {{ insert_schedule_row(users) }}
     </table>

@@ -75,6 +75,9 @@ def admin():
 def adminRoleChange():
     id = request.form['id']
     user = User.query.filter_by(id=id).first()
+    if user.email == 'admin@admin.com':
+        flash('Can not change ROLE of Master', 'warning')
+        return redirect('/admin')
     if user.admin:
         user.admin = False
     else:
@@ -82,6 +85,7 @@ def adminRoleChange():
 
     db.session.add(user)
     db.session.commit()
+    flash('Successfully changed ROLE', 'success')
     return redirect('/admin')
 
 
@@ -89,6 +93,10 @@ def adminRoleChange():
 def removeUser():
     id = request.form['id']
     user = User.query.filter_by(id=id).first()
+    if user.email == 'admin@admin.com':
+        flash('Can not delete Master', 'warning')
+        return redirect('/admin')
     db.session.delete(user)
     db.session.commit()
+    flash('Successfully deleted User', 'success')
     return redirect('/admin')
