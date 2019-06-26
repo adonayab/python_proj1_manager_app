@@ -2,6 +2,7 @@ from app import db
 from utils.hashutils import make_pw_hash
 from datetime import datetime
 
+
 class Message(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     title = db.Column(db.String(120), nullable=False)
@@ -47,7 +48,7 @@ class UserSchedule(db.Model):
     saturday = db.Column(db.String(120))
     sunday = db.Column(db.String(120))
     week_id = db.Column(db.Integer, db.ForeignKey('week_schedule.id'),
-                          nullable=False)
+                        nullable=False)
 
     def __init__(self, name, week):
         self.name = name
@@ -61,6 +62,7 @@ class WeekSchedule(db.Model):
 
     def __init__(self, on_week):
         self.on_week = on_week
+
 
 class Food(db.Model):
     id = db.Column(db.Integer, primary_key=True)

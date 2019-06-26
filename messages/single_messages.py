@@ -1,5 +1,5 @@
 from flask import redirect, render_template, session, flash
-from models import Message
+from models import Message, User
 from app import db
 from datetime import datetime
 from messages.forms import MessageForm
@@ -9,6 +9,7 @@ from utils.helpers import badge_general, badge_urgent
 from flask import Blueprint
 
 single_messages = Blueprint('single_messages', __name__)
+
 
 @single_messages.route('/messages/', defaults={'id': ''})
 @single_messages.route('/messages/single/<int:id>', methods=['GET'])
@@ -45,9 +46,11 @@ def delete_single(id):
         return redirect('/login')
 
     message = Message.query.filter_by(id=id).first()
-    if message.owner.email != session['email']:
-        flash('Unauthorised to Delete this Note', 'danger')
-        return redirect(f'/single/{message.id}')
+    usr_in_ses = User.query.filter_by(email=session['email']).first()
+    if not usr_in_ses.admin:
+        if usr_in_ses.email != message.owner.email:
+            flash('Unauthorized to Delete this Note', 'danger')
+            return redirect(f'/messages/single/{message.id}')
 
     db.session.delete(message)
     db.session.commit()
@@ -65,9 +68,11 @@ def edit_single(id):
         flash('Login to Modify this Note', 'danger')
         return redirect('/login')
 
-    if message.owner.email != session['email']:
-        flash('Unauthorised to Edit this Note', 'danger')
-        return redirect(f'/single/{message.id}')
+    usr_in_ses = User.query.filter_by(email=session['email']).first()
+    if not usr_in_ses.admin:
+        if usr_in_ses.email != message.owner.email:
+            flash('Unauthorized to Edit this Note', 'danger')
+            return redirect(f'/messages/single/{message.id}')
 
     if form.validate_on_submit():
         message.title = form.title.data

@@ -70,7 +70,6 @@
             {% endif %}
             {% if single_message %}
 
-
             <span class="dropdown float-right">
               <a href="#" role="button" id="menu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <button type="button" class="btn bmd-btn-icon ">
@@ -175,7 +174,7 @@
 
 <!-- Delete modal macro -->
 {% macro delete_modal(id, obj) %}
-<div class="modal fade" id={{ id }} tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+<div class="modal fade" id="{{ id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
