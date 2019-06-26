@@ -1,3 +1,5 @@
+from _datetime import datetime
+
 from models import Message
 
 
@@ -31,3 +33,11 @@ def message_query(category=None):
             Message.title != 'daily-task').filter_by(status=0).paginate(per_page=5)
 
     return messages
+
+
+def day_format(str_day, full=True): # string = 2019-06-19 yy/mm/dd
+    if not full:
+        day = datetime.strptime(str_day, '%Y-%m-%d').strftime('%b %d, %Y')
+        return day
+    day = datetime.strptime(str_day, '%Y-%m-%d').strftime('%B %d, %Y')
+    return day

@@ -2,6 +2,7 @@ from flask import Blueprint, render_template, request, flash, redirect, session,
 from app import db
 from models import User, UserSchedule, WeekSchedule
 import pdfkit
+from utils.helpers import day_format
 
 schedules = Blueprint('schedules', __name__)
 
@@ -35,8 +36,7 @@ def schedule():
             flash("Select the end day", 'danger')
             return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
 
-        week = str(start_day).replace('-', '/') + \
-               ' to ' + str(end_day).replace('-', '/')
+        week = day_format(start_day) + ' to ' + day_format(end_day)
         current_week_schedule = WeekSchedule(on_week=week)
         db.session.add(current_week_schedule)
         db.session.commit()
