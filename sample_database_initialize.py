@@ -427,153 +427,153 @@ db.session.add(
 )
 
 
-# Generating schedules
-
-week1 = '2019/05/03 to 2019/05/09'
-week2 = '2019/05/31 to 2019/06/07'
-week3 = '2019/06/07 to 2019/06/13'
-week4 = '2019/05/13 to 2019/05/19'
-
-ws1 = WeekSchedule(on_week=week1)
-ws2 = WeekSchedule(on_week=week2)
-ws3 = WeekSchedule(on_week=week3)
-ws4 = WeekSchedule(on_week=week4)
-
-db.session.add(ws1)
-db.session.add(ws2)
-db.session.add(ws3)
-db.session.add(ws4)
-
-db.session.commit()
-
-us1_w1 = UserSchedule(name=adonay.name, week=ws1)
-us2_w1 = UserSchedule(name=mark.name, week=ws1)
-us3_w1 = UserSchedule(name=john.name, week=ws1)
-
-us1_w1.monday = '7AM - 2PM'
-us1_w1.tuesday = 'OFF'
-us1_w1.wednesday = '7AM - 2PM'
-us1_w1.thursday = 'OFF'
-us1_w1.friday = '7AM - 2PM'
-us1_w1.saturday = '10AM - 7AM'
-us1_w1.sunday = '7AM - 2PM'
-
-us2_w1.monday = '2PM - 10PM'
-us2_w1.tuesday = '7AM - 2PM'
-us2_w1.wednesday = '2PM - 10PM'
-us2_w1.thursday = 'OFF'
-us2_w1.friday = '2PM - 10PM'
-us2_w1.saturday = 'OFF'
-us2_w1.sunday = '2PM - 10PM'
-
-us3_w1.monday = '10AM - 7AM'
-us3_w1.tuesday = 'OFF'
-us3_w1.wednesday = '10AM - 7AM'
-us3_w1.thursday = '7AM - 2PM'
-us3_w1.friday = '10AM - 7AM'
-us3_w1.saturday = 'OFF'
-us3_w1.sunday = '10AM - 7AM'
-
-
-us1_w2 = UserSchedule(name=john.name, week=ws2)
-us2_w2 = UserSchedule(name=adonay.name, week=ws2)
-us3_w2 = UserSchedule(name=mark.name, week=ws2)
-
-us1_w2.monday = '7AM - 2PM'
-us1_w2.tuesday = 'OFF'
-us1_w2.wednesday = 'OFF'
-us1_w2.thursday = 'OFF'
-us1_w2.friday = '7AM - 2PM'
-us1_w2.saturday = '10AM - 7AM'
-us1_w2.sunday = '7AM - 2PM'
-
-us2_w2.monday = '2PM - 10PM'
-us2_w2.tuesday = '7AM - 2PM'
-us2_w2.wednesday = '2PM - 10PM'
-us2_w2.thursday = 'OFF'
-us2_w2.friday = '2PM - 10PM'
-us2_w2.saturday = 'OFF'
-us2_w2.sunday = '2PM - 10PM'
-
-us3_w2.monday = '10AM - 7AM'
-us3_w2.tuesday = 'OFF'
-us3_w2.wednesday = '10AM - 7AM'
-us3_w2.thursday = '7AM - 2PM'
-us3_w2.friday = '10AM - 7AM'
-us3_w2.saturday = '10AM - 7AM'
-us3_w2.sunday = '10AM - 7AM'
-
-us1_w3 = UserSchedule(name=mark.name, week=ws3)
-us2_w3 = UserSchedule(name=john.name, week=ws3)
-us3_w3 = UserSchedule(name=adonay.name, week=ws3)
-
-us1_w3.monday = '7AM - 2PM'
-us1_w3.tuesday = 'OFF'
-us1_w3.wednesday = '7AM - 2PM'
-us1_w3.thursday = 'OFF'
-us1_w3.friday = '7AM - 2PM'
-us1_w3.saturday = '10AM - 7AM'
-us1_w3.sunday = '7AM - 2PM'
-
-us2_w3.monday = '2PM - 10PM'
-us2_w3.tuesday = '7AM - 2PM'
-us2_w3.wednesday = '2PM - 10PM'
-us2_w3.thursday = 'OFF'
-us2_w3.friday = '2PM - 10PM'
-us2_w3.saturday = 'OFF'
-us2_w3.sunday = '2PM - 10PM'
-
-us3_w3.monday = '10AM - 7AM'
-us3_w3.tuesday = 'OFF'
-us3_w3.wednesday = '10AM - 7AM'
-us3_w3.thursday = '7AM - 2PM'
-us3_w3.friday = 'OFF'
-us3_w3.saturday = 'OFF'
-us3_w3.sunday = '10AM - 7AM'
-
-us1_w4 = UserSchedule(name=adonay.name, week=ws4)
-us2_w4 = UserSchedule(name=john.name, week=ws4)
-us3_w4 = UserSchedule(name=mark.name, week=ws4)
-
-us1_w4.monday = '7AM - 2PM'
-us1_w4.tuesday = '7AM - 2PM'
-us1_w4.wednesday = '7AM - 2PM'
-us1_w4.thursday = '7AM - 2PM'
-us1_w4.friday = '7AM - 2PM'
-us1_w4.saturday = 'OFF'
-us1_w4.sunday = 'OFF'
-
-us2_w4.monday = '2PM - 10PM'
-us2_w4.tuesday = '2PM - 10PM'
-us2_w4.wednesday = '2PM - 10PM'
-us2_w4.thursday = '2PM - 10PM'
-us2_w4.friday = '2PM - 10PM'
-us2_w4.saturday = 'OFF'
-us2_w4.sunday = 'OFF'
-
-us3_w4.monday = '10AM - 7AM'
-us3_w4.tuesday = '10AM - 7AM'
-us3_w4.wednesday = '10AM - 7AM'
-us3_w4.thursday = '10AM - 7AM'
-us3_w4.friday = '10AM - 7AM'
-us3_w4.saturday = 'OFF'
-us3_w4.sunday = 'OFF'
-
-db.session.add(us1_w1)
-db.session.add(us2_w1)
-db.session.add(us3_w1)
-
-db.session.add(us1_w2)
-db.session.add(us2_w2)
-db.session.add(us3_w2)
-
-db.session.add(us1_w3)
-db.session.add(us2_w3)
-db.session.add(us3_w3)
-
-db.session.add(us1_w4)
-db.session.add(us2_w4)
-db.session.add(us3_w4)
+# # Generating schedules
+#
+# week1 = '2019/05/03 to 2019/05/09'
+# week2 = '2019/05/31 to 2019/06/07'
+# week3 = '2019/06/07 to 2019/06/13'
+# week4 = '2019/05/13 to 2019/05/19'
+#
+# ws1 = WeekSchedule(on_week=week1)
+# ws2 = WeekSchedule(on_week=week2)
+# ws3 = WeekSchedule(on_week=week3)
+# ws4 = WeekSchedule(on_week=week4)
+#
+# db.session.add(ws1)
+# db.session.add(ws2)
+# db.session.add(ws3)
+# db.session.add(ws4)
+#
+# db.session.commit()
+#
+# us1_w1 = UserSchedule(name=adonay.name, week=ws1)
+# us2_w1 = UserSchedule(name=mark.name, week=ws1)
+# us3_w1 = UserSchedule(name=john.name, week=ws1)
+#
+# us1_w1.monday = '7AM - 2PM'
+# us1_w1.tuesday = 'OFF'
+# us1_w1.wednesday = '7AM - 2PM'
+# us1_w1.thursday = 'OFF'
+# us1_w1.friday = '7AM - 2PM'
+# us1_w1.saturday = '10AM - 7AM'
+# us1_w1.sunday = '7AM - 2PM'
+#
+# us2_w1.monday = '2PM - 10PM'
+# us2_w1.tuesday = '7AM - 2PM'
+# us2_w1.wednesday = '2PM - 10PM'
+# us2_w1.thursday = 'OFF'
+# us2_w1.friday = '2PM - 10PM'
+# us2_w1.saturday = 'OFF'
+# us2_w1.sunday = '2PM - 10PM'
+#
+# us3_w1.monday = '10AM - 7AM'
+# us3_w1.tuesday = 'OFF'
+# us3_w1.wednesday = '10AM - 7AM'
+# us3_w1.thursday = '7AM - 2PM'
+# us3_w1.friday = '10AM - 7AM'
+# us3_w1.saturday = 'OFF'
+# us3_w1.sunday = '10AM - 7AM'
+#
+#
+# us1_w2 = UserSchedule(name=john.name, week=ws2)
+# us2_w2 = UserSchedule(name=adonay.name, week=ws2)
+# us3_w2 = UserSchedule(name=mark.name, week=ws2)
+#
+# us1_w2.monday = '7AM - 2PM'
+# us1_w2.tuesday = 'OFF'
+# us1_w2.wednesday = 'OFF'
+# us1_w2.thursday = 'OFF'
+# us1_w2.friday = '7AM - 2PM'
+# us1_w2.saturday = '10AM - 7AM'
+# us1_w2.sunday = '7AM - 2PM'
+#
+# us2_w2.monday = '2PM - 10PM'
+# us2_w2.tuesday = '7AM - 2PM'
+# us2_w2.wednesday = '2PM - 10PM'
+# us2_w2.thursday = 'OFF'
+# us2_w2.friday = '2PM - 10PM'
+# us2_w2.saturday = 'OFF'
+# us2_w2.sunday = '2PM - 10PM'
+#
+# us3_w2.monday = '10AM - 7AM'
+# us3_w2.tuesday = 'OFF'
+# us3_w2.wednesday = '10AM - 7AM'
+# us3_w2.thursday = '7AM - 2PM'
+# us3_w2.friday = '10AM - 7AM'
+# us3_w2.saturday = '10AM - 7AM'
+# us3_w2.sunday = '10AM - 7AM'
+#
+# us1_w3 = UserSchedule(name=mark.name, week=ws3)
+# us2_w3 = UserSchedule(name=john.name, week=ws3)
+# us3_w3 = UserSchedule(name=adonay.name, week=ws3)
+#
+# us1_w3.monday = '7AM - 2PM'
+# us1_w3.tuesday = 'OFF'
+# us1_w3.wednesday = '7AM - 2PM'
+# us1_w3.thursday = 'OFF'
+# us1_w3.friday = '7AM - 2PM'
+# us1_w3.saturday = '10AM - 7AM'
+# us1_w3.sunday = '7AM - 2PM'
+#
+# us2_w3.monday = '2PM - 10PM'
+# us2_w3.tuesday = '7AM - 2PM'
+# us2_w3.wednesday = '2PM - 10PM'
+# us2_w3.thursday = 'OFF'
+# us2_w3.friday = '2PM - 10PM'
+# us2_w3.saturday = 'OFF'
+# us2_w3.sunday = '2PM - 10PM'
+#
+# us3_w3.monday = '10AM - 7AM'
+# us3_w3.tuesday = 'OFF'
+# us3_w3.wednesday = '10AM - 7AM'
+# us3_w3.thursday = '7AM - 2PM'
+# us3_w3.friday = 'OFF'
+# us3_w3.saturday = 'OFF'
+# us3_w3.sunday = '10AM - 7AM'
+#
+# us1_w4 = UserSchedule(name=adonay.name, week=ws4)
+# us2_w4 = UserSchedule(name=john.name, week=ws4)
+# us3_w4 = UserSchedule(name=mark.name, week=ws4)
+#
+# us1_w4.monday = '7AM - 2PM'
+# us1_w4.tuesday = '7AM - 2PM'
+# us1_w4.wednesday = '7AM - 2PM'
+# us1_w4.thursday = '7AM - 2PM'
+# us1_w4.friday = '7AM - 2PM'
+# us1_w4.saturday = 'OFF'
+# us1_w4.sunday = 'OFF'
+#
+# us2_w4.monday = '2PM - 10PM'
+# us2_w4.tuesday = '2PM - 10PM'
+# us2_w4.wednesday = '2PM - 10PM'
+# us2_w4.thursday = '2PM - 10PM'
+# us2_w4.friday = '2PM - 10PM'
+# us2_w4.saturday = 'OFF'
+# us2_w4.sunday = 'OFF'
+#
+# us3_w4.monday = '10AM - 7AM'
+# us3_w4.tuesday = '10AM - 7AM'
+# us3_w4.wednesday = '10AM - 7AM'
+# us3_w4.thursday = '10AM - 7AM'
+# us3_w4.friday = '10AM - 7AM'
+# us3_w4.saturday = 'OFF'
+# us3_w4.sunday = 'OFF'
+#
+# db.session.add(us1_w1)
+# db.session.add(us2_w1)
+# db.session.add(us3_w1)
+#
+# db.session.add(us1_w2)
+# db.session.add(us2_w2)
+# db.session.add(us3_w2)
+#
+# db.session.add(us1_w3)
+# db.session.add(us2_w3)
+# db.session.add(us3_w3)
+#
+# db.session.add(us1_w4)
+# db.session.add(us2_w4)
+# db.session.add(us3_w4)
 
 
 ########

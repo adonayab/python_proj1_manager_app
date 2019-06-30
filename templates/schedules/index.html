@@ -25,11 +25,15 @@
           View a Schedule
         </h2>
       </div>
-      <div class="form-group col-auto">
+      <div class="form-group col-4">
         <label class="font-weight-bold ml-4">Select a Week</label>
         <select class="form-control mt-2" name="week_id">
           {% for schedule in all_schedules %}
-          <option value="{{ schedule.id }}">{{ schedule.on_week }}</option>
+          <option value="{{ schedule.id }}">
+            {{ schedule.start_date.strftime('%B %d, %Y') }}
+             TO
+            {{ schedule.end_date.strftime('%B %d, %Y') }}
+          </option>
           {% endfor %}
         </select>
       </div>
@@ -41,7 +45,11 @@
 
   {% if view_schedule %}
   <div class="row mt-2">
-    <h3>{{ view_schedule.on_week }}</h3>
+    <h3>
+      {{ view_schedule.start_date.strftime('%B %d, %Y') }}
+      <span class="blue-text"> To </span>
+      {{ view_schedule.end_date.strftime('%B %d, %Y') }}
+    </h3>
   </div>
   <div class="row">
     <h5>
@@ -50,7 +58,7 @@
       </a>
     </h5>
   </div>
-  {{ schedule_table(schedule=view_schedule, edit_col=true) }}
+  {{ schedule_table(schedule=view_schedule, edit_col=true, days=days_of_week) }}
   {% endif %}
 
 </div>

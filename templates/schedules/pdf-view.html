@@ -4,32 +4,29 @@
 
   {% if schedule %}
   <div class="row mt-2">
-    <h3>Schedule for {{ schedule.on_week }}</h3>
+    <h4 class="text-center">
+      Schedule from
+      {{ schedule.start_date.strftime('%B %d, %Y') }}
+      <span class="blue-text"> To </span>
+      {{ schedule.end_date.strftime('%B %d, %Y') }}
+    </h4>
   </div>
   <table class="table">
     <thead>
       <tr class="light-green lighten-4">
         <td class="text-center font-weight-bold">Name</td>
-        <td class="text-center font-weight-bold">Friday</td>
-        <td class="text-center font-weight-bold">Saturday</td>
-        <td class="text-center font-weight-bold">Sunday</td>
-        <td class="text-center font-weight-bold">Monday</td>
-        <td class="text-center font-weight-bold">Tuesday</td>
-        <td class="text-center font-weight-bold">Wednesday</td>
-        <td class="text-center font-weight-bold">Thursday</td>
+        {% for day in days_of_week %}
+          <td class="text-center font-weight-bold">{{ day }}</td>
+        {% endfor %}
       </tr>
     </thead>
     <tbody>
       {% for user in schedule.week_schedule %}
       <tr>
         <td class="text-center">{{ user.name }}</td>
-        <td class="text-center">{{ user.friday }}</td>
-        <td class="text-center">{{ user.saturday }}</td>
-        <td class="text-center">{{ user.sunday }}</td>
-        <td class="text-center">{{ user.monday }}</td>
-        <td class="text-center">{{ user.tuesday }}</td>
-        <td class="text-center">{{ user.wednesday }}</td>
-        <td class="text-center">{{ user.thursday }}</td>
+        {% for day in user.user_schedule %}
+            <td class="text-center">{{day.tim_in}} - {{day.tim_out}}</td>
+        {% endfor %}
       </tr>
       {% endfor %}
     </tbody>
