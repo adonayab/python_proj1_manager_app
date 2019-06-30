@@ -3,9 +3,16 @@
 {% block content %}
 
 <div class="container-fluid">
+  <div class="row mt-2">
+    <h4>
+      {{ current_schedule.start_date.strftime('%B %d, %Y') }}
+      <span class="blue-text"> To </span>
+      {{ current_schedule.end_date.strftime('%B %d, %Y') }}
+    </h4>
+  </div>
   <form action="/schedule/add/{{ week_id }}" method='post'>
     <table class="table mt-2">
-      {{ insert_schedule_row(users) }}
+      {{ insert_schedule_row(users=users, schedule_days=days_of_week, days_of_week=days_of_week) }}
     </table>
     <div class="row">
       <div class="col-12">
@@ -16,7 +23,7 @@
   </form>
 
   {% if current_schedule %}
-  {{ schedule_table(schedule=current_schedule, edit_col=true) }}
+  {{ schedule_table(schedule=current_schedule, edit_col=true, days=days_of_week) }}
   {% endif %}
 </div>
 

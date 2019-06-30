@@ -35,9 +35,27 @@ def message_query(category=None):
     return messages
 
 
-def day_format(str_day, full=True): # string = 2019-06-19 yy/mm/dd
+def date_format(str_day, full=True): # string = 2019-06-19 yy/mm/dd
     if not full:
         day = datetime.strptime(str_day, '%Y-%m-%d').strftime('%b %d, %Y')
         return day
     day = datetime.strptime(str_day, '%Y-%m-%d').strftime('%B %d, %Y')
     return day
+
+def get_date(str_day):
+    day = datetime.strptime(str_day, '%Y-%m-%d')
+    return day
+
+
+def days_generator(start_day):
+    days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday']
+    ordered = []
+    start_idx = days.index(start_day)
+    for i in range(len(days)):
+        if start_idx >= len(days):
+            ordered.append(days[start_idx%len(days)])
+            start_idx += 1
+            continue
+        ordered.append(days[start_idx])
+        start_idx += 1
+    return ordered
