@@ -35,13 +35,6 @@ def message_query(category=None):
     return messages
 
 
-def date_format(str_day, full=True): # string = 2019-06-19 yy/mm/dd
-    if not full:
-        day = datetime.strptime(str_day, '%Y-%m-%d').strftime('%b %d, %Y')
-        return day
-    day = datetime.strptime(str_day, '%Y-%m-%d').strftime('%B %d, %Y')
-    return day
-
 def get_date(str_day):
     day = datetime.strptime(str_day, '%Y-%m-%d')
     return day

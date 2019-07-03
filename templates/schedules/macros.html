@@ -1,6 +1,6 @@
 <!--Calendar-->
-{% macro calendar(prefix, name, col_sm) %}
-<div class="col-12 {{ col_sm }}">
+{% macro calendar(prefix, name) %}
+<div class="col-12 col-sm-6">
   <label class="font-weight-bold">{{ prefix }}</label>
   <div class="input-group">
     <input type="date" class="form-control" name={{ name }} />

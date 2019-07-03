@@ -78,8 +78,18 @@
         <form action="/schedule" method="post">
           <div class="container">
             <div class="row">
-              {{ calendar(prefix='START DAY', name='start_day', col_sm='col-sm-6') }}
-              {{ calendar(prefix='END DAY', name='end_day', col_sm='col-sm-6') }}
+              {{ calendar(prefix='START DAY', name='start_day') }}
+              <div class="col-12 col-sm-6">
+                <label class="font-weight-bold">Week(s)</label>
+                <div class="input-group">
+                  <input type="text" class="form-control text-center" value="1" disabled />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fas fa-calendar-week"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="row">
               <button type="submit" class="btn btn-block btn-raised btn-secondary mt-4">Go To Scheduling

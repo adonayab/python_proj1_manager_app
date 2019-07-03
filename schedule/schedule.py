@@ -1,8 +1,10 @@
+from datetime import timedelta
+
 from flask import Blueprint, render_template, request, flash, redirect, session, make_response, url_for
 from app import db
 from models import User, UserSchedule, WeekSchedule, DaysOfSchedule
 import pdfkit
-from utils.helpers import date_format, get_date, days_generator
+from utils.helpers import get_date, days_generator
 
 schedules = Blueprint('schedules', __name__)
 
@@ -23,22 +25,14 @@ def schedule():
             return redirect('/schedule')
 
         start_day = request.form['start_day']
-        end_day = request.form['end_day']
 
-        if not start_day and not end_day:
-            flash("Select start day and end day", 'danger')
-            return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
         if not start_day:
             flash("Select the start day", 'danger')
             return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
 
-        if not end_day:
-            flash("Select the end day", 'danger')
-            return render_template('/schedules/index.html', title='Schedules', all_schedules=all_schedules)
-
-        week = date_format(start_day) + ' to ' + date_format(end_day)
         start_date = get_date(start_day)
-        end_date = get_date(end_day)
+        end_date = start_date + timedelta(days=6)
+        week = start_date.strftime('%A %d, %Y') + ' to ' + end_date.strftime('%A %d, %Y')
         current_week_schedule = WeekSchedule(start_date=start_date, end_date=end_date)
         db.session.add(current_week_schedule)
         db.session.commit()
