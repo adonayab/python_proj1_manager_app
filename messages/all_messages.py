@@ -96,18 +96,19 @@ def search():
     new_g = True if badge_general() else False
     form = MessageForm()
 
+    search_key = ''
+
     messages = []
     data = Message.query.order_by(Message.pub_date.desc()).filter(
         Message.title != 'daily-task').all()
-    if 'search' in request.args:
-        searchText = request.args.get('search').lower()
-        print(searchText)
+    if 'search_key' in request.args:
+        search_key += request.args.get('search_key')
 
         for message in data:
-            if searchText in message.content.lower():
+            if search_key.lower() in message.content.lower():
                 if message not in messages:
                     messages.append(message)
-            if searchText in message.title.lower():
+            if search_key.lower() in message.title.lower():
                 if message not in messages:
                     messages.append(message)
 
@@ -116,4 +117,5 @@ def search():
                            messages=messages,
                            form=form,
                            new_g=new_g,
-                           new_u=new_u)
+                           new_u=new_u,
+                           search_key = search_key)

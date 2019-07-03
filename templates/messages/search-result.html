@@ -14,11 +14,16 @@
 
 <!-- Displaying all the messages on the main page -->
 {% if messages %}
-
+<h4>Search results for <span class="blue-text">{{search_key}}</span></h4>
 {% for message in messages %}
 {{ message_box(message, all_messages = true, trunc = 'text-truncate') }}
 {% endfor %}
-
+{% else %}
+<h4>
+  Sorry
+  <i class="far fa-sad-tear amber-text"></i>
+  No results for <span class="blue-text">{{search_key}}</span>
+</h4>
 {% endif %}
 
 {{ add_or_edit_modal(form=form, modal_id='addModal', add=true) }}
