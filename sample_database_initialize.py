@@ -23,11 +23,13 @@ db.session.add(admin)
 
 db.session.commit()
 
+#####################
 # These are messages
+####################
 
 db.session.add(
     Message(
-        title='Urgent',
+        title='Every body please read this',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='All Shifts',
@@ -37,7 +39,7 @@ db.session.add(
 
 db.session.add(
     Message(
-        title='General',
+        title='Lost Credit Card',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='All Shifts',
@@ -68,6 +70,56 @@ db.session.add(
 db.session.add(
     Message(
         title='To be Deleted',
+        content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        category='Urgent',
+        shift='Morning',
+        owner=adonay
+    )
+)
+
+db.session.add(
+    Message(
+        title='Every body please read this',
+        content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        category='Urgent',
+        shift='All Shifts',
+        owner=adonay
+    )
+)
+
+db.session.add(
+    Message(
+        title='Lost Wallet',
+        content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        category='General',
+        shift='All Shifts',
+        owner=adonay
+    )
+)
+
+db.session.add(
+    Message(
+        title='Donut Order',
+        content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        category='Urgent',
+        shift='Afternoon',
+        owner=adonay
+    )
+)
+
+db.session.add(
+    Message(
+        title='Lost ID',
+        content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
+        category='General',
+        shift='Evening',
+        owner=adonay
+    )
+)
+
+db.session.add(
+    Message(
+        title='Price of Monster change',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='Morning',
