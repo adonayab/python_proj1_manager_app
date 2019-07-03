@@ -91,6 +91,7 @@ def add(id):
 
 @schedules.route('/schedule/view')
 def view():
+
     if 'email' not in session:
         flash('Login to View a schedule', 'danger')
         return redirect('/login')
@@ -100,13 +101,18 @@ def view():
     view_schedule = WeekSchedule.query.filter_by(
         id=week_id).first()
 
-    start_day = view_schedule.week_schedule[0].user_schedule[0].day
-    days_of_week = days_generator(start_day)
+    empty = False
+    days_of_week = []
+    if view_schedule.week_schedule:
+        start_day = view_schedule.week_schedule[0].user_schedule[0].day
+        days_of_week = days_generator(start_day)
+    else:
+        empty = True
 
     all_schedules = WeekSchedule.query.order_by(WeekSchedule.start_date.desc()).all()
 
     return render_template('schedules/index.html', title='View Schedules', view_schedule=view_schedule,
-                           all_schedules=all_schedules, days_of_week=days_of_week)
+                           all_schedules=all_schedules, days_of_week=days_of_week, empty=empty)
 
 
 @schedules.route('/schedule/edit/<id>', methods=['GET','POST'])
@@ -166,6 +172,39 @@ def delete(id):
     db.session.commit()
     flash(f"Schedule for {name} deleted Successfully", 'danger')
     return redirect(f'/schedule/add/{week_id}')
+
+
+#
+@schedules.route('/schedule/delete-week', methods=['POST'])
+def delete_week():
+    if 'email' not in session:
+        flash('Login as Admin to Delete a schedule', 'danger')
+        return redirect('/login')
+
+    owner = User.query.filter_by(email=session['email']).first()
+    if not owner.admin:
+        flash("Login as Admin to Delete a schedule", 'danger')
+        return redirect('/schedule')
+
+    if 'id' in request.form:
+        id = request.form['id']
+        week_schedule = WeekSchedule.query.filter_by(id=id).first()
+
+        # In order to delete a week schedule all the users assigned for that say must
+        # be deleted and their days of schedule too or else there will be a foreign key
+        # constraint
+
+        users = UserSchedule.query.filter_by(week_id=week_schedule.id).all()
+        for user in users:
+            days_of_user = DaysOfSchedule.query.filter_by(usr_sch_id=user.id).all()
+            for day in days_of_user:
+                db.session.delete(day)
+            db.session.delete(user)
+
+        db.session.delete(week_schedule)
+        db.session.commit()
+        flash(f"Schedule deleted Successfully", 'success')
+        return redirect('/schedule')
 
 
 @schedules.route('/schedule/pdf/<id>')

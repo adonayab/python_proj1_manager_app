@@ -1,31 +1,32 @@
 {% extends "layout/base.html" %}
-{% from 'schedules/macros.html' import calendar, schedule_table %}
+{% from 'schedules/macros.html' import scheduleModal, schedule_table, delete_modal %}
 
 {% block content %}
 
 <div class="container-fluid">
 
   <div class="row">
-    <div class="col-auto">
-      <h2 class="mt-2 ">
+    <div class="col-12 col-sm-6 col-md-auto col-lg-auto">
+      <h3 class="mt-2 ">
         <i class="material-icons mt-2 red-text text-darken-4">schedule</i>
         Create a Schedule
-      </h2>
+      </h3>
     </div>
-    <div class="col-auto">
+    <div class="col-12 col-sm-3 col-md-auto col-lg-auto">
       <button class="btn btn-raised mt-2 blue-grey lighten-3" data-toggle="modal"
         data-target="#scheduleModal">Start</button>
     </div>
   </div>
+
   <form action="/schedule/view" class="unset-form">
-    <div class="row">
-      <div class="col-auto">
-        <h2 class="mt-2">
+    <div class="row mt-2">
+      <div class="col-12 col-sm-5 col-md-auto col-lg-auto">
+        <h3 class="mt-2">
           <i class="material-icons mt-2 light-blue-text text-darken-2">view_module</i>
           View a Schedule
-        </h2>
+        </h3>
       </div>
-      <div class="form-group col-4">
+      <div class="form-group col-12 col-sm-5 col-md-auto col-lg-auto">
         <label class="font-weight-bold ml-4">Select a Week</label>
         <select class="form-control mt-2" name="week_id">
           {% for schedule in all_schedules %}
@@ -37,7 +38,7 @@
           {% endfor %}
         </select>
       </div>
-      <div class="col-auto">
+      <div class="col-12 col-sm-2 col-md-auto col-lg-auto">
         <button type="submit" class="btn btn-raised mt-2 blue-grey lighten-3">View</button>
       </div>
     </div>
@@ -45,62 +46,51 @@
 
   {% if view_schedule %}
   <div class="row mt-2">
-    <h3>
+    <h4>
       {{ view_schedule.start_date.strftime('%B %d, %Y') }}
       <span class="blue-text"> To </span>
       {{ view_schedule.end_date.strftime('%B %d, %Y') }}
-    </h3>
+    </h4>
   </div>
   <div class="row">
-    <h5>
-      <a href="/schedule/pdf/{{view_schedule.id}}">
-        <i class="fas fa-file-download"></i> Download pdf
-      </a>
-    </h5>
+    <div class="col-5 col-sm-4 col-md-2 col-lg-2">
+      <h5>
+        <button class="btn btn-raised mt-2 blue-grey lighten-3 btn-block">
+          <a href="/schedule/pdf/{{view_schedule.id}}" class="black-text">Download</a>
+        </button>
+      </h5>
+    </div>
+    <div class="col-3 col-sm-4 col-md-2 col-lg-2">
+      <h5>
+        <a href="/schedule/add/{{view_schedule.id}}" class="btn btn-raised mt-2 blue-grey lighten-3 btn-block black-text">Add</a>
+      </h5>
+    </div>
+    <div class="col-4 col-sm-4 col-md-2 col-lg-2">
+      <h5>
+        <button class="btn btn-raised mt-2 red lighten-3 btn-block" data-toggle="modal" data-target="#deleteModal{{view_schedule.id}}">
+          Delete
+        </button>
+      </h5>
+    </div>
+
   </div>
   {{ schedule_table(schedule=view_schedule, edit_col=true, days=days_of_week) }}
+  {% if empty %}
+  <div class="row">
+    <div col-auto>
+      <h4 class="">This schedule week is empty <i class="far fa-frown-open"></i></h4>
+    </div>
+  </div>
+  {% endif %}
+
+  {{ delete_modal(id=view_schedule.id,
+                  msg='Are you sure you want to delete this schedule',
+                  form=true) }}
   {% endif %}
 
 </div>
 
-<!-- This is the schedule modal -->
-<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
-  aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="scheduleModalLabel">Select schedule week</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <form action="/schedule" method="post">
-          <div class="container">
-            <div class="row">
-              {{ calendar(prefix='START DAY', name='start_day') }}
-              <div class="col-12 col-sm-6">
-                <label class="font-weight-bold">Week(s)</label>
-                <div class="input-group">
-                  <input type="text" class="form-control text-center" value="1" disabled />
-                  <div class="input-group-append">
-                    <div class="input-group-text">
-                      <i class="fas fa-calendar-week"></i>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="row">
-              <button type="submit" class="btn btn-block btn-raised btn-secondary mt-4">Go To Scheduling
-                Table</button>
-            </div>
-          </div>
-        </form>
-      </div>
-    </div>
-  </div>
-</div>
-</div>
+{{ scheduleModal() }}
+
 
 {% endblock %}

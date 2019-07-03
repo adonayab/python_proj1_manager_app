@@ -1,15 +1,57 @@
 <!--Calendar-->
-{% macro calendar(prefix, name) %}
+{% macro calendar() %}
 <div class="col-12 col-sm-6">
-  <label class="font-weight-bold">{{ prefix }}</label>
+  <label class="font-weight-bold">START DAY</label>
   <div class="input-group">
-    <input type="date" class="form-control" name={{ name }} />
+    <input type="date" class="form-control" name="start_day" />
     <div class="input-group-append">
       <div class="input-group-text">
         <i class="fa fa-calendar"></i>
       </div>
     </div>
   </div>
+</div>
+{% endmacro %}
+
+<!-- This is the schedule modal -->
+{% macro scheduleModal() %}
+<div class="modal fade" id="scheduleModal" tabindex="-1" role="dialog" aria-labelledby="scheduleModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="scheduleModalLabel">Select schedule week</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form action="/schedule" method="post">
+          <div class="container">
+            <div class="row">
+              {{ calendar() }}
+              <div class="col-12 col-sm-6">
+                <label class="font-weight-bold">Week(s)</label>
+                <div class="input-group">
+                  <input type="text" class="form-control text-center" value="1" disabled />
+                  <div class="input-group-append">
+                    <div class="input-group-text">
+                      <i class="fas fa-calendar-week"></i>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <button type="submit" class="btn btn-block btn-raised btn-secondary mt-4">Go To Scheduling
+                Table</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
 </div>
 {% endmacro %}
 
@@ -121,10 +163,16 @@
 
 {% endmacro %}
 
-<!--Schedule Delete modal-->
+<!--Schedule Delete modal loop-->
 {% macro delete_schedule(week_schedule) %}
 {% for user in week_schedule %}
-<div class="modal fade" id="deleteModal{{ user.id }}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+{{ delete_modal(id=user.id, msg='Are you sure you want to delete the schedule for ', obj=user.name) }}
+{% endfor %}
+{% endmacro %}
+
+<!--Delete Modal-->
+{% macro delete_modal(id, msg, obj, form) %}
+<div class="modal fade" id="deleteModal{{id}}" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -134,14 +182,22 @@
         </button>
       </div>
       <div class="modal-body">
-        Are you sure you want to delete the schedule for ({{ user.name }})?
+        {{ msg }} {{obj}}?
       </div>
+      {% if form %}
+      <form action="/schedule/delete-week" method="post">
+          <input type="hidden" name="id" value="{{id}}">
+          <button type="submit" class="btn btn-raised red lighten-3 float-right mr-2">
+            Delete
+          </button>
+      </form>
+      {% else %}
       <div class="modal-footer">
         <button type="button" class="btn btn-sm btn-secondary" data-dismiss="modal">Close</button>
-        <a href="/schedule/delete/{{ user.id }}" class="btn btn-danger btn-sm float-right mr-1">Delete</a>
+        <a href="/schedule/delete/{{id}}" class="btn btn-danger btn-sm float-right mr-1">Delete</a>
       </div>
+      {% endif %}
     </div>
   </div>
 </div>
-{% endfor %}
 {% endmacro %}
