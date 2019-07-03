@@ -1,5 +1,6 @@
 from app import db
-from models import User, Message, WeekSchedule, UserSchedule, Food
+from models import User, Message, WeekSchedule, UserSchedule, Food, DaysOfSchedule
+import random
 
 db.drop_all()
 db.create_all()
@@ -9,6 +10,9 @@ admin = User(name='Admin', email='admin@admin.com', password='admin')
 adonay = User(name='Adonay', email='ado@ado.com', password='aaa')
 mark = User(name='Mark', email='mark@mark.com', password='mmm')
 john = User(name='John', email='john@john.com', password='jjj')
+gary = User(name='Gary', email='gary@gary.com', password='ggg')
+bev = User(name='Bev', email='bev@bev.com', password='bbb')
+tracy = User(name='Tracy', email='tracy@tracy.com', password='ttt')
 
 admin.admin = True
 
@@ -106,7 +110,7 @@ db.session.add(
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='Morning',
-        owner=john
+        owner=mark
     )
 )
 db.session.add(
@@ -115,7 +119,7 @@ db.session.add(
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='Afternoon',
-        owner=john
+        owner=mark
     )
 )
 db.session.add(
@@ -124,7 +128,7 @@ db.session.add(
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='Evening',
-        owner=john
+        owner=mark
     )
 )
 
@@ -187,115 +191,115 @@ db.session.add(
 
 db.session.add(
     Message(
-        title='By Mark',
+        title='By Tracy',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='All Shifts',
-        owner=mark
+        owner=tracy
     )
 )
 db.session.add(
     Message(
-        title='Mark Urgent',
+        title='Tracy Urgent',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='All Shifts',
-        owner=mark
+        owner=tracy
     )
 )
 db.session.add(
     Message(
-        title='Mark General',
+        title='Tracy General',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='All Shifts',
-        owner=mark
+        owner=tracy
     )
 )
 
 
 db.session.add(
     Message(
-        title='Mark to Morning',
+        title='Tracy to Morning',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='Morning',
-        owner=john
+        owner=tracy
     )
 )
 db.session.add(
     Message(
-        title='Mark to Evening',
+        title='Tracy to Evening',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='Afternoon',
-        owner=john
+        owner=tracy
     )
 )
 db.session.add(
     Message(
-        title='Mark to Afternoon',
+        title='Tracy to Afternoon',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='Evening',
-        owner=john
+        owner=tracy
     )
 )
 
 
 db.session.add(
     Message(
-        title='By John',
+        title='By Bev',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='All Shifts',
-        owner=john
+        owner=bev
     )
 )
 db.session.add(
     Message(
-        title='John Urgent',
+        title='Bev Urgent',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='All Shifts',
-        owner=john
+        owner=bev
     )
 )
 db.session.add(
     Message(
-        title='John General',
+        title='Bev General',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='All Shifts',
-        owner=john
+        owner=bev
     )
 )
 
 db.session.add(
     Message(
-        title='John to Morning',
+        title='Bev to Morning',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='Urgent',
         shift='Morning',
-        owner=john
+        owner=bev
     )
 )
 db.session.add(
     Message(
-        title='John to Evening',
+        title='Bev to Evening',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='Afternoon',
-        owner=john
+        owner=bev
     )
 )
 db.session.add(
     Message(
-        title='John to Afternoon',
+        title='Bev to Afternoon',
         content='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.',
         category='General',
         shift='Evening',
-        owner=john
+        owner=bev
     )
 )
 
@@ -426,154 +430,147 @@ db.session.add(
     )
 )
 
+######################
+# Generating schedules
+######################
 
-# # Generating schedules
-#
-# week1 = '2019/05/03 to 2019/05/09'
-# week2 = '2019/05/31 to 2019/06/07'
-# week3 = '2019/06/07 to 2019/06/13'
-# week4 = '2019/05/13 to 2019/05/19'
-#
-# ws1 = WeekSchedule(on_week=week1)
-# ws2 = WeekSchedule(on_week=week2)
-# ws3 = WeekSchedule(on_week=week3)
-# ws4 = WeekSchedule(on_week=week4)
-#
-# db.session.add(ws1)
-# db.session.add(ws2)
-# db.session.add(ws3)
-# db.session.add(ws4)
-#
-# db.session.commit()
-#
-# us1_w1 = UserSchedule(name=adonay.name, week=ws1)
-# us2_w1 = UserSchedule(name=mark.name, week=ws1)
-# us3_w1 = UserSchedule(name=john.name, week=ws1)
-#
-# us1_w1.monday = '7AM - 2PM'
-# us1_w1.tuesday = 'OFF'
-# us1_w1.wednesday = '7AM - 2PM'
-# us1_w1.thursday = 'OFF'
-# us1_w1.friday = '7AM - 2PM'
-# us1_w1.saturday = '10AM - 7AM'
-# us1_w1.sunday = '7AM - 2PM'
-#
-# us2_w1.monday = '2PM - 10PM'
-# us2_w1.tuesday = '7AM - 2PM'
-# us2_w1.wednesday = '2PM - 10PM'
-# us2_w1.thursday = 'OFF'
-# us2_w1.friday = '2PM - 10PM'
-# us2_w1.saturday = 'OFF'
-# us2_w1.sunday = '2PM - 10PM'
-#
-# us3_w1.monday = '10AM - 7AM'
-# us3_w1.tuesday = 'OFF'
-# us3_w1.wednesday = '10AM - 7AM'
-# us3_w1.thursday = '7AM - 2PM'
-# us3_w1.friday = '10AM - 7AM'
-# us3_w1.saturday = 'OFF'
-# us3_w1.sunday = '10AM - 7AM'
-#
-#
-# us1_w2 = UserSchedule(name=john.name, week=ws2)
-# us2_w2 = UserSchedule(name=adonay.name, week=ws2)
-# us3_w2 = UserSchedule(name=mark.name, week=ws2)
-#
-# us1_w2.monday = '7AM - 2PM'
-# us1_w2.tuesday = 'OFF'
-# us1_w2.wednesday = 'OFF'
-# us1_w2.thursday = 'OFF'
-# us1_w2.friday = '7AM - 2PM'
-# us1_w2.saturday = '10AM - 7AM'
-# us1_w2.sunday = '7AM - 2PM'
-#
-# us2_w2.monday = '2PM - 10PM'
-# us2_w2.tuesday = '7AM - 2PM'
-# us2_w2.wednesday = '2PM - 10PM'
-# us2_w2.thursday = 'OFF'
-# us2_w2.friday = '2PM - 10PM'
-# us2_w2.saturday = 'OFF'
-# us2_w2.sunday = '2PM - 10PM'
-#
-# us3_w2.monday = '10AM - 7AM'
-# us3_w2.tuesday = 'OFF'
-# us3_w2.wednesday = '10AM - 7AM'
-# us3_w2.thursday = '7AM - 2PM'
-# us3_w2.friday = '10AM - 7AM'
-# us3_w2.saturday = '10AM - 7AM'
-# us3_w2.sunday = '10AM - 7AM'
-#
-# us1_w3 = UserSchedule(name=mark.name, week=ws3)
-# us2_w3 = UserSchedule(name=john.name, week=ws3)
-# us3_w3 = UserSchedule(name=adonay.name, week=ws3)
-#
-# us1_w3.monday = '7AM - 2PM'
-# us1_w3.tuesday = 'OFF'
-# us1_w3.wednesday = '7AM - 2PM'
-# us1_w3.thursday = 'OFF'
-# us1_w3.friday = '7AM - 2PM'
-# us1_w3.saturday = '10AM - 7AM'
-# us1_w3.sunday = '7AM - 2PM'
-#
-# us2_w3.monday = '2PM - 10PM'
-# us2_w3.tuesday = '7AM - 2PM'
-# us2_w3.wednesday = '2PM - 10PM'
-# us2_w3.thursday = 'OFF'
-# us2_w3.friday = '2PM - 10PM'
-# us2_w3.saturday = 'OFF'
-# us2_w3.sunday = '2PM - 10PM'
-#
-# us3_w3.monday = '10AM - 7AM'
-# us3_w3.tuesday = 'OFF'
-# us3_w3.wednesday = '10AM - 7AM'
-# us3_w3.thursday = '7AM - 2PM'
-# us3_w3.friday = 'OFF'
-# us3_w3.saturday = 'OFF'
-# us3_w3.sunday = '10AM - 7AM'
-#
-# us1_w4 = UserSchedule(name=adonay.name, week=ws4)
-# us2_w4 = UserSchedule(name=john.name, week=ws4)
-# us3_w4 = UserSchedule(name=mark.name, week=ws4)
-#
-# us1_w4.monday = '7AM - 2PM'
-# us1_w4.tuesday = '7AM - 2PM'
-# us1_w4.wednesday = '7AM - 2PM'
-# us1_w4.thursday = '7AM - 2PM'
-# us1_w4.friday = '7AM - 2PM'
-# us1_w4.saturday = 'OFF'
-# us1_w4.sunday = 'OFF'
-#
-# us2_w4.monday = '2PM - 10PM'
-# us2_w4.tuesday = '2PM - 10PM'
-# us2_w4.wednesday = '2PM - 10PM'
-# us2_w4.thursday = '2PM - 10PM'
-# us2_w4.friday = '2PM - 10PM'
-# us2_w4.saturday = 'OFF'
-# us2_w4.sunday = 'OFF'
-#
-# us3_w4.monday = '10AM - 7AM'
-# us3_w4.tuesday = '10AM - 7AM'
-# us3_w4.wednesday = '10AM - 7AM'
-# us3_w4.thursday = '10AM - 7AM'
-# us3_w4.friday = '10AM - 7AM'
-# us3_w4.saturday = 'OFF'
-# us3_w4.sunday = 'OFF'
-#
-# db.session.add(us1_w1)
-# db.session.add(us2_w1)
-# db.session.add(us3_w1)
-#
-# db.session.add(us1_w2)
-# db.session.add(us2_w2)
-# db.session.add(us3_w2)
-#
-# db.session.add(us1_w3)
-# db.session.add(us2_w3)
-# db.session.add(us3_w3)
-#
-# db.session.add(us1_w4)
-# db.session.add(us2_w4)
-# db.session.add(us3_w4)
+from utils.helpers import get_date, days_generator
+
+w_1_s = get_date('2019-07-02')
+w_2_s = get_date('2019-07-05')
+w_3_s = get_date('2019-08-07')
+w_4_s = get_date('2019-08-05')
+
+w_1_e = get_date('2019-07-08')
+w_2_e = get_date('2019-07-11')
+w_3_e = get_date('2019-08-13')
+w_4_e = get_date('2019-08-11')
+
+w_1 = WeekSchedule(start_date=w_1_s, end_date=w_1_e)
+w_2 = WeekSchedule(start_date=w_2_s, end_date=w_2_e)
+w_3 = WeekSchedule(start_date=w_3_s, end_date=w_3_e)
+w_4 = WeekSchedule(start_date=w_4_s, end_date=w_4_e)
+
+db.session.add(w_1)
+db.session.add(w_2)
+db.session.add(w_3)
+db.session.add(w_4)
+
+db.session.commit()
+
+start_day_1 = w_1.start_date.strftime("%A")
+start_day_2 = w_2.start_date.strftime("%A")
+start_day_3 = w_3.start_date.strftime("%A")
+start_day_4 = w_4.start_date.strftime("%A")
+
+days_of_week_1 = days_generator(start_day_1)
+days_of_week_2 = days_generator(start_day_2)
+days_of_week_3 = days_generator(start_day_3)
+days_of_week_4 = days_generator(start_day_4)
+
+us1_w_1 = UserSchedule(name=john.name, week=w_1)
+us2_w_1 = UserSchedule(name=adonay.name, week=w_1)
+us3_w_1 = UserSchedule(name=mark.name, week=w_1)
+us4_w_1 = UserSchedule(name=gary.name, week=w_1)
+us5_w_1 = UserSchedule(name=bev.name, week=w_1)
+us6_w_1 = UserSchedule(name=tracy.name, week=w_1)
+
+usrs = [us1_w_1, us2_w_1, us3_w_1, us4_w_1, us5_w_1, us6_w_1]
+
+for usr in usrs:
+    tims = ['7 AM', 'OFF', '8 AM', '9 AM', '1 AM', '2 AM', '10 AM', '11 AM', '6 AM', '3 AM', '12 AM', 'OFF']
+    for day in days_of_week_1:
+        tim_in = random.choice(tims)
+        tim_out = random.choice(tims)
+        if tim_in == tim_out:
+            tim_out = random.choice(tims)
+        if 'OFF' == tim_in or tim_out == 'OFF':
+            tim_in = 'OFF'
+            tim_out = 'OFF'
+        db.session.add(DaysOfSchedule(day=day, usr_sch=usr, tim_in=tim_in, tim_out=tim_out))
+
+
+us1_w_2 = UserSchedule(name=adonay.name, week=w_2)
+us2_w_2 = UserSchedule(name=john.name, week=w_2)
+us3_w_2 = UserSchedule(name=mark.name, week=w_2)
+us4_w_2 = UserSchedule(name=bev.name, week=w_2)
+us5_w_2 = UserSchedule(name=tracy.name, week=w_2)
+us6_w_2 = UserSchedule(name=gary.name, week=w_2)
+
+usrs = [us1_w_2, us2_w_2, us3_w_2, us4_w_2, us5_w_2, us6_w_2]
+
+for usr in usrs:
+    tims = ['7 AM', 'OFF', '8 AM', '9 AM', '1 AM', '2 AM', '10 AM', '11 AM', '6 AM', '3 AM', '12 AM', 'OFF']
+    for day in days_of_week_2:
+        tim_in = random.choice(tims)
+        tim_out = random.choice(tims)
+        if tim_in == tim_out:
+            tim_out = random.choice(tims)
+        if 'OFF' == tim_in or tim_out == 'OFF':
+            tim_in = 'OFF'
+            tim_out = 'OFF'
+        db.session.add(DaysOfSchedule(day=day, usr_sch=usr, tim_in=tim_in, tim_out=tim_out))
+
+
+us1_w_3 = UserSchedule(name=gary.name, week=w_3)
+us2_w_3 = UserSchedule(name=john.name, week=w_3)
+us3_w_3 = UserSchedule(name=bev.name, week=w_3)
+us4_w_3 = UserSchedule(name=tracy.name, week=w_3)
+us5_w_3 = UserSchedule(name=mark.name, week=w_3)
+us6_w_3 = UserSchedule(name=adonay.name, week=w_3)
+
+usrs = [us1_w_3, us2_w_3, us3_w_3, us4_w_3, us5_w_3, us6_w_3]
+
+for usr in usrs:
+    tims = ['7 AM', 'OFF', '8 AM', '9 AM', '1 AM', '2 AM', '10 AM', '11 AM', '6 AM', '3 AM', '12 AM', 'OFF']
+    for day in days_of_week_3:
+        tim_in = random.choice(tims)
+        tim_out = random.choice(tims)
+        if tim_in == tim_out:
+            tim_out = random.choice(tims)
+        if 'OFF' == tim_in or tim_out == 'OFF':
+            tim_in = 'OFF'
+            tim_out = 'OFF'
+        db.session.add(DaysOfSchedule(day=day, usr_sch=usr, tim_in=tim_in, tim_out=tim_out))
+
+
+us1_w_4 = UserSchedule(name=john.name, week=w_4)
+us2_w_4 = UserSchedule(name=gary.name, week=w_4)
+us3_w_4 = UserSchedule(name=mark.name, week=w_4)
+us4_w_4 = UserSchedule(name=tracy.name, week=w_4)
+us5_w_4 = UserSchedule(name=adonay.name, week=w_4)
+us6_w_4 = UserSchedule(name=bev.name, week=w_4)
+
+usrs = [us1_w_4, us2_w_4, us3_w_4, us4_w_4, us5_w_4, us6_w_4]
+
+for usr in usrs:
+    tims = ['7 AM', 'OFF', '8 AM', '9 AM', '1 AM', '2 AM', '10 AM', '11 AM', '6 AM', '3 AM', '12 AM', 'OFF']
+    for day in days_of_week_4:
+        tim_in = random.choice(tims)
+        tim_out = random.choice(tims)
+        if tim_in == tim_out:
+            tim_out = random.choice(tims)
+        if 'OFF' == tim_in or tim_out == 'OFF':
+            tim_in = 'OFF'
+            tim_out = 'OFF'
+        db.session.add(DaysOfSchedule(day=day, usr_sch=usr, tim_in=tim_in, tim_out=tim_out))
+
+
+db.session.add(us1_w_1)
+db.session.add(us2_w_1)
+db.session.add(us3_w_1)
+
+db.session.add(us1_w_2)
+db.session.add(us2_w_2)
+db.session.add(us3_w_2)
+
+db.session.add(us1_w_3)
+db.session.add(us2_w_3)
+db.session.add(us3_w_3)
+
+db.session.add(us1_w_4)
+db.session.add(us2_w_4)
+db.session.add(us3_w_4)
 
 
 ########

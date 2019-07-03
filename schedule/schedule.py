@@ -104,12 +104,12 @@ def view():
     week_id = request.args.get('week_id')
 
     view_schedule = WeekSchedule.query.filter_by(
-        id=week_id).order_by(WeekSchedule.id.desc()).first()
+        id=week_id).first()
 
     start_day = view_schedule.week_schedule[0].user_schedule[0].day
     days_of_week = days_generator(start_day)
 
-    all_schedules = WeekSchedule.query.all()
+    all_schedules = WeekSchedule.query.order_by(WeekSchedule.start_date.desc()).all()
 
     return render_template('schedules/index.html', title='View Schedules', view_schedule=view_schedule,
                            all_schedules=all_schedules, days_of_week=days_of_week)
