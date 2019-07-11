@@ -31,3 +31,27 @@ notify a person in charge about anything new even though they are away from work
 - SQLAlchemy
 - Jinja2 templates
 - Javascript
+
+
+### Snapshots
+
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/1_login.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/2_register.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/2_admin.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/2_deleteComfirm.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/3_msgHome.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/4_newNote.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/4_editNote.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/4_noteOptions.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/5_completed.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/6_dailyTask.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/7_addTask.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/8_search.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/9_scheduleHome.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/10_viewSchedule.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/11_createSchedule.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/12_addSchedule.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/13_editSchedule.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/14_grillHome.png)
+![alt text](https://raw.githubusercontent.com/adonayab/python_proj1_manager_app/master/project_snapshots/15_grillCountDown.png)
+
