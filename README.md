@@ -34,9 +34,11 @@ their mobile device).
 - Jinja2 templates
 - Javascript
 
-### Technologies
+### Running the application
 
-To initialize a dummy data run the initialize_dummy_data.sh script
+docker build . -t manapp
+
+docker run --rm --publish 5000:5000 manapp
 
 ### Snapshots
 
