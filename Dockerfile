@@ -12,4 +12,6 @@ RUN pip3 install -r /app/project-layout/requirements.txt
 
 RUN cd /app && ./initialize_dummy_data.sh
 
+EXPOSE 5000
+
 CMD ["python3", "/app/run.py"]
